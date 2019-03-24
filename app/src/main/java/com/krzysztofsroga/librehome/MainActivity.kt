@@ -10,17 +10,27 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    val switches: OnlineSwitches = OnlineSwitches()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        switches.initialize()
+
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
+        }
+
+        bedroom_switch.setOnClickListener {
+            val newState = bedroom_switch.isChecked
+            switches.sendSwitchState(Switch("bedroom", newState)) //TODO just keep a list of them, recycler view etc
         }
 
         val toggle = ActionBarDrawerToggle(
