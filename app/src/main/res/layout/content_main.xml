@@ -9,31 +9,5 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".MainActivity">
 
-    <TextView
-            android:id="@+id/hello_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/switch_padding"
-            android:text="Hello World!" />
-
-    <Switch
-            android:id="@+id/bedroom_switch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/switch_padding"
-            android:text="Light in bedroom" />
-
-    <Switch
-            android:id="@+id/kitchen_switch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/switch_padding"
-            android:text="Light in kitchen" />
-
-    <Button
-            android:id="@+id/button_show_switches"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Show all switches" />
 
 </LinearLayout>
