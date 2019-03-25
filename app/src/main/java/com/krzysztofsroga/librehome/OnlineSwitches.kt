@@ -1,6 +1,7 @@
 package com.krzysztofsroga.librehome
 
 import android.util.Log
+import android.widget.Toast
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.FuelError
 import com.github.kittinunf.fuel.core.FuelManager

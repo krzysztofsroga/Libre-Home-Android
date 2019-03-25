@@ -1,33 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:showIn="@layout/app_bar_main"
         tools:context=".MainActivity">
 
     <TextView
+            android:id="@+id/hello_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/hello_text"
             android:padding="@dimen/switch_padding"
-            android:text="Hello World!"/>
-    <Switch
-            android:text="Light in bedroom"
-            android:padding="@dimen/switch_padding"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" tools:layout_editor_absoluteY="135dp"
-            tools:layout_editor_absoluteX="77dp" android:id="@+id/bedroom_switch"/>
+            android:text="Hello World!" />
 
     <Switch
-            android:text="Light in kitchen"
-            android:padding="@dimen/switch_padding"
+            android:id="@+id/bedroom_switch"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" tools:layout_editor_absoluteY="135dp"
-            tools:layout_editor_absoluteX="77dp" android:id="@+id/kitchen_switch"/>
+            android:layout_height="wrap_content"
+            android:padding="@dimen/switch_padding"
+            android:text="Light in bedroom" />
+
+    <Switch
+            android:id="@+id/kitchen_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/switch_padding"
+            android:text="Light in kitchen" />
+
+    <Button
+            android:id="@+id/button_show_switches"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Show all switches" />
 
 </LinearLayout>

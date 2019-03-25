@@ -9,10 +9,21 @@
         android:fitsSystemWindows="true"
         tools:openDrawer="start">
 
-    <include
-            layout="@layout/app_bar_main"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                  android:orientation="vertical">
+
+        <include
+                layout="@layout/app_bar_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                     android:id="@+id/center_fragment">
+            <include layout="@layout/content_main"/>
+        </FrameLayout>
+
+    </LinearLayout>
+
 
     <com.google.android.material.navigation.NavigationView
             android:id="@+id/nav_view"

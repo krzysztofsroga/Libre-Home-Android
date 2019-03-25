@@ -7,6 +7,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
@@ -25,15 +26,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         switches.initialize()
         initializeList()
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+//        fab.setOnClickListener { view ->
+//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null).show()
+//        }
 
         bedroom_switch.setOnClickListener {
             val newState = bedroom_switch.isChecked
             switches.sendSwitchState(Switch("bedroom", newState)) //TODO just keep a list of them, recycler view etc
         }
+
+
+
+//        button_show_switches.setOnClickListener {
+//            supportFragmentManager.beginTransaction().apply {
+//                replace(R.id.center_fragment,SwitchesFragment.newInstance())
+//                addToBackStack(null)
+//            }.commit()
+//        }
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
