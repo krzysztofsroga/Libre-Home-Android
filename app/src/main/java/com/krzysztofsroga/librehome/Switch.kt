@@ -1,6 +1,6 @@
 package com.krzysztofsroga.librehome
 
-class Switch(
+data class Switch(
     var name: String,
     var state: Boolean = false
 )
