@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel;
 
 class SwitchesViewModel : ViewModel() {
 //    val switches = listOf(
-//        SwitchModel("kitchen", false),
-//        SwitchModel("dining room", true),
-//        SwitchModel("bedroom", false),
-//        SwitchModel("bathroom", false)
+//        LightSwitch("kitchen", false),
+//        LightSwitch("dining room", true),
+//        LightSwitch("bedroom", false),
+//        LightSwitch("bathroom", false)
 //    )
 }

@@ -13,7 +13,7 @@ class OnlineSwitches {
         configureFuel()
     }
 
-    fun sendSwitchState(switchModel: SwitchModel) {
+    fun sendSwitchState(lightSwitch: LightSwitch) {
         val logTag = "switches-post"
 //        val json = Gson().toJson(contact)
 
@@ -33,7 +33,7 @@ class OnlineSwitches {
 //        }
     }
 
-    fun getAllSwitches(callback: (List<SwitchModel>) -> Unit) {
+    fun getAllSwitches(callback: (List<LightSwitch>) -> Unit) {
         val logTag = "switches-get-all"
 
         Fuel.get("/switches")
@@ -58,5 +58,5 @@ class OnlineSwitches {
         Log.d("Fuel initialization", InternetConfiguration.fullPath)
     }
 
-    data class SwitchStatesModel(val name: String, val items: List<SwitchModel>)
+    data class SwitchStatesModel(val name: String, val items: List<LightSwitch>)
 }

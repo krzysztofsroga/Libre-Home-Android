@@ -1,6 +1,6 @@
 package com.krzysztofsroga.librehome.ui.Switches
 
-data class SwitchModel(
+data class LightSwitch(
     var name: String,
     var state: Boolean = false
 )
