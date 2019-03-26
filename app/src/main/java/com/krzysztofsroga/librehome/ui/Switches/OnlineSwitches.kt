@@ -2,12 +2,10 @@ package com.krzysztofsroga.librehome.ui.Switches
 
 import android.util.Log
 import com.github.kittinunf.fuel.Fuel
-import com.github.kittinunf.fuel.core.FuelError
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.gson.responseObject
 import com.github.kittinunf.result.Result
 import com.krzysztofsroga.librehome.InternetConfiguration
-
 
 
 class OnlineSwitches {

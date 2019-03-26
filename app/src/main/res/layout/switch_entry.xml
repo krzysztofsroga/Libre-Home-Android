@@ -2,13 +2,14 @@
 <androidx.cardview.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         app:cardElevation="4dp">
+
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,11 +25,9 @@
         <SeekBar
                 android:id="@+id/switchSeekBar"
                 android:layout_width="match_parent"
-                android:padding="@dimen/switch_padding"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:padding="@dimen/switch_padding" />
     </LinearLayout>
-
-
 
 
 </androidx.cardview.widget.CardView>
