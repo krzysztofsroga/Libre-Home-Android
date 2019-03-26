@@ -4,11 +4,16 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".SwitchesFragment">
+        tools:context=".ui.Switches.SwitchesFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/switches_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Hello" />
+            tools:itemCount="5"
+            tools:listitem="@layout/switch_entry">
+
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </FrameLayout>

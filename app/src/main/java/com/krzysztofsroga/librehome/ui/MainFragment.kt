@@ -1,4 +1,4 @@
-package com.krzysztofsroga.librehome
+package com.krzysztofsroga.librehome.ui
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -7,6 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.krzysztofsroga.librehome.OnlineSwitches
+import com.krzysztofsroga.librehome.R
+import com.krzysztofsroga.librehome.Switch
+import com.krzysztofsroga.librehome.ui.Switches.SwitchesFragment
 import kotlinx.android.synthetic.main.main_fragment.*
 
 
@@ -43,7 +47,10 @@ class MainFragment : Fragment() {
 
         button_show_switches.setOnClickListener {
             activity!!.supportFragmentManager.beginTransaction().apply {
-                replace(R.id.center_fragment,SwitchesFragment.newInstance())
+                replace(
+                    R.id.center_fragment,
+                    SwitchesFragment.newInstance()
+                )
                 addToBackStack(null)
             }.commit()
         }
