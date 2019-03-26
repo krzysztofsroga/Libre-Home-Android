@@ -47,7 +47,10 @@ class SwitchesFragment : Fragment() {
                 switches_list.apply {
                     setHasFixedSize(true)
                     layoutManager = LinearLayoutManager(context)
-                    adapter = SwitchListAdapter(downloadedSwitches).apply { setHasStableIds(true) }
+                    adapter = SwitchListAdapter(downloadedSwitches) {
+                        switches.sendSwitchState(it)
+                    }.apply { setHasStableIds(true) }
+
                 }
 
             }

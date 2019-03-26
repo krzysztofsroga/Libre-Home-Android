@@ -4,10 +4,7 @@ import android.util.Log
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.result.Result
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonDeserializationContext
-import com.google.gson.JsonDeserializer
-import com.google.gson.JsonElement
+import com.google.gson.*
 import com.krzysztofsroga.librehome.InternetConfiguration
 import java.lang.reflect.Type
 
@@ -36,22 +33,22 @@ class OnlineSwitches {
 
     fun sendSwitchState(lightSwitch: LightSwitch) {
         val logTag = "switches-post"
-//        val json = Gson().toJson(contact)
+        val json = Gson().toJson(lightSwitch)
 
-//        Fuel.post("/contacts").timeout(timeout).body(json).responseString { request: Request, response: Response, result: Result<String, FuelError> ->
-//            Log.v(logTag, "request: $request")
-//            Log.v(logTag, "response: $response")
-//            when (result) {
-//                is Result.Failure -> {
-//                    Log.d(logTag, "failed: ${result.error}")
-//                    errorMessage.postValue("failed: ${result.error}")
-//                }
-//                is Result.Success -> {
-//                    Log.d(logTag, "success: ${result.value}")
-//                    getAll() //TODO remove this line, post shouldn't call get
-//                }
-//            }
-//        }
+        Fuel.post("/postSwitchChange").timeout(1000).body(json).responseString { request, response, result ->
+            Log.v(logTag, "request: $request")
+            Log.v(logTag, "response: $response")
+            when (result) {
+                is Result.Failure -> {
+                    Log.d(logTag, "failed: ${result.error}")
+                    //TODO do more than logging
+                }
+                is Result.Success -> {
+                    Log.d(logTag, "success: ${result.value}")
+                    //TODO something
+                }
+            }
+        }
     }
 
     fun getAllSwitches(callback: (List<LightSwitch>) -> Unit) {

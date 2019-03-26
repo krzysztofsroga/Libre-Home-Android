@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.krzysztofsroga.librehome.R
 import kotlinx.android.synthetic.main.switch_entry.view.*
 
-class SwitchListAdapter(private val lightSwitchList: List<LightSwitch>) :
+class SwitchListAdapter(private val lightSwitchList: List<LightSwitch>, private val callback: (LightSwitch) -> Unit) :
     RecyclerView.Adapter<SwitchListAdapter.SwitchViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SwitchViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.switch_entry, parent, false)
@@ -30,6 +30,10 @@ class SwitchListAdapter(private val lightSwitchList: List<LightSwitch>) :
             holder.seekBar.progress = lightSwitch.dim
             View.VISIBLE
         } else View.GONE
+        holder.switch.setOnClickListener {
+            lightSwitch.enabled = holder.switch.isChecked //TODO setOnCheckedChangeListener
+            callback(lightSwitch)
+        }
 
     }
 
