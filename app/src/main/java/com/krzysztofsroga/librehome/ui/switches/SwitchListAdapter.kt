@@ -34,7 +34,20 @@ class SwitchListAdapter(private val lightSwitchList: List<LightSwitch>, private 
             lightSwitch.enabled = holder.switch.isChecked //TODO setOnCheckedChangeListener
             callback(lightSwitch)
         }
+        holder.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
 
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                callback(lightSwitch)
+            }
+
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                (lightSwitch as LightSwitch.DimmableSwitch).dim = progress
+            }
+
+        })
     }
 
 
