@@ -1,6 +1,6 @@
-package com.krzysztofsroga.librehome
+package com.krzysztofsroga.librehome.ui.Switches
 
-data class Switch(
+data class SwitchModel(
     var name: String,
     var state: Boolean = false
 )

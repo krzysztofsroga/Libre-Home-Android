@@ -1,21 +1,21 @@
-package com.krzysztofsroga.librehome
+package com.krzysztofsroga.librehome.ui.Switches
 
 import android.util.Log
-import android.widget.Toast
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.FuelError
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.gson.responseObject
 import com.github.kittinunf.result.Result
+import com.krzysztofsroga.librehome.InternetConfiguration
 
-data class SwitchStatesModel(val name: String, val items: List<Switch>)
+
 
 class OnlineSwitches {
     fun initialize() {
         configureFuel()
     }
 
-    fun sendSwitchState(switch: Switch) {
+    fun sendSwitchState(switchModel: SwitchModel) {
         val logTag = "switches-post"
 //        val json = Gson().toJson(contact)
 
@@ -35,11 +35,11 @@ class OnlineSwitches {
 //        }
     }
 
-    fun getAllSwitches(callback: (List<Switch>) -> Unit) {
+    fun getAllSwitches(callback: (List<SwitchModel>) -> Unit) {
         val logTag = "switches-get-all"
 
         Fuel.get("/switches")
-            .responseObject<SwitchStatesModel> { _, _, result: Result<SwitchStatesModel, FuelError> ->
+            .responseObject<SwitchStatesModel> { _, _, result ->
                 when (result) {
                     is Result.Failure -> {
                         Log.e(logTag, "failed: ${result.error}")
@@ -59,4 +59,6 @@ class OnlineSwitches {
         FuelManager.instance.basePath = InternetConfiguration.fullPath
         Log.d("Fuel initialization", InternetConfiguration.fullPath)
     }
+
+    data class SwitchStatesModel(val name: String, val items: List<SwitchModel>)
 }
