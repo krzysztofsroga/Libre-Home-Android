@@ -10,24 +10,42 @@
         android:layout_marginEnd="8dp"
         app:cardElevation="4dp">
 
+
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
 
-        <Switch
-                android:id="@+id/switchName"
+        <ImageView
+                android:id="@+id/lightIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="8dp"
+                android:src="@drawable/light"/>
+
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/switch_padding"
-                tools:text="Light in some place" />
+                android:orientation="vertical">
 
-        <SeekBar
-                android:id="@+id/switchSeekBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/switch_padding" />
+            <Switch
+                    android:id="@+id/switchName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/switch_padding"
+                    tools:text="Light in some place" />
+
+            <SeekBar
+                    android:id="@+id/switchSeekBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/switch_padding" />
+        </LinearLayout>
+
+
     </LinearLayout>
+
 
 
 </androidx.cardview.widget.CardView>

@@ -3,6 +3,7 @@ package com.krzysztofsroga.librehome.ui.switches
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.Switch
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +29,7 @@ class SwitchListAdapter(private val lightSwitchList: List<LightSwitch>, private 
             }
             holder.seekBar.isEnabled = lightSwitch.enabled
             holder.seekBar.progress = lightSwitch.dim
+            holder.icon.setImageResource(R.drawable.light_dim)
             View.VISIBLE
         } else View.GONE
         holder.switch.setOnClickListener {
@@ -54,5 +56,6 @@ class SwitchListAdapter(private val lightSwitchList: List<LightSwitch>, private 
     class SwitchViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val switch: Switch = view.switchName
         val seekBar: SeekBar = view.switchSeekBar
+        val icon: ImageView = view.lightIcon
     }
 }
