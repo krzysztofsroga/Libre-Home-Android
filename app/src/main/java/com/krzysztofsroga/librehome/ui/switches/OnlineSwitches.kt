@@ -41,6 +41,9 @@ class OnlineSwitches {
             when (result) {
                 is Result.Failure -> {
                     Log.e(logTag, "failed: ${result.error}")
+                    Log.e(logTag, "response: ${result.getException().response}")
+                    Log.e(logTag, "exception: ${result.getException().exception}")
+
                     //TODO do more than logging
                 }
                 is Result.Success -> {

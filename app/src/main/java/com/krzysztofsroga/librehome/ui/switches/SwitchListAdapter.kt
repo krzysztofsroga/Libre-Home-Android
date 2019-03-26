@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.krzysztofsroga.librehome.R
 import kotlinx.android.synthetic.main.switch_entry.view.*
 
-class SwitchListAdapter(private val lightSwitchList: List<LightSwitch>, private val callback: (LightSwitch) -> Unit) :
+class SwitchListAdapter(var lightSwitchList: List<LightSwitch>, private val callback: (LightSwitch) -> Unit) :
     RecyclerView.Adapter<SwitchListAdapter.SwitchViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SwitchViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.switch_entry, parent, false)
@@ -40,11 +40,11 @@ class SwitchListAdapter(private val lightSwitchList: List<LightSwitch>, private 
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                callback(lightSwitch)
             }
 
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 (lightSwitch as LightSwitch.DimmableSwitch).dim = progress
+                callback(lightSwitch)
             }
 
         })

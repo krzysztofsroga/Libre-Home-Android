@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.krzysztofsroga.librehome.R
 import kotlinx.android.synthetic.main.switches_fragment.*
+import java.util.*
 
 
 class SwitchesFragment : Fragment() {
@@ -34,7 +35,17 @@ class SwitchesFragment : Fragment() {
 
         switches.initialize()
         initializeList()
+        Timer().scheduleAtFixedRate(object : TimerTask() { //TODO unchedule when leaving fragment
+            override fun run() {
+                switches.getAllSwitches {updatedSwitches ->
+                    activity!!.runOnUiThread {
+                        (switches_list.adapter as SwitchListAdapter).lightSwitchList = updatedSwitches
+                        (switches_list.adapter as SwitchListAdapter).notifyDataSetChanged()
+                    }
 
+                }
+            }
+        }, 1000, 100)//put here time 1000 milliseconds=1 second
     }
 
     fun initializeList() {
