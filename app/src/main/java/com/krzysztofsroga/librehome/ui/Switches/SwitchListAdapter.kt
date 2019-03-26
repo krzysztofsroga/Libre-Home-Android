@@ -21,12 +21,16 @@ class SwitchListAdapter(private val lightSwitchList: List<LightSwitch>) :
     override fun onBindViewHolder(holder: SwitchViewHolder, position: Int) {
         val lightSwitch = lightSwitchList[position]
         holder.switch.text = lightSwitch.name
-        holder.switch.isChecked = lightSwitch.state
-        holder.switch.setOnCheckedChangeListener { _, isChecked ->
-            holder.seekBar.isEnabled = isChecked
-        }
-        holder.seekBar.isEnabled = lightSwitch.state
-        holder.seekBar.progress = 100 //TODO download this data
+        holder.switch.isChecked = lightSwitch.enabled
+        holder.seekBar.visibility = if (lightSwitch is LightSwitch.DimmableSwitch) {
+            holder.switch.setOnCheckedChangeListener { _, isChecked ->
+                holder.seekBar.isEnabled = isChecked
+            }
+            holder.seekBar.isEnabled = lightSwitch.enabled
+            holder.seekBar.progress = lightSwitch.dim
+            View.VISIBLE
+        } else View.GONE
+
     }
 
 
