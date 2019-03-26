@@ -1,9 +1,8 @@
-package com.krzysztofsroga.librehome.ui.Switches
+package com.krzysztofsroga.librehome.ui.switches
 
 import android.util.Log
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.FuelManager
-import com.github.kittinunf.fuel.gson.responseObject
 import com.github.kittinunf.result.Result
 import com.google.gson.*
 import com.krzysztofsroga.librehome.InternetConfiguration

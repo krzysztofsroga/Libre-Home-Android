@@ -1,4 +1,4 @@
-package com.krzysztofsroga.librehome.ui.Switches
+package com.krzysztofsroga.librehome.ui.switches
 
 sealed class LightSwitch(
     var name: String,
