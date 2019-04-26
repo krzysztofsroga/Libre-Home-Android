@@ -36,7 +36,6 @@ class OnlineSwitches {
 
     fun getAllSwitches(callback: (List<LightSwitch>) -> Unit) {
         val logTag = "switches-get-all"
-
         Fuel.get("/switches").responseString { _, _, result ->
             when (result) {
                 is Result.Failure -> {
