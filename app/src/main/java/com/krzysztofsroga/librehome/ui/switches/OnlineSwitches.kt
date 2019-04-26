@@ -35,6 +35,25 @@ class OnlineSwitches {
     }
 
     fun getAllSwitches(callback: (List<LightSwitch>) -> Unit) {
+        val logTag = "switches-get-domoticz"
+        Fuel.get("json.htm?type=command&param=getlightswitches").responseString { _, _, result ->
+            when (result) {
+                is Result.Failure -> {
+                    Log.e(logTag, "failed: ${result.error}")
+                }
+                is Result.Success -> {
+                    Log.d(logTag, "success: ${result.value}")
+                    val gson = GsonBuilder().create()
+                    val dObj = gson.fromJson<DomoticzSwitches>(result.value, DomoticzSwitches::class.java)
+                    val obj = dObj.toSwitchStatesModel()
+                    Log.d(logTag, "object: ${obj.items.joinToString { "(${it.type}: ${it.name})" }}")
+                    callback(obj.items)
+                }
+            }
+        }
+    }
+
+    fun getAllSwitchesOld(callback: (List<LightSwitch>) -> Unit) {
         val logTag = "switches-get-all"
         Fuel.get("/switches").responseString { _, _, result ->
             when (result) {
@@ -52,7 +71,6 @@ class OnlineSwitches {
                 }
             }
         }
-
     }
 
 
