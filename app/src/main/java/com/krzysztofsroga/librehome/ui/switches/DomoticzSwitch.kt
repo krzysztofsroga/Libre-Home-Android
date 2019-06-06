@@ -3,13 +3,15 @@ package com.krzysztofsroga.librehome.ui.switches
 class DomoticzSwitch (
     val Name: String,
     val idx: Int,
-    val IsDimmer: Boolean
+    val SwitchType: String,
+    val Status: String,
+    val Level: Int
 ) {
     fun toLightSwitch(): LightSwitch {
-        return if (IsDimmer) {
-            LightSwitch.DimmableSwitch(Name, true, 100)
+        return if (SwitchType == "Dimmer") {
+            LightSwitch.DimmableSwitch(Name, Status != "Off", Level, idx)
         } else {
-            LightSwitch.SimpleSwitch(Name, true)
+            LightSwitch.SimpleSwitch(Name, Status != "Off", idx)
         }
     }
 }

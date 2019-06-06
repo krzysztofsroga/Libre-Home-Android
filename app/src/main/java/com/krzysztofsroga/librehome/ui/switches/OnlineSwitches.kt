@@ -16,6 +16,38 @@ class OnlineSwitches {
 
     fun sendSwitchState(lightSwitch: LightSwitch) {
         val logTag = "switches-post"
+        val cmd = if (lightSwitch.enabled) if(lightSwitch is LightSwitch.DimmableSwitch) "Set%20Level&level=${lightSwitch.dim}" else "On" else "Off"
+
+//        val cmd = if (lightSwitch.enabled) "On" else "Off"
+        val path = "json.htm?type=command&param=switchlight&idx=${lightSwitch.id}&switchcmd=$cmd"
+        Log.d(logTag, path)
+        Fuel.get(path).responseString { _, _, result ->
+            when (result) {
+                is Result.Failure -> {
+                    Log.e(logTag, "failed: ${result.error}")
+                }
+                is Result.Success -> {
+                    Log.d(logTag, "success: ${result.value}")
+                }
+            }
+        }
+//
+//        if (lightSwitch is LightSwitch.DimmableSwitch && lightSwitch.enabled) {
+//            Fuel.get( "json.htm?type=command&param=switchlight&idx=${lightSwitch.id}&switchcmd=Set%20Level&Level=${lightSwitch.dim}").responseString { _, _, result ->
+//                when (result) {
+//                    is Result.Failure -> {
+//                        Log.e(logTag, "failed: ${result.error}")
+//                    }
+//                    is Result.Success -> {
+//                        Log.d(logTag, "success: ${result.value}")
+//                    }
+//                }
+//            }
+//        }
+    }
+
+    fun sendSwitchStateOld(lightSwitch: LightSwitch) {
+        val logTag = "switches-post"
         val json = Gson().toJson(lightSwitch)
 
         Fuel.post("/postSwitchChange").timeout(1000).body(json).responseString { request, response, result ->
@@ -36,7 +68,7 @@ class OnlineSwitches {
 
     fun getAllSwitches(callback: (List<LightSwitch>) -> Unit) {
         val logTag = "switches-get-domoticz"
-        Fuel.get("json.htm?type=command&param=getlightswitches").responseString { _, _, result ->
+        Fuel.get("json.htm?type=devices&filter=lights&used=true&order=Name").responseString { _, _, result ->
             when (result) {
                 is Result.Failure -> {
                     Log.e(logTag, "failed: ${result.error}")
@@ -46,7 +78,7 @@ class OnlineSwitches {
                     val gson = GsonBuilder().create()
                     val dObj = gson.fromJson<DomoticzSwitches>(result.value, DomoticzSwitches::class.java)
                     val obj = dObj.toSwitchStatesModel()
-                    Log.d(logTag, "object: ${obj.items.joinToString { "(${it.type}: ${it.name})" }}")
+                    Log.d(logTag, "object: ${obj.items.joinToString { "(${it.type}: ${it.name}), id: ${it.id}\n" }}")
                     callback(obj.items)
                 }
             }

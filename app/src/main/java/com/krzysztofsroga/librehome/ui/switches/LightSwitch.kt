@@ -5,15 +5,16 @@ import java.lang.reflect.Type
 
 sealed class LightSwitch(
     var name: String,
-    var enabled: Boolean
+    var enabled: Boolean,
+    var id: Int? = null
 ) {
     val type: String? = this::class.simpleName
 
-    class SimpleSwitch(name: String, enabled: Boolean = false) : LightSwitch(name, enabled) {
+    class SimpleSwitch(name: String, enabled: Boolean = false, id: Int? = null) : LightSwitch(name, enabled, id) {
         override fun toString(): String = "SimpleSwitch(name=$name, enabled=$enabled)"
     }
 
-    class DimmableSwitch(name: String, enabled: Boolean = false, var dim: Int = 100) : LightSwitch(name, enabled) {
+    class DimmableSwitch(name: String, enabled: Boolean = false, var dim: Int = 100, id: Int? = null) : LightSwitch(name, enabled, id) {
         override fun toString(): String = "DimmableSwitch(name=$name, enabled=$enabled, dim=$dim)"
     }
     //TODO think if dimmable and other features shouldn't be interfaces. But then it'll be a lot harder to deserialize them

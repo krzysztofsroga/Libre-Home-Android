@@ -21,7 +21,7 @@ class SwitchListAdapter(private val lightSwitchList: List<LightSwitch>, private 
 
     override fun onBindViewHolder(holder: SwitchViewHolder, position: Int) {
         val lightSwitch = lightSwitchList[position]
-        holder.switch.text = lightSwitch.name
+        holder.switch.text = "${lightSwitch.name}($position)"
         holder.switch.isChecked = lightSwitch.enabled
         holder.seekBar.visibility = if (lightSwitch is LightSwitch.DimmableSwitch) {
             holder.switch.setOnCheckedChangeListener { _, isChecked ->
@@ -50,6 +50,10 @@ class SwitchListAdapter(private val lightSwitchList: List<LightSwitch>, private 
             }
 
         })
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position //TODO return 0 for simple, 1 for dimmable
     }
 
 
