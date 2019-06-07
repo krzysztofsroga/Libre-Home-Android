@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000"
+        tools:context=".ui.MusicFragment">
+
+    <TextView
+            android:id="@+id/something1"
+            android:layout_width="160dp"
+            android:layout_height="105dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="Something 1" />
+    <TextView
+            android:id="@+id/something2"
+            android:layout_width="160dp"
+            android:gravity="center"
+            android:layout_height="105dp"
+            android:layout_gravity="center"
+            android:text="Something 2" />
+    <TextView
+            android:id="@+id/something3"
+            android:layout_width="160dp"
+            android:layout_height="105dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="Something 3" />
+    <TextView
+            android:id="@+id/something4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_margin="8dp"
+            android:layout_gravity="center"
+            android:text="Something 4" />
+</LinearLayout>

@@ -30,15 +30,22 @@ class MainFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
         button_show_switches.setOnClickListener {
-            activity!!.supportFragmentManager.beginTransaction().apply {
-                replace(
-                    R.id.center_fragment,
-                    SwitchesFragment.newInstance()
-                )
-                addToBackStack(null)
-            }.commit()
+            replaceFragment(R.id.center_fragment, SwitchesFragment.newInstance())
+        }
+        button_music.setOnClickListener {
+            replaceFragment(R.id.center_fragment, MusicFragment.newInstance())
         }
     }
 
 
+}
+
+fun Fragment.replaceFragment(frame: Int, newFragment: Fragment) {
+    activity!!.supportFragmentManager.beginTransaction().apply {
+        replace(
+            frame,
+            newFragment
+        )
+        addToBackStack(null)
+    }.commit()
 }
