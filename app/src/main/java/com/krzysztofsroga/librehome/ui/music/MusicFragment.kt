@@ -1,4 +1,4 @@
-package com.krzysztofsroga.librehome.ui
+package com.krzysztofsroga.librehome.ui.music
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -13,14 +13,20 @@ import android.view.ViewGroup
 import com.krzysztofsroga.librehome.R
 import kotlinx.android.synthetic.main.music_fragment.*
 import android.media.MediaRecorder
+import android.util.Log
 import androidx.core.app.ActivityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.krzysztofsroga.librehome.ui.switches.LightSwitch
 import kotlinx.coroutines.*
-import kotlin.coroutines.coroutineContext
+import kotlin.math.pow
 
 
 class MusicFragment : Fragment() {
 
+    private val switches = MusicSwitches()
     private lateinit var mediaRecorder: MediaRecorder
+
+    private val managedLights = mutableSetOf<LightSwitch.DimmableSwitch>()
 
     companion object {
         fun newInstance() = MusicFragment()
@@ -44,6 +50,33 @@ class MusicFragment : Fragment() {
         // TODO: Use the ViewModel
 
         initializeRecorder()
+        switches.initialize()
+        initializeList()
+
+    }
+
+    fun initializeList() {
+        Log.d("initialization", "initializing list")
+        switches.getLedSwitches { downloadedSwitches ->
+            Log.d("initialization", "callback list")
+
+            activity!!.runOnUiThread {
+                Log.d("initialization", "ui list")
+                music_switches_list.apply {
+                    setHasFixedSize(true)
+                    layoutManager = LinearLayoutManager(context)
+                    adapter = MusicSwitchListAdapter(downloadedSwitches) { switch, enabled ->
+                        if (enabled) {
+                            managedLights += switch
+                        } else {
+                            managedLights.remove(switch)
+                        }
+                    }.apply { setHasStableIds(true) }
+
+                }
+
+            }
+        }
     }
 
     fun initializeRecorder() {
@@ -72,18 +105,26 @@ class MusicFragment : Fragment() {
 
         CoroutineScope(Dispatchers.Default).launch {
             while(true) {
-                delay(33)
+                delay(16)
+//                delay(125)
                 val amplitude = mediaRecorder.maxAmplitude
+                var amp = amplitude.toDouble() * 10 - 1000
+                if (amp <= 1) amp = 1.0
+                val logAmplitude = Math.log(amp).toFloat() / 10
+                val powAmplitude = logAmplitude.pow(2)
+
                 withContext(Dispatchers.Main) {
                     something3.text = amplitude.toString()
-                    var amp = amplitude.toDouble() * 10 - 400
-                    if (amp < 0) amp = 0.0
-                    val logAmplitude = Math.log(amp).toFloat() / 10
-                    val color = Color.HSVToColor(floatArrayOf(0f, 1f, logAmplitude))
-                    something4.setBackgroundColor(color)
+                    val color = Color.HSVToColor(floatArrayOf(80f, 0f, powAmplitude))
+                    something_frame.setBackgroundColor(color)
                     val color2 = Color.HSVToColor(floatArrayOf(270f, logAmplitude, 0.4f))
                     something2.setBackgroundColor(color2)
                 }
+
+//                managedLights.forEach {
+//                    switches.sendSwitchState(it.apply { dim = (powAmplitude * 100).toInt()
+//                    enabled = (dim > 0)})
+//                }
             }
         }
 

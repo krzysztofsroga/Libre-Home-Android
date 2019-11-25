@@ -106,11 +106,14 @@ class OnlineSwitches {
     }
 
 
-    private fun configureFuel() { //TODO move configuration in different place
-        FuelManager.instance.baseHeaders = mapOf("Content-Type" to "application/json")
-        FuelManager.instance.basePath = InternetConfiguration.fullPath
-        Log.d("Fuel initialization", InternetConfiguration.fullPath)
+    companion object {
+        internal fun configureFuel() { //TODO move configuration in different place
+            FuelManager.instance.baseHeaders = mapOf("Content-Type" to "application/json")
+            FuelManager.instance.basePath = InternetConfiguration.fullPath
+            Log.d("Fuel initialization", InternetConfiguration.fullPath)
+        }
     }
+
 
     data class SwitchStatesModel(val name: String, val items: List<LightSwitch>)
 }

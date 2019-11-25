@@ -1,4 +1,4 @@
-package com.krzysztofsroga.librehome.ui
+package com.krzysztofsroga.librehome.ui.music
 
 import androidx.lifecycle.ViewModel;
 

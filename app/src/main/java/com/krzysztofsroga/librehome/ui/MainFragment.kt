@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.krzysztofsroga.librehome.R
+import com.krzysztofsroga.librehome.ui.music.MusicFragment
 import com.krzysztofsroga.librehome.ui.switches.SwitchesFragment
 import kotlinx.android.synthetic.main.main_fragment.*
 
