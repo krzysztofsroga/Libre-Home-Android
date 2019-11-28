@@ -16,7 +16,7 @@ class SwitchesViewModel : ViewModel() {
         get() = _switches
 
 
-    fun initialize() {
+    init {
         onlineSwitches.initialize()
         onlineSwitches.getAllSwitches { downloadedSwitches: List<LightSwitch> ->
             Log.d("initialization", "callback list")

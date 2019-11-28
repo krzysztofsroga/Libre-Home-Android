@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        supportFragmentManager.beginTransaction().apply {
+        if(savedInstanceState==null) supportFragmentManager.beginTransaction().apply {
             replace(R.id.center_fragment, MainFragment.newInstance())
             addToBackStack(null)
         }.commit()

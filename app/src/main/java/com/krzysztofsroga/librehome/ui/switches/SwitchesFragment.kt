@@ -32,14 +32,13 @@ class SwitchesFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SwitchesViewModel::class.java)
+        viewModel = ViewModelProvider(this)[SwitchesViewModel::class.java]
 
         initializeList()
 
     }
 
     private fun initializeList() {
-        viewModel.initialize()
         Log.d("initialization", "initializing list")
         viewModel.switches.observe({ lifecycle }) { t: List<LightSwitch>? ->
             t?.let {
@@ -56,7 +55,7 @@ class SwitchesFragment : Fragment() {
         }
 
         viewModel.switches.observe(viewLifecycleOwner, Observer{
-            
+
         })
 
     }
