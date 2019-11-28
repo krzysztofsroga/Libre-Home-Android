@@ -27,4 +27,5 @@
     <string name="host">Host</string>
     <string name="sorting_switches">Sorting switches</string>
     <string name="experimental">Experimental features</string>
+    <string name="enable_experimental">Enable experimental features</string>
 </resources>

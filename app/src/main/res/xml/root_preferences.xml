@@ -38,15 +38,30 @@
     <PreferenceCategory app:title="@string/experimental">
 
         <SwitchPreferenceCompat
-                app:key="sync"
-                app:title="@string/sync_title" />
+                app:key="experimental"
+                app:title="@string/enable_experimental" />
 
-        <SwitchPreferenceCompat
-                app:dependency="sync"
-                app:key="attachment"
-                app:summaryOff="@string/attachment_summary_off"
-                app:summaryOn="@string/attachment_summary_on"
-                app:title="@string/attachment_title" />
+<!--        <SeekBarPreference-->
+<!--                app:min="1"-->
+<!--                app:max="60"-->
+<!--                app:dependency="experimental"-->
+<!--                app:key="music_update"-->
+<!--                android:title="Music switch update"-->
+<!--            />-->
+        <EditTextPreference
+                app:dependency="experimental"
+                app:key="music_update"
+                android:title="Music switch updates per second"
+                app:useSimpleSummaryProvider="true"
+                app:defaultValue="5"
+                />
+
+<!--        <SwitchPreferenceCompat-->
+<!--                app:dependency="experimental"-->
+<!--                app:key="attachment"-->
+<!--                app:summaryOff="@string/attachment_summary_off"-->
+<!--                app:summaryOn="@string/attachment_summary_on"-->
+<!--                app:title="@string/attachment_title" />-->
 
     </PreferenceCategory>
 
