@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.ui.music.MusicFragment
 import com.krzysztofsroga.librehome.ui.switches.SwitchesFragment
@@ -28,7 +28,7 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         button_show_switches.setOnClickListener {
             replaceFragment(R.id.center_fragment, SwitchesFragment.newInstance())

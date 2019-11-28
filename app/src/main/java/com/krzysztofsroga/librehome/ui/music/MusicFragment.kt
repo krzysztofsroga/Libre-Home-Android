@@ -3,20 +3,19 @@ package com.krzysztofsroga.librehome.ui.music
 import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.Color
-import androidx.lifecycle.ViewModelProviders
+import android.media.MediaRecorder
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-import com.krzysztofsroga.librehome.R
-import kotlinx.android.synthetic.main.music_fragment.*
-import android.media.MediaRecorder
-import android.util.Log
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.ui.switches.LightSwitch
+import kotlinx.android.synthetic.main.music_fragment.*
 import kotlinx.coroutines.*
 import kotlin.math.pow
 
@@ -43,7 +42,7 @@ class MusicFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MusicViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MusicViewModel::class.java)
 
         something1.setTextColor(Color.CYAN)
         something2.setBackgroundColor(Color.YELLOW)
