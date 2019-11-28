@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.krzysztofsroga.librehome.R
@@ -13,7 +14,6 @@ import kotlinx.android.synthetic.main.switches_fragment.*
 
 
 class SwitchesFragment : Fragment() {
-    val switches: OnlineSwitches = OnlineSwitches() //TODO move to viewmodel
 
     companion object {
         fun newInstance() = SwitchesFragment()
@@ -25,6 +25,8 @@ class SwitchesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        //TODO databinding
         return inflater.inflate(R.layout.switches_fragment, container, false)
     }
 
@@ -32,29 +34,44 @@ class SwitchesFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(SwitchesViewModel::class.java)
 
-        switches.initialize()
         initializeList()
 
     }
 
-    fun initializeList() {
+    private fun initializeList() {
+        viewModel.initialize()
         Log.d("initialization", "initializing list")
-        switches.getAllSwitches { downloadedSwitches ->
-            Log.d("initialization", "callback list")
-
-            activity!!.runOnUiThread {
-                Log.d("initialization", "ui list")
+        viewModel.switches.observe({ lifecycle }) { t: List<LightSwitch>? ->
+            t?.let {
                 switches_list.apply {
                     setHasFixedSize(true)
                     layoutManager = LinearLayoutManager(context)
-                    adapter = SwitchListAdapter(downloadedSwitches) {
-                        switches.sendSwitchState(it)
+                    adapter = SwitchListAdapter(it) {
+                        viewModel.sendSwitchState(it)
                     }.apply { setHasStableIds(true) }
 
-                }
 
+                }
             }
         }
+
+        viewModel.switches.observe(viewLifecycleOwner, Observer{
+            
+        })
+
     }
 
 }
+
+//activity!!.runOnUiThread {
+//    Log.d("initialization", "ui list")
+//    switches_list.apply {
+//        setHasFixedSize(true)
+//        layoutManager = LinearLayoutManager(context)
+//        adapter = SwitchListAdapter(downloadedSwitches) {
+//            switches.sendSwitchState(it)
+//        }.apply { setHasStableIds(true) }
+//
+//    }
+//
+//}
