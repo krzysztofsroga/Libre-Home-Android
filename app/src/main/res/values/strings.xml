@@ -25,6 +25,6 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="domoticz">Domoticz</string>
     <string name="host">Host</string>
-    <string name="sorting_switches">Switches sorting</string>
+    <string name="sorting_switches">Sorting switches</string>
     <string name="experimental">Experimental features</string>
 </resources>
