@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         if(savedInstanceState==null) supportFragmentManager.beginTransaction().apply {
             replace(R.id.center_fragment, MainFragment.newInstance())
-            addToBackStack(null)
+            //addToBackStack(null)
         }.commit()
 //        fab.setOnClickListener { view ->
 //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

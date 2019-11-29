@@ -51,17 +51,18 @@
         <EditTextPreference
                 app:dependency="experimental"
                 app:key="music_update"
-                android:title="Music switch updates per second"
+                app:title="@string/music_updates_per_second"
                 app:useSimpleSummaryProvider="true"
                 app:defaultValue="5"
                 />
 
-<!--        <SwitchPreferenceCompat-->
-<!--                app:dependency="experimental"-->
-<!--                app:key="attachment"-->
-<!--                app:summaryOff="@string/attachment_summary_off"-->
-<!--                app:summaryOn="@string/attachment_summary_on"-->
-<!--                app:title="@string/attachment_title" />-->
+        <SwitchPreferenceCompat
+                app:key="realtime_seekbar"
+                app:title="Update LED power while using seekbar"
+                app:dependency="experimental"
+                app:summaryOff="LED power will be updated after releasing"
+                app:summaryOn="LED power will be updated in real time"
+                />
 
     </PreferenceCategory>
 

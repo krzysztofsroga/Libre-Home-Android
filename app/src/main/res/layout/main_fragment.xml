@@ -1,43 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".ui.MainFragment">
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-            android:id="@+id/hello_text"
+    <data>
+
+        <variable
+                name="bestswitch"
+                type="com.krzysztofsroga.librehome.ui.switches.LightSwitch" />
+    </data>
+
+    <LinearLayout
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/switch_padding"
-            android:text="Hello World!" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".ui.MainFragment">
 
-    <Switch
-            android:id="@+id/bedroom_switch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/switch_padding"
-            android:text="Light in bedroom" />
+        <TextView
+                android:id="@+id/hello_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/switch_padding"
+                android:text="Hello World!" />
 
-    <Switch
-            android:id="@+id/kitchen_switch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/switch_padding"
-            android:text="Light in kitchen" />
+        <Switch
+                android:id="@+id/bedroom_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="@{bestswitch.enabled}"
+                android:padding="@dimen/switch_padding"
+                android:text="@{bestswitch.name}"
+                tools:text="Binded switch" />
 
-    <Button
-            android:id="@+id/button_show_switches"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Show online switches" />
-    <Button
-            android:id="@+id/button_music"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Music control" />
+        <Switch
+                android:id="@+id/kitchen_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/switch_padding"
+                android:text="Light in kitchen" />
+
+        <Button
+                android:id="@+id/button_show_switches"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Show online switches" />
+
+        <Button
+                android:id="@+id/button_music"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Music control" />
 
 
-</LinearLayout>
+    </LinearLayout>
+</layout>

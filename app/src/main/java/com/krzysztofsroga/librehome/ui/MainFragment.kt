@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingComponent
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.krzysztofsroga.librehome.R
+import com.krzysztofsroga.librehome.databinding.MainFragmentBinding
 import com.krzysztofsroga.librehome.ui.music.MusicFragment
+import com.krzysztofsroga.librehome.ui.switches.LightSwitch
 import com.krzysztofsroga.librehome.ui.switches.SwitchesFragment
 import kotlinx.android.synthetic.main.main_fragment.*
 
@@ -23,7 +27,9 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        val binding = DataBindingUtil.inflate<MainFragmentBinding>(inflater, R.layout.main_fragment, container, false)
+        binding.bestswitch = LightSwitch.SimpleSwitch("BESTSWITCH", enabled = true)
+        return binding.root //inflater.inflate(R.layout.main_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
