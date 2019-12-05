@@ -18,3 +18,7 @@ object FunctionTimer {
         }
     }
 }
+
+
+fun Int.isEven() = (this and 1) == 0
+fun Int.odd() = (this and 1) == 1

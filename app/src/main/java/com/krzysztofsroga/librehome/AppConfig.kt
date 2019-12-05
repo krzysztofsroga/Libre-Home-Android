@@ -2,6 +2,7 @@ package com.krzysztofsroga.librehome
 
 import com.krzysztofsroga.librehome.ui.MainFragment
 import com.krzysztofsroga.librehome.ui.music.MusicFragment
+import com.krzysztofsroga.librehome.ui.mylists.SwitchGroupFragment
 import com.krzysztofsroga.librehome.ui.switches.SwitchesFragment
 
 object AppConfig {
@@ -10,6 +11,7 @@ object AppConfig {
     val screens: List<MainActivityFragmentFactory<*>> = listOf(
         MainFragment,
 //        MusicFragment,
-        SwitchesFragment
+        SwitchesFragment,
+        SwitchGroupFragment
     )
 }

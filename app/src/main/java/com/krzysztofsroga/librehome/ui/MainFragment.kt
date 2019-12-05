@@ -4,22 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.krzysztofsroga.librehome.MainActivityFragmentFactory
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.databinding.MainFragmentBinding
-import com.krzysztofsroga.librehome.ui.music.MusicFragment
 import com.krzysztofsroga.librehome.ui.switches.LightSwitch
-import com.krzysztofsroga.librehome.ui.switches.SwitchesFragment
-import kotlinx.android.synthetic.main.main_fragment.*
 
 
 class MainFragment : Fragment() {
-    companion object : MainActivityFragmentFactory<MainFragment>{
+    companion object : MainActivityFragmentFactory<MainFragment> {
         override fun newInstance() = MainFragment()
         override val name: String
             get() = "Main screen"
@@ -49,14 +44,4 @@ class MainFragment : Fragment() {
     }
 
 
-}
-
-fun Fragment.replaceFragment(frame: Int, newFragment: Fragment) {
-    activity!!.supportFragmentManager.beginTransaction().apply {
-        replace(
-            frame,
-            newFragment
-        )
-        addToBackStack(null)
-    }.commit()
 }
