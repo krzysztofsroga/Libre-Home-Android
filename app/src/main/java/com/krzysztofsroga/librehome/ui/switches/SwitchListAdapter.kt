@@ -20,36 +20,7 @@ class SwitchListAdapter(private val lightSwitchList: List<LightSwitch>, private 
     override fun getItemCount(): Int = lightSwitchList.size
 
     override fun onBindViewHolder(holder: SwitchViewHolder, position: Int) {
-        val lightSwitch = lightSwitchList[position]
-        holder.switch.text = "${lightSwitch.name}($position)"
-        holder.switch.isChecked = lightSwitch.enabled
-        holder.seekBar.visibility = if (lightSwitch is LightSwitch.DimmableSwitch) {
-            holder.switch.setOnCheckedChangeListener { _, isChecked ->
-                holder.seekBar.isEnabled = isChecked
-            }
-            holder.seekBar.isEnabled = lightSwitch.enabled
-            holder.seekBar.progress = lightSwitch.dim
-            holder.icon.setImageResource(R.drawable.light_dim)
-            View.VISIBLE
-        } else View.GONE
-        holder.switch.setOnClickListener {
-            lightSwitch.enabled = holder.switch.isChecked //TODO setOnCheckedChangeListener
-            callback(lightSwitch)
-        }
-        holder.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                callback(lightSwitch)
-            }
-
-            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                (lightSwitch as LightSwitch.DimmableSwitch).dim = progress
-            }
-
-        })
+        holder.initialize(lightSwitchList[position], callback)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -58,8 +29,40 @@ class SwitchListAdapter(private val lightSwitchList: List<LightSwitch>, private 
 
 
     class SwitchViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val switch: Switch = view.switchName
-        val seekBar: SeekBar = view.switchSeekBar
-        val icon: ImageView = view.lightIcon
+        private val switch: Switch = view.switchName
+        private val seekBar: SeekBar = view.switchSeekBar
+        private val icon: ImageView = view.lightIcon
+
+        fun initialize(lightSwitch: LightSwitch, callback: (LightSwitch) -> Unit) {
+            switch.text = lightSwitch.name
+            switch.isChecked = lightSwitch.enabled
+            seekBar.visibility = if (lightSwitch is LightSwitch.DimmableSwitch) {
+                switch.setOnCheckedChangeListener { _, isChecked ->
+                    seekBar.isEnabled = isChecked
+                }
+                seekBar.isEnabled = lightSwitch.enabled
+                seekBar.progress = lightSwitch.dim
+                icon.setImageResource(R.drawable.light_dim)
+                View.VISIBLE
+            } else View.GONE
+            switch.setOnClickListener {
+                lightSwitch.enabled = switch.isChecked //TODO setOnCheckedChangeListener
+                callback(lightSwitch)
+            }
+            seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {
+
+                }
+
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                    callback(lightSwitch)
+                }
+
+                override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                    (lightSwitch as LightSwitch.DimmableSwitch).dim = progress
+                }
+
+            })
+        }
     }
 }
