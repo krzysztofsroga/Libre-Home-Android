@@ -19,12 +19,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-        <FrameLayout
-                android:id="@+id/center_fragment"
+<!--        <FrameLayout-->
+<!--                android:id="@+id/center_fragment"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent">-->
+<!--            &lt;!&ndash;<include layout="@layout/content_main"/>&ndash;&gt;-->
+<!--        </FrameLayout>-->
+
+        <androidx.viewpager.widget.ViewPager
+                android:id="@+id/pager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            <!--<include layout="@layout/content_main"/>-->
-        </FrameLayout>
+                android:layout_height="match_parent"
+                tools:context=".MainActivity" >
+
+            <!--<androidx.viewpager.widget.ViewPager-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:id="@+id/pager"-->
+            <!--android:layout_height="match_parent" />-->
+
+        </androidx.viewpager.widget.ViewPager>
+
 
     </LinearLayout>
 

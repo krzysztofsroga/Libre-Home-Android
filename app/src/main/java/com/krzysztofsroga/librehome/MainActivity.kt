@@ -7,23 +7,52 @@ import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.viewpager.widget.ViewPager
 import com.google.android.material.navigation.NavigationView
 import com.krzysztofsroga.librehome.ui.MainFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    private val listener = object : ViewPager.OnPageChangeListener {
+        var jumpPosition = -1
+
+        override fun onPageScrollStateChanged(state: Int) {
+            if(state == ViewPager.SCROLL_STATE_IDLE && jumpPosition >= 0) {
+                pager.setCurrentItem(jumpPosition, false);
+                jumpPosition = -1
+            }
+        }
+
+        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            val goodPosition = (position + positionOffset - 1 + adapter.realCount).roundToInt().rem(adapter.realCount)
+            // position + positionoffset gives value + 1. So -1 is added. Then adapter.realcount is added because of lack of modulo function(only reminder)
+            title = adapter.getTitle(goodPosition)
+        }
+
+        override fun onPageSelected(position: Int) {
+            when (position) {
+                0 -> jumpPosition = adapter.realCount
+                adapter.realCount + 1 -> jumpPosition = 1
+            }
+        }
+
+        private val adapter: ScreenSlidePagerAdapter
+            get() = (pager.adapter as ScreenSlidePagerAdapter)
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        if(savedInstanceState==null) supportFragmentManager.beginTransaction().apply {
-            replace(R.id.center_fragment, MainFragment.newInstance())
-            //addToBackStack(null)
-        }.commit()
+        pager.adapter = ScreenSlidePagerAdapter(supportFragmentManager, AppConfig.screens)
+        pager.addOnPageChangeListener(listener)
+        pager.currentItem = AppConfig.defaultScreenIndex
+
 //        fab.setOnClickListener { view ->
 //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                .setAction("Action", null).show()

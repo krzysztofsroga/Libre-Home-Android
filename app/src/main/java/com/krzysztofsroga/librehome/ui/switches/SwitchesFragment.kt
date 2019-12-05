@@ -11,14 +11,17 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.krzysztofsroga.librehome.MainActivityFragmentFactory
 import com.krzysztofsroga.librehome.R
 import kotlinx.android.synthetic.main.switches_fragment.*
 
 
 class SwitchesFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = SwitchesFragment()
+    companion object: MainActivityFragmentFactory<SwitchesFragment> {
+        override fun newInstance() = SwitchesFragment()
+        override val name: String
+            get() = "All Switches"
     }
 
     private lateinit var viewModel: SwitchesViewModel
@@ -34,7 +37,7 @@ class SwitchesFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this)[SwitchesViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[SwitchesViewModel::class.java] //getting viewmodel in activity scope so that all fragments in pager have access to it
 
         initializeList()
 

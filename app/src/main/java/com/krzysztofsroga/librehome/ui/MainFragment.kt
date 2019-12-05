@@ -8,6 +8,8 @@ import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import com.krzysztofsroga.librehome.MainActivityFragmentFactory
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.databinding.MainFragmentBinding
 import com.krzysztofsroga.librehome.ui.music.MusicFragment
@@ -17,8 +19,10 @@ import kotlinx.android.synthetic.main.main_fragment.*
 
 
 class MainFragment : Fragment() {
-    companion object {
-        fun newInstance() = MainFragment()
+    companion object : MainActivityFragmentFactory<MainFragment>{
+        override fun newInstance() = MainFragment()
+        override val name: String
+            get() = "Main screen"
     }
 
     private lateinit var viewModel: MainViewModel
@@ -34,14 +38,14 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java) //TODO get switchesviewmodel?
 
-        button_show_switches.setOnClickListener {
+/*TODO switch fragments different way        button_show_switches.setOnClickListener {
             replaceFragment(R.id.center_fragment, SwitchesFragment.newInstance())
         }
         button_music.setOnClickListener {
             replaceFragment(R.id.center_fragment, MusicFragment.newInstance())
-        }
+        }*/
     }
 
 

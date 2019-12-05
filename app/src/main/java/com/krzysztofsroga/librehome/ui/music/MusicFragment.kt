@@ -13,6 +13,7 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.krzysztofsroga.librehome.MainActivityFragmentFactory
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.ui.switches.LightSwitch
 import kotlinx.android.synthetic.main.music_fragment.*
@@ -27,8 +28,10 @@ class MusicFragment : Fragment() {
 
     private val managedLights = mutableSetOf<LightSwitch.DimmableSwitch>()
 
-    companion object {
-        fun newInstance() = MusicFragment()
+    companion object:MainActivityFragmentFactory<MusicFragment> {
+        override fun newInstance() = MusicFragment()
+        override val name: String
+            get() = "Music fragment"
     }
 
     private lateinit var viewModel: MusicViewModel
