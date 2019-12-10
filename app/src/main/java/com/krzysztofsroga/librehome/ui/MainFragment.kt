@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.krzysztofsroga.librehome.MainActivityFragmentFactory
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.databinding.MainFragmentBinding
 import com.krzysztofsroga.librehome.ui.switches.LightSwitch
+import kotlinx.android.synthetic.main.main_fragment.*
 
 
 class MainFragment : Fragment() {
@@ -20,7 +22,7 @@ class MainFragment : Fragment() {
             get() = "Main screen"
     }
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var sshViewModel: SshViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,11 +31,12 @@ class MainFragment : Fragment() {
         val binding = DataBindingUtil.inflate<MainFragmentBinding>(inflater, R.layout.main_fragment, container, false)
         binding.bestswitch = LightSwitch.SimpleSwitch("BESTSWITCH", enabled = true)
         return binding.root //inflater.inflate(R.layout.main_fragment, container, false)
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java) //TODO get switchesviewmodel?
+        sshViewModel = ViewModelProvider(this).get(SshViewModel::class.java) //TODO get switchesviewmodel?
 
 /*TODO switch fragments different way        button_show_switches.setOnClickListener {
             replaceFragment(R.id.center_fragment, SwitchesFragment.newInstance())
@@ -41,6 +44,13 @@ class MainFragment : Fragment() {
         button_music.setOnClickListener {
             replaceFragment(R.id.center_fragment, MusicFragment.newInstance())
         }*/
+        button_ssh_restart.setOnClickListener {
+            sshViewModel.restartRaspberry()
+        }
+
+        sshViewModel.out.observe(viewLifecycleOwner, Observer {out ->
+            ssh_out.text = out
+        })
     }
 
 

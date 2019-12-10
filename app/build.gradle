@@ -59,4 +59,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
 
+    //SSH
+    implementation 'com.jcraft:jsch:0.1.54'
+
 }

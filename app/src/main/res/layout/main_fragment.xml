@@ -16,12 +16,6 @@
             android:orientation="vertical"
             tools:context=".ui.MainFragment">
 
-        <TextView
-                android:id="@+id/hello_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/switch_padding"
-                android:text="Hello World!" />
 
         <Switch
                 android:id="@+id/bedroom_switch"
@@ -51,6 +45,24 @@
                 android:layout_height="wrap_content"
                 android:text="Music control" />
 
+        <Button
+                android:id="@+id/button_check_ssh_connection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Check SSH connection" />
+
+        <Button
+                android:id="@+id/button_ssh_restart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Restart Raspberry PI" />
+
+        <TextView
+                android:id="@+id/ssh_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/switch_padding"
+                android:text="SSH out" />
 
     </LinearLayout>
 </layout>
