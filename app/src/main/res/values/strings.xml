@@ -29,4 +29,6 @@
     <string name="experimental">Experimental features</string>
     <string name="enable_experimental">Enable experimental features</string>
     <string name="music_updates_per_second">Music switch updates per second</string>
+    <string name="domoticz_password">Domoticz password</string>
+    <string name="ssh_password">SSH password</string>
 </resources>

@@ -25,6 +25,18 @@
                 app:title="@string/host"
                 app:useSimpleSummaryProvider="true" />
 
+        <EditTextPreference
+
+                app:key="domoticz_password"
+                app:title="@string/domoticz_password"
+                app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+
+                app:key="ssh_password"
+                app:title="@string/ssh_password"
+                app:useSimpleSummaryProvider="true" />
+
         <ListPreference
                 app:defaultValue="domoticz"
                 app:entries="@array/sorting_entries"
