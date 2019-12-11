@@ -31,4 +31,7 @@
     <string name="music_updates_per_second">Music switch updates per second</string>
     <string name="domoticz_password">Domoticz password</string>
     <string name="ssh_password">SSH password</string>
+    <string name="restart_confirmation">Do you really want to restart RPi?</string>
+    <string name="restart">Restart</string>
+    <string name="cancel">Cancel</string>
 </resources>

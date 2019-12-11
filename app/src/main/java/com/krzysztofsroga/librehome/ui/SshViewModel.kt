@@ -47,7 +47,6 @@ class SshViewModel(application: Application) : AndroidViewModel(application) {
                     channelssh.outputStream = baos
 
                     // Execute command
-                    // Execute command
                     channelssh.setCommand("uname -a")//TODO restart instead of getting kernel data
                     _out.postValue("Sending command...")
                     channelssh.connect()

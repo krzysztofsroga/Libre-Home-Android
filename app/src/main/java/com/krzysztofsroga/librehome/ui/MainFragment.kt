@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -45,10 +46,17 @@ class MainFragment : Fragment() {
             replaceFragment(R.id.center_fragment, MusicFragment.newInstance())
         }*/
         button_ssh_restart.setOnClickListener {
-            sshViewModel.restartRaspberry()
+            AlertDialog.Builder(requireActivity()).apply {
+                setMessage(getString(R.string.restart_confirmation))
+                setPositiveButton(getString(R.string.restart)) { _, _ ->
+                    sshViewModel.restartRaspberry()
+                }
+                setNegativeButton(getString(R.string.cancel)) { _, _ -> }
+                create().show()
+            }
         }
 
-        sshViewModel.out.observe(viewLifecycleOwner, Observer {out ->
+        sshViewModel.out.observe(viewLifecycleOwner, Observer { out ->
             ssh_out.text = out
         })
     }
