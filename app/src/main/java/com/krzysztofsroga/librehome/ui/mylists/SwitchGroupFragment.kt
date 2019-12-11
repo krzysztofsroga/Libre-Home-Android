@@ -33,7 +33,7 @@ class SwitchGroupFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SwitchGroupViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(SwitchGroupViewModel::class.java)
 
         switch_group_list.apply {
             setHasFixedSize(true)

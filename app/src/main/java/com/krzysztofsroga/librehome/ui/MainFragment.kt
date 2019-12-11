@@ -37,14 +37,12 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        sshViewModel = ViewModelProvider(this).get(SshViewModel::class.java) //TODO get switchesviewmodel?
+        sshViewModel = ViewModelProvider(requireActivity()).get(SshViewModel::class.java)
 
-/*TODO switch fragments different way        button_show_switches.setOnClickListener {
-            replaceFragment(R.id.center_fragment, SwitchesFragment.newInstance())
+        button_check_ssh_connection.setOnClickListener {
+            sshViewModel.checkConnection()
         }
-        button_music.setOnClickListener {
-            replaceFragment(R.id.center_fragment, MusicFragment.newInstance())
-        }*/
+
         button_ssh_restart.setOnClickListener {
             AlertDialog.Builder(requireActivity()).apply {
                 setMessage(getString(R.string.restart_confirmation))

@@ -2,48 +2,76 @@ package com.krzysztofsroga.librehome.ui
 
 import android.content.SharedPreferences
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.jcraft.jsch.ChannelExec
 import com.jcraft.jsch.JSch
+import com.jcraft.jsch.Session
 import com.krzysztofsroga.librehome.AppConfig
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 
+@UseExperimental(ExperimentalCoroutinesApi::class)
 class SshConnection(prefs: SharedPreferences) {
     private val host = prefs.getString(AppConfig.PrefKeys.HOST, AppConfig.defaultDomoticzHostname)
     private val sshPassword = prefs.getString(AppConfig.PrefKeys.SSH_PASSWORD, "")
     private val port = AppConfig.sshPort
     private val username = AppConfig.rPiUsername
 
-    suspend fun restartRpi(_out: MutableLiveData<String>): String {
-        return withContext(Dispatchers.IO) {
-            return@withContext try {
-                val session = JSch().getSession(username, host, port)
-                session.setPassword(sshPassword)
+    private fun initializeSession(): Session {
+        return JSch().getSession(username, host, port).apply {
+            setPassword(sshPassword)
+            setConfig("StrictHostKeyChecking", "no")
+        }
+    }
 
-                // Avoid asking for key confirmation
-                session.setConfig("StrictHostKeyChecking", "no")
-                _out.postValue("Connecting...")
+    suspend fun checkConnection(): Flow<String> = channelFlow {
+        withContext(Dispatchers.IO) {
+            try {
+                val session = initializeSession()
+                send("Connecting...")
                 session.connect()
-                _out.postValue("Connected!")
+                session.disconnect()
+                send("Connected!")
+            } catch (e: Exception) {
+                Log.d("SSH", e.toString())
+                send("Connection failed")
+            }
+        }
+    }
+
+    suspend fun restartRpi(): Flow<String> = channelFlow {
+        withContext(Dispatchers.IO) {
+            try {
+                val session = initializeSession()
+                send("Connecting...")
+                session.connect()
+                send("Connected!")
 
                 val channel = session.openChannel("exec") as ChannelExec
                 val output = ByteArrayOutputStream()
                 channel.outputStream = output
 
                 // Execute command
-                channel.setCommand("uname -a") //TODO sudo reboot
-                _out.postValue("Sending command...")
+                channel.setCommand("sudo shutdown -r now") //TODO sudo reboot
+                send("Sending command...")
                 channel.connect()
-                _out.postValue("Awaiting response...")
+                send("Awaiting response...")
                 Thread.sleep(1000)
                 channel.disconnect()
-                output.toString()
+                session.disconnect()
+                output.toString().let {
+                    if (it.isEmpty())
+                        send("Reboot successful")
+                    else
+                        send(it)
+                }
+
             } catch (e: Exception) {
                 Log.d("SSH", e.toString())
-                "Connection failed"
+                send("Connection failed")
             }
         }
     }

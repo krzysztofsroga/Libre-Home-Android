@@ -3,6 +3,7 @@ package com.krzysztofsroga.librehome.ui
 import android.app.Application
 import androidx.lifecycle.*
 import androidx.preference.PreferenceManager
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 //https://stackoverflow.com/questions/14323661/simple-ssh-connect-with-jsch
@@ -17,12 +18,14 @@ class SshViewModel(application: Application) : AndroidViewModel(application) {
         get() = PreferenceManager.getDefaultSharedPreferences(getApplication())
 
     fun checkConnection() {
-
+        viewModelScope.launch {
+            SshConnection(prefs).checkConnection().collect { _out.value = it }
+        }
     }
 
     fun restartRaspberry() {
         viewModelScope.launch {
-            _out.value = SshConnection(prefs).restartRpi(_out)
+            SshConnection(prefs).restartRpi().collect { _out.value = it }
         }
     }
 }
