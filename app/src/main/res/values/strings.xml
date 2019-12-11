@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools"  tools:ignore="MissingTranslation"> <!--TODO remove ignore missing translations-->
     <string name="app_name">Libre Home</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -20,9 +20,6 @@
     <!-- Sync Preferences -->
     <string name="sync_title">Sync email periodically</string>
     <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="domoticz">Domoticz</string>
     <string name="host">Host</string>
     <string name="sorting_switches">Sorting switches</string>
@@ -34,4 +31,8 @@
     <string name="restart_confirmation">Do you really want to restart RPi?</string>
     <string name="restart">Restart</string>
     <string name="cancel">Cancel</string>
+    <string name="language">Language</string>
+    <string name="light_in_kitchen">Light in kitchen</string>
+    <string name="restart_rpi">Restart Raspberry PI</string>
+    <string name="check_ssh_connection">Check SSH connection</string>
 </resources>

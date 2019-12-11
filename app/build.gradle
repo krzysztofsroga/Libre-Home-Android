@@ -32,6 +32,10 @@ android {
     }
 }
 
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -61,5 +65,8 @@ dependencies {
 
     //SSH
     implementation 'com.jcraft:jsch:0.1.54'
+
+    //Language
+    implementation 'com.github.YarikSOffice:lingver:1.2.0'
 
 }

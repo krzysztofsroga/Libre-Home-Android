@@ -11,4 +11,14 @@
         <item>domoticz</item>
         <item>recent</item>
     </string-array>
+
+    <string-array name="language_entries">
+        <item>Polski</item>
+        <item>English</item>
+    </string-array>
+
+    <string-array name="language_values">
+        <item>pl</item>
+        <item>en</item>
+    </string-array>
 </resources>

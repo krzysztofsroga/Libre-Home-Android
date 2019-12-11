@@ -1,5 +1,6 @@
 package com.krzysztofsroga.librehome
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
@@ -7,7 +8,10 @@ import android.view.KeyEvent
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.EditTextPreference
+import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
+import com.yariksoffice.lingver.Lingver
+import java.util.*
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -30,14 +34,21 @@ class SettingsActivity : AppCompatActivity() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
-            val editTextPreference = preferenceManager.findPreference<EditTextPreference>("music_update")
-            editTextPreference?.setOnBindEditTextListener { editText ->
-                editText.inputType = InputType.TYPE_CLASS_NUMBER
+            preferenceManager.findPreference<EditTextPreference>("music_update")?.apply {
+                setOnBindEditTextListener { editText ->
+                    editText.inputType = InputType.TYPE_CLASS_NUMBER
+                }
+                setOnPreferenceChangeListener { _, newValue ->
+                    newValue is String && newValue.toInt() in 1..60 //TODO display error if not in range
+                }
             }
-            editTextPreference?.setOnPreferenceChangeListener { _, newValue ->
-                newValue is String && newValue.toInt() in 1..60 //TODO display error if not in range
+
+            preferenceManager.findPreference<ListPreference>("language")?.apply {
+                setOnPreferenceChangeListener { _, newValue ->
+                    Lingver.getInstance().setLocale(requireActivity().applicationContext, Locale(newValue as String))
+                    true
+                }
             }
         }
-
     }
 }

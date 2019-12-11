@@ -31,31 +31,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/switch_padding"
-                android:text="Light in kitchen" />
-
-        <Button
-                android:id="@+id/button_show_switches"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Show online switches" />
-
-        <Button
-                android:id="@+id/button_music"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Music control" />
+                android:text="@string/light_in_kitchen" />
 
         <Button
                 android:id="@+id/button_check_ssh_connection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Check SSH connection" />
+                android:text="@string/check_ssh_connection" />
 
         <Button
                 android:id="@+id/button_ssh_restart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Restart Raspberry PI" />
+                android:text="@string/restart_rpi" />
 
         <TextView
                 android:id="@+id/ssh_out"

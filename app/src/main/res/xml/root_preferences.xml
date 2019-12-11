@@ -45,6 +45,14 @@
                 app:title="@string/sorting_switches"
                 app:useSimpleSummaryProvider="true" />
 
+        <ListPreference
+                app:defaultValue="en"
+                app:entries="@array/language_entries"
+                app:entryValues="@array/language_values"
+                app:key="language"
+                app:title="@string/language"
+                app:useSimpleSummaryProvider="true" /> <!--TODO load default value from system-->
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/experimental">
