@@ -48,7 +48,7 @@ class SwitchGroupFragment : Fragment() {
 
         switchGroupViewModel.switchGroups.observe(viewLifecycleOwner, Observer { groups ->
             switch_group_list.adapter = SwitchGroupAdapter(groups,
-                onItemClick = { switchGroup, i ->
+                onItemClick = { switchGroup ->
                     showSwitchGroup(switchGroup)
                 },
                 onAddGroupClick = {
@@ -61,8 +61,8 @@ class SwitchGroupFragment : Fragment() {
 
     private fun showSwitchGroup(group: SwitchGroup) {
         Toast.makeText(context, "You selected ${group.name} which is ${group.description}!", Toast.LENGTH_SHORT).show()
-//        val intent = Intent(context, DogActivity::class.java).apply { TODO uncomment and fix
-//            putExtra(EXTRA_DOG_IDX, dogIdx)
+//        val intent = Intent(context, GroupActivity::class.java).apply { TODO uncomment and fix
+//            putExtra(EXTRA_GROUP_ID, group.id)
 //        }
 //        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle())
     }

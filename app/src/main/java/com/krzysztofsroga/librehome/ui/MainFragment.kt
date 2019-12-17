@@ -19,63 +19,67 @@ import kotlinx.android.synthetic.main.main_fragment.*
 
 
 class MainFragment : Fragment() {
-    companion object :
-        MainActivityFragmentFactory<MainFragment> {
-        override fun newInstance() = MainFragment()
-        override val name: String
-            get() = "Main screen"
+
+    private val sshViewModel: SshViewModel by lazy {
+        ViewModelProvider(requireActivity())[SshViewModel::class.java]
+    }
+    private val switchesViewModel: SwitchesViewModel by lazy {
+        ViewModelProvider(requireActivity())[SwitchesViewModel::class.java]
     }
 
-    private lateinit var sshViewModel: SshViewModel
-    private lateinit var switchesViewModel: SwitchesViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        sshViewModel = ViewModelProvider(requireActivity())[SshViewModel::class.java]
-        switchesViewModel = ViewModelProvider(requireActivity())[SwitchesViewModel::class.java]
 
         button_check_ssh_connection.setOnClickListener {
             sshViewModel.checkConnection()
         }
 
         button_ssh_restart.setOnClickListener {
-            AlertDialog.Builder(requireActivity()).apply {
-                setMessage(getString(R.string.restart_confirmation))
-                setPositiveButton(getString(R.string.restart)) { _, _ ->
-                    sshViewModel.restartRaspberry()
-                }
-                setNegativeButton(getString(R.string.cancel)) { _, _ -> }
-                create().show()
-            }
+            promptRestartRaspberry()
         }
+
+        switches_favorite_list.apply {
+            layoutManager = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                GridLayoutManager(context, 2)
+            } else {
+                LinearLayoutManager(context)
+            }
+            setHasFixedSize(true)
+        }
+
+        switchesViewModel.favoriteSwitches.observe(viewLifecycleOwner, Observer { favs ->
+            switches_favorite_list.adapter = SwitchListAdapter(favs, {
+                switchesViewModel.sendSwitchState(it)
+            }, {
+                switchesViewModel.removeFavorite(it)
+            }).apply { setHasStableIds(true) }
+        })
 
         sshViewModel.out.observe(viewLifecycleOwner, Observer { out ->
             ssh_out.text = out
         })
-
-        switchesViewModel.favoriteSwitches.observe(viewLifecycleOwner, Observer { favs ->
-            switches_favorite_list.apply {
-                layoutManager = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    GridLayoutManager(context, 2)
-                } else {
-                    LinearLayoutManager(context)
-                }
-                setHasFixedSize(true)
-                adapter = SwitchListAdapter(favs, {
-                    switchesViewModel.sendSwitchState(it)
-                }, {
-                    switchesViewModel.removeFavorite(it)
-                }).apply { setHasStableIds(true) }
-            }
-        })
     }
 
+    private fun promptRestartRaspberry() {
+        AlertDialog.Builder(requireActivity()).apply {
+            setMessage(getString(R.string.restart_confirmation))
+            setPositiveButton(getString(R.string.restart)) { _, _ ->
+                sshViewModel.restartRaspberry()
+            }
+            setNegativeButton(getString(R.string.cancel)) { _, _ -> }
+            create().show()
+        }
+    }
+
+    companion object :
+        MainActivityFragmentFactory<MainFragment> {
+        override fun newInstance() = MainFragment()
+        override val name: String
+            get() = "Main screen"
+    }
 
 }

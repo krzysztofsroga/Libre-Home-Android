@@ -19,14 +19,6 @@ import kotlinx.android.synthetic.main.switches_fragment.*
 
 
 class SwitchesFragment : Fragment() {
-
-    companion object :
-        MainActivityFragmentFactory<SwitchesFragment> {
-        override fun newInstance() = SwitchesFragment()
-        override val name: String
-            get() = "All Switches"
-    }
-
     private lateinit var viewModel: SwitchesViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -37,12 +29,6 @@ class SwitchesFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())[SwitchesViewModel::class.java] //getting viewmodel in activity scope so that all fragments in pager have access to it
 
-        initializeList()
-
-    }
-
-    private fun initializeList() {
-        Log.d("initialization", "initializing list")
         switches_list.apply {
             layoutManager = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 GridLayoutManager(context, 2)
@@ -52,6 +38,7 @@ class SwitchesFragment : Fragment() {
             setHasFixedSize(true)
 
         }
+
         viewModel.switches.observe(viewLifecycleOwner, Observer { switches ->
             switches_list.adapter = SwitchListAdapter(switches, {
                 viewModel.sendSwitchState(it)
@@ -64,5 +51,13 @@ class SwitchesFragment : Fragment() {
             }
 
         })
+
+    }
+
+    companion object :
+        MainActivityFragmentFactory<SwitchesFragment> {
+        override fun newInstance() = SwitchesFragment()
+        override val name: String
+            get() = "All Switches"
     }
 }

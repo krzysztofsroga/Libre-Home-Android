@@ -1,4 +1,4 @@
-package com.krzysztofsroga.librehome.ui.switches
+package com.krzysztofsroga.librehome.models
 
 import com.krzysztofsroga.librehome.connection.OnlineSwitches
 

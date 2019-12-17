@@ -5,8 +5,8 @@ import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.result.Result
 import com.google.gson.GsonBuilder
-import com.krzysztofsroga.librehome.ui.switches.DomoticzSwitches
-import com.krzysztofsroga.librehome.ui.switches.LightSwitch
+import com.krzysztofsroga.librehome.models.DomoticzSwitches
+import com.krzysztofsroga.librehome.models.LightSwitch
 
 
 class OnlineSwitches {
@@ -19,7 +19,7 @@ class OnlineSwitches {
         val cmd = if (lightSwitch.enabled) if (lightSwitch is LightSwitch.DimmableSwitch) "Set%20Level&level=${lightSwitch.dim}" else "On" else "Off"
 
 //        val cmd = if (lightSwitch.enabled) "On" else "Off"
-        val path = "json.htm?type=command&param=switchlight&idx=${lightSwitch.id}&switchcmd=$cmd"
+        val path = "json.htm?type=command&param=switchlight&idx=${lightSwitch.id}&switchcmd=$cmd" //TODO pass parameters
         Log.d(logTag, path)
         Fuel.get(path).responseString { _, _, result ->
             when (result) {
@@ -35,7 +35,8 @@ class OnlineSwitches {
 
     fun getAllSwitches(callback: (List<LightSwitch>) -> Unit) {
         val logTag = "switches-get-domoticz"
-        Fuel.get("json.htm?type=devices&filter=lights&used=true&order=Name").responseString { _, _, result ->
+        val path = "json.htm?type=devices&filter=lights&used=true&order=Name"
+        Fuel.get(path).responseString { _, _, result ->
             when (result) {
                 is Result.Failure -> {
                     Log.e(logTag, "failed: ${result.error}")

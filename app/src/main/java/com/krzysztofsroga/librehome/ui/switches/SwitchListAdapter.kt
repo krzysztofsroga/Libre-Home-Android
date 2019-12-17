@@ -8,6 +8,7 @@ import android.widget.SeekBar
 import android.widget.Switch
 import androidx.recyclerview.widget.RecyclerView
 import com.krzysztofsroga.librehome.R
+import com.krzysztofsroga.librehome.models.LightSwitch
 import kotlinx.android.synthetic.main.switch_entry.view.*
 
 class SwitchListAdapter(private val lightSwitchList: List<LightSwitch>, private val callback: (LightSwitch) -> Unit, private val longCallback: (LightSwitch) -> Unit) :
@@ -20,7 +21,7 @@ class SwitchListAdapter(private val lightSwitchList: List<LightSwitch>, private 
     override fun getItemCount(): Int = lightSwitchList.size
 
     override fun onBindViewHolder(holder: SwitchViewHolder, position: Int) {
-        holder.initialize(lightSwitchList[position], callback, longCallback)
+        holder.loadSwitch(lightSwitchList[position], callback, longCallback)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -33,7 +34,7 @@ class SwitchListAdapter(private val lightSwitchList: List<LightSwitch>, private 
         private val seekBar: SeekBar = view.switchSeekBar
         private val icon: ImageView = view.lightIcon
 
-        fun initialize(lightSwitch: LightSwitch, callback: (LightSwitch) -> Unit, longCallback: (LightSwitch) -> Unit) {
+        fun loadSwitch(lightSwitch: LightSwitch, callback: (LightSwitch) -> Unit, longCallback: (LightSwitch) -> Unit) {
             switch.text = lightSwitch.name
             switch.isChecked = lightSwitch.enabled
             seekBar.visibility = if (lightSwitch is LightSwitch.DimmableSwitch) {

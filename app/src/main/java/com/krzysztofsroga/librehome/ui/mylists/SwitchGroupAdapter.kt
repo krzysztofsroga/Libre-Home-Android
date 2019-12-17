@@ -16,9 +16,9 @@ import kotlinx.android.synthetic.main.switch_group_entry.view.*
 import java.io.File
 
 class SwitchGroupAdapter(
-    val switchGroupList: List<SwitchGroup>,
-    val onItemClick: (SwitchGroup, Int) -> Unit = { _, _ -> },
-    val onAddGroupClick: () -> Unit = {}
+    private val switchGroupList: List<SwitchGroup>,
+    private val onItemClick: (SwitchGroup) -> Unit = { _ -> },
+    private val onAddGroupClick: () -> Unit = {}
 ) : RecyclerView.Adapter<SwitchGroupAdapter.GroupViewHolder>() {
 
 
@@ -40,7 +40,7 @@ class SwitchGroupAdapter(
         when (holder) {
             is GroupViewHolder.Group -> {
                 holder.card.setOnClickListener {
-                    onItemClick(switchGroupList[position], position)
+                    onItemClick(switchGroupList[position])
                 }
                 holder.description.text = switchGroupList[position].description
                 holder.name.text = switchGroupList[position].name

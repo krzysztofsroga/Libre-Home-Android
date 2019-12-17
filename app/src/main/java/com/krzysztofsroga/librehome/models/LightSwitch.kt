@@ -1,4 +1,4 @@
-package com.krzysztofsroga.librehome.ui.switches
+package com.krzysztofsroga.librehome.models
 
 import com.google.gson.*
 import java.lang.reflect.Type
@@ -17,7 +17,6 @@ sealed class LightSwitch(
     class DimmableSwitch(name: String, enabled: Boolean = false, var dim: Int = 100, id: Int? = null) : LightSwitch(name, enabled, id) {
         override fun toString(): String = "DimmableSwitch(name=$name, enabled=$enabled, dim=$dim)"
     }
-    //TODO think if dimmable and other features shouldn't be interfaces. But then it'll be a lot harder to deserialize them
 
     companion object JsonSerialization : JsonDeserializer<LightSwitch>, JsonSerializer<LightSwitch> {
         override fun serialize(src: LightSwitch, typeOfSrc: Type, context: JsonSerializationContext): JsonElement {

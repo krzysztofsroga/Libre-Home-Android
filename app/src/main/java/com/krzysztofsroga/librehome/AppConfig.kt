@@ -17,5 +17,7 @@ object AppConfig {
     object PrefKeys {
         const val HOST = "host"
         const val SSH_PASSWORD = "ssh_password"
+        const val LANGUAGE = "language"
+        const val MUSIC_UPDATE = "music_update"
     }
 }
