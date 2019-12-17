@@ -3,13 +3,14 @@ package com.krzysztofsroga.librehome.ui.switches
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
+import com.krzysztofsroga.librehome.SwitchesRoomDatabase
 import com.krzysztofsroga.librehome.connection.OnlineSwitches
 import kotlinx.coroutines.launch
 
 
 class SwitchesViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val favoriteDao = FavoriteRoomDatabase.getDatabase(getApplication()).favoriteDao()
+    private val favoriteDao = SwitchesRoomDatabase.getDatabase(getApplication()).favoriteDao()
 
     private val onlineSwitches: OnlineSwitches = OnlineSwitches()
 
