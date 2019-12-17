@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.krzysztofsroga.librehome.MainActivityFragmentFactory
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.databinding.MainFragmentBinding
 import com.krzysztofsroga.librehome.ui.switches.LightSwitch
@@ -17,7 +16,8 @@ import kotlinx.android.synthetic.main.main_fragment.*
 
 
 class MainFragment : Fragment() {
-    companion object : MainActivityFragmentFactory<MainFragment> {
+    companion object :
+        MainActivityFragmentFactory<MainFragment> {
         override fun newInstance() = MainFragment()
         override val name: String
             get() = "Main screen"

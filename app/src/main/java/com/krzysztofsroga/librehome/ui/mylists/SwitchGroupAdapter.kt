@@ -10,7 +10,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.krzysztofsroga.librehome.R
-import com.krzysztofsroga.librehome.isEven
+import com.krzysztofsroga.librehome.utils.isEven
 import kotlinx.android.synthetic.main.switch_group_entry.view.*
 
 class SwitchGroupAdapter(

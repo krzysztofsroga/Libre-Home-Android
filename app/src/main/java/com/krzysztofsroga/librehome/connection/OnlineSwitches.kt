@@ -1,12 +1,12 @@
-package com.krzysztofsroga.librehome.ui.switches
+package com.krzysztofsroga.librehome.connection
 
 import android.util.Log
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.result.Result
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.krzysztofsroga.librehome.InternetConfiguration
+import com.krzysztofsroga.librehome.ui.switches.DomoticzSwitches
+import com.krzysztofsroga.librehome.ui.switches.LightSwitch
 
 
 class OnlineSwitches {

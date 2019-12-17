@@ -1,4 +1,4 @@
-package com.krzysztofsroga.librehome.ui
+package com.krzysztofsroga.librehome.connection
 
 import android.content.SharedPreferences
 import android.util.Log
