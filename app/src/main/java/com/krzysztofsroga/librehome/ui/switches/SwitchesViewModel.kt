@@ -44,4 +44,10 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
+    fun removeFavorite(switch: LightSwitch) {
+        viewModelScope.launch {
+            favoriteDao.delete(FavoriteSwitch(switch.id!!)) //TODO id null safety
+        }
+    }
+
 }

@@ -26,18 +26,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/switch_padding"
-                android:text="SSH out" />
+                tools:text="SSH out" />
 
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="@dimen/switch_padding"
                 android:text="@string/favorite_switches" />
-
-        <TextView
-                android:id="@+id/fav"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="favorite switches" />
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/switches_favorite_list"
