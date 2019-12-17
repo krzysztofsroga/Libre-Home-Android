@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.krzysztofsroga.librehome.R
 import kotlinx.android.synthetic.main.switch_entry.view.*
 
-class SwitchListAdapter(private val lightSwitchList: List<LightSwitch>, private val callback: (LightSwitch) -> Unit) :
+class SwitchListAdapter(private val lightSwitchList: List<LightSwitch>, private val callback: (LightSwitch) -> Unit, private val longCallback: (LightSwitch) -> Unit) :
     RecyclerView.Adapter<SwitchListAdapter.SwitchViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SwitchViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.switch_entry, parent, false)
@@ -20,7 +20,7 @@ class SwitchListAdapter(private val lightSwitchList: List<LightSwitch>, private 
     override fun getItemCount(): Int = lightSwitchList.size
 
     override fun onBindViewHolder(holder: SwitchViewHolder, position: Int) {
-        holder.initialize(lightSwitchList[position], callback)
+        holder.initialize(lightSwitchList[position], callback, longCallback)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -33,7 +33,7 @@ class SwitchListAdapter(private val lightSwitchList: List<LightSwitch>, private 
         private val seekBar: SeekBar = view.switchSeekBar
         private val icon: ImageView = view.lightIcon
 
-        fun initialize(lightSwitch: LightSwitch, callback: (LightSwitch) -> Unit) {
+        fun initialize(lightSwitch: LightSwitch, callback: (LightSwitch) -> Unit, longCallback: (LightSwitch) -> Unit) {
             switch.text = lightSwitch.name
             switch.isChecked = lightSwitch.enabled
             seekBar.visibility = if (lightSwitch is LightSwitch.DimmableSwitch) {
@@ -48,6 +48,10 @@ class SwitchListAdapter(private val lightSwitchList: List<LightSwitch>, private 
             switch.setOnClickListener {
                 lightSwitch.enabled = switch.isChecked //TODO setOnCheckedChangeListener
                 callback(lightSwitch)
+            }
+            switch.setOnLongClickListener {
+                longCallback(lightSwitch)
+                true
             }
             seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {
