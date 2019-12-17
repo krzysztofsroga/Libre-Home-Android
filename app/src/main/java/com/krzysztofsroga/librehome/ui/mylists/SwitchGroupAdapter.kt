@@ -20,7 +20,6 @@ class SwitchGroupAdapter(
 ) : RecyclerView.Adapter<SwitchGroupAdapter.GroupViewHolder>() {
 
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
         return if (viewType == 1) {
             GroupViewHolder.AddGroup(LayoutInflater.from(parent.context).inflate(R.layout.add_group_entry, parent, false))
@@ -60,6 +59,7 @@ class SwitchGroupAdapter(
         val layout: LinearLayout = view.group_entry_linear_layout as LinearLayout
         val card: CardView = view as CardView
         val photo: ImageView = view.group_entry_photo
+
         class AddGroup(view: View) : GroupViewHolder(view)
         class Group(view: View) : GroupViewHolder(view) {
             val name: TextView = view.group_entry_name

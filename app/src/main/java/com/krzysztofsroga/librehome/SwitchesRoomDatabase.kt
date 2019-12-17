@@ -8,7 +8,7 @@ import com.krzysztofsroga.librehome.ui.switches.FavoriteDao
 import com.krzysztofsroga.librehome.ui.switches.FavoriteSwitch
 
 @Database(entities = [FavoriteSwitch::class], version = 1)
-abstract class SwitchesRoomDatabase: RoomDatabase() {
+abstract class SwitchesRoomDatabase : RoomDatabase() {
     abstract fun favoriteDao(): FavoriteDao
 
     companion object {

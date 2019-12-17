@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 
+//https://stackoverflow.com/questions/14323661/simple-ssh-connect-with-jsch
 @UseExperimental(ExperimentalCoroutinesApi::class)
 class SshConnection(prefs: SharedPreferences) {
     private val host = prefs.getString(AppConfig.PrefKeys.HOST, InternetConfiguration.defaultDomoticzHostname)

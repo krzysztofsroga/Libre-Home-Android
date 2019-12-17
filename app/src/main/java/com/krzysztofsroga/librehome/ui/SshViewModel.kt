@@ -1,13 +1,15 @@
 package com.krzysztofsroga.librehome.ui
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import androidx.preference.PreferenceManager
 import com.krzysztofsroga.librehome.connection.SshConnection
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-//https://stackoverflow.com/questions/14323661/simple-ssh-connect-with-jsch
 class SshViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _out: MutableLiveData<String> = MutableLiveData()

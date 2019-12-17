@@ -21,8 +21,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         var jumpPosition = -1
 
         override fun onPageScrollStateChanged(state: Int) {
-            if(state == ViewPager.SCROLL_STATE_IDLE && jumpPosition >= 0) {
-                pager.setCurrentItem(jumpPosition, false);
+            if (state == ViewPager.SCROLL_STATE_IDLE && jumpPosition >= 0) {
+                pager.setCurrentItem(jumpPosition, false)
                 jumpPosition = -1
             }
         }

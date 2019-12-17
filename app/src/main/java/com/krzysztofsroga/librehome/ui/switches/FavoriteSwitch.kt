@@ -6,7 +6,8 @@ import androidx.room.*
 @Entity(tableName = "favorites")
 data class FavoriteSwitch(@PrimaryKey val id: Int)
 
-@Dao interface FavoriteDao {
+@Dao
+interface FavoriteDao {
     @Query("SELECT * from favorites")
     fun getAllFavorites(): LiveData<List<FavoriteSwitch>>
 

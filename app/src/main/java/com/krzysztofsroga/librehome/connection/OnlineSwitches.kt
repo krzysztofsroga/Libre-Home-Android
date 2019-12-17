@@ -16,7 +16,7 @@ class OnlineSwitches {
 
     fun sendSwitchState(lightSwitch: LightSwitch) {
         val logTag = "switches-post"
-        val cmd = if (lightSwitch.enabled) if(lightSwitch is LightSwitch.DimmableSwitch) "Set%20Level&level=${lightSwitch.dim}" else "On" else "Off"
+        val cmd = if (lightSwitch.enabled) if (lightSwitch is LightSwitch.DimmableSwitch) "Set%20Level&level=${lightSwitch.dim}" else "On" else "Off"
 
 //        val cmd = if (lightSwitch.enabled) "On" else "Off"
         val path = "json.htm?type=command&param=switchlight&idx=${lightSwitch.id}&switchcmd=$cmd"

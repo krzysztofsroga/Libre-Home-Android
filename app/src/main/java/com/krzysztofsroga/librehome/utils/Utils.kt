@@ -1,6 +1,9 @@
 package com.krzysztofsroga.librehome.utils
 
-import kotlin.time.*
+import kotlin.time.ClockMark
+import kotlin.time.Duration
+import kotlin.time.ExperimentalTime
+import kotlin.time.MonoClock
 
 @UseExperimental(ExperimentalTime::class)
 object FunctionTimer {

@@ -5,21 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.krzysztofsroga.librehome.R
-import com.krzysztofsroga.librehome.databinding.MainFragmentBinding
-import com.krzysztofsroga.librehome.ui.switches.LightSwitch
 import com.krzysztofsroga.librehome.ui.switches.SwitchListAdapter
 import com.krzysztofsroga.librehome.ui.switches.SwitchesViewModel
 import kotlinx.android.synthetic.main.main_fragment.*
-import kotlinx.android.synthetic.main.switches_fragment.*
 
 
 class MainFragment : Fragment() {

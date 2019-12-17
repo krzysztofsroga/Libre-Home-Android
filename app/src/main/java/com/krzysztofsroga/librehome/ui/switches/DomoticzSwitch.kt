@@ -2,7 +2,7 @@ package com.krzysztofsroga.librehome.ui.switches
 
 import com.krzysztofsroga.librehome.connection.OnlineSwitches
 
-class DomoticzSwitch (
+class DomoticzSwitch(
     val Name: String,
     val idx: Int,
     val SwitchType: String,
@@ -18,7 +18,7 @@ class DomoticzSwitch (
     }
 }
 
-data class DomoticzSwitches (
+data class DomoticzSwitches(
     val result: List<DomoticzSwitch>
 ) {
     fun toSwitchStatesModel(): OnlineSwitches.SwitchStatesModel {
