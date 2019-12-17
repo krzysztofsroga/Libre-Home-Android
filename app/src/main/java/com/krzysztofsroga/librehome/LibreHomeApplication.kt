@@ -5,7 +5,7 @@ import com.yariksoffice.lingver.Lingver
 
 class LibreHomeApplication : Application() {
     override fun onCreate() {
-        Lingver.init(this)
         super.onCreate()
+        Lingver.init(this)
     }
 }
