@@ -38,8 +38,8 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        sshViewModel = ViewModelProvider(requireActivity()).get(SshViewModel::class.java)
-        switchesViewModel = ViewModelProvider(requireActivity()).get(SwitchesViewModel::class.java)
+        sshViewModel = ViewModelProvider(requireActivity())[SshViewModel::class.java]
+        switchesViewModel = ViewModelProvider(requireActivity())[SwitchesViewModel::class.java]
 
         button_check_ssh_connection.setOnClickListener {
             sshViewModel.checkConnection()

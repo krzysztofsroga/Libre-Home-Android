@@ -10,9 +10,12 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.signature.ObjectKey
 import com.krzysztofsroga.librehome.R
+import com.krzysztofsroga.librehome.viewmodels.NewGroupViewModel
 import kotlinx.android.synthetic.main.activity_new_group.*
 import java.io.File
 import java.io.FileOutputStream
@@ -26,26 +29,35 @@ class NewGroupActivity : AppCompatActivity() {
 
     private val tmpFile: File by lazy { File(filesDir, "tmp.jpg") }
 
+    private val newGroupViewModel: NewGroupViewModel by lazy {
+        ViewModelProvider(this)[NewGroupViewModel::class.java]
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_group)
         title = getString(R.string.new_group)
+
         new_group_photo.setOnClickListener {
-            val i = Intent(
-                Intent.ACTION_PICK,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-            )
+            val i = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivityForResult(i, RESULT_LOAD_IMAGE)
         }
+
         button_done.setOnClickListener {
             if (validateFields()) {
                 saveData()
                 finish()
             }
         }
+
         button_cancel.setOnClickListener {
             finish()
         }
+
+        newGroupViewModel.tmpImagePath.observe(this, Observer {file ->
+            if (file == null) return@Observer
+            Glide.with(this).load(file).signature(ObjectKey(System.currentTimeMillis().toString())).into(new_group_photo)
+        })
     }
 
     override fun onActivityResult(
@@ -57,7 +69,7 @@ class NewGroupActivity : AppCompatActivity() {
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && null != data) {
             val selectedImage: Uri = data.data!!
             uriToBitmap(selectedImage).scale(512, 512).saveAsJpeg(tmpFile)
-            Glide.with(this).load(tmpFile).signature(ObjectKey(System.currentTimeMillis().toString())).into(new_group_photo)
+            newGroupViewModel.tmpImagePath.value = tmpFile
         }
     }
 
@@ -86,7 +98,6 @@ class NewGroupActivity : AppCompatActivity() {
             edit_group_name.error = getString(R.string.field_required)
             success = false
         }
-        //TODO check if group image is loaded!
 
         return success
     }
