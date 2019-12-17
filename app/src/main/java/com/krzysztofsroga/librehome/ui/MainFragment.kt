@@ -13,7 +13,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.ui.switches.SwitchListAdapter
-import com.krzysztofsroga.librehome.ui.switches.SwitchesViewModel
+import com.krzysztofsroga.librehome.viewmodels.SwitchesViewModel
+import com.krzysztofsroga.librehome.viewmodels.SshViewModel
 import kotlinx.android.synthetic.main.main_fragment.*
 
 

@@ -1,4 +1,4 @@
-package com.krzysztofsroga.librehome.ui
+package com.krzysztofsroga.librehome.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

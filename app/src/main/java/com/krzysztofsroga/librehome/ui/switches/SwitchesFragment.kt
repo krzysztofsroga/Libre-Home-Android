@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.ui.MainActivityFragmentFactory
+import com.krzysztofsroga.librehome.viewmodels.SwitchesViewModel
 import kotlinx.android.synthetic.main.switches_fragment.*
 
 
@@ -28,12 +29,7 @@ class SwitchesFragment : Fragment() {
 
     private lateinit var viewModel: SwitchesViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        //TODO databinding
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.switches_fragment, container, false)
     }
 

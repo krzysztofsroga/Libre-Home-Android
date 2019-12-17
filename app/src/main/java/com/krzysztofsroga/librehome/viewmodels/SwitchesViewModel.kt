@@ -1,4 +1,4 @@
-package com.krzysztofsroga.librehome.ui.switches
+package com.krzysztofsroga.librehome.viewmodels
 
 import android.app.Application
 import android.util.Log
@@ -6,6 +6,7 @@ import androidx.lifecycle.*
 import com.krzysztofsroga.librehome.database.SwitchesRoomDatabase
 import com.krzysztofsroga.librehome.connection.OnlineSwitches
 import com.krzysztofsroga.librehome.database.FavoriteSwitch
+import com.krzysztofsroga.librehome.ui.switches.LightSwitch
 import kotlinx.coroutines.launch
 
 

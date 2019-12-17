@@ -1,7 +1,8 @@
-package com.krzysztofsroga.librehome.ui.mylists
+package com.krzysztofsroga.librehome.viewmodels
 
 import androidx.lifecycle.ViewModel
 import com.krzysztofsroga.librehome.R
+import com.krzysztofsroga.librehome.ui.mylists.OldSwitchGroup
 
 class SwitchGroupViewModel : ViewModel() {
     val switchGroupList: List<OldSwitchGroup> = listOf(
