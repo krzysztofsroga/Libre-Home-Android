@@ -1,40 +1,36 @@
 package com.krzysztofsroga.librehome.ui.mylists
 
-import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.Bitmap.CompressFormat
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import com.bumptech.glide.Glide
+import com.bumptech.glide.signature.ObjectKey
 import com.krzysztofsroga.librehome.R
 import kotlinx.android.synthetic.main.activity_new_group.*
+import java.io.File
+import java.io.FileOutputStream
 
 
 class NewGroupActivity : AppCompatActivity() {
+
     companion object {
         private const val RESULT_LOAD_IMAGE = 1
-
-        private const val REQUEST_EXTERNAL_STORAGE = 1
-        private val PERMISSIONS_STORAGE = arrayOf(
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
     }
 
-
+    private val outFile: File by lazy { File(filesDir, "tmp.jpg") }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_group)
         title = getString(R.string.new_group)
         new_group_photo.setOnClickListener {
-//            verifyStoragePermissions(this)
-
             val i = Intent(
                 Intent.ACTION_PICK,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI
@@ -50,45 +46,30 @@ class NewGroupActivity : AppCompatActivity() {
     ) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && null != data) {
-            val selectedImage: Uri? = data.data
-            Glide.with(this).load(selectedImage).into(new_group_photo)
-        }
-//        if (requestCode == RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && null != data) {
-//            val selectedImage: Uri? = data.data
-//            val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
-//            val cursor: Cursor = contentResolver.query(
-//                selectedImage!!,
-//                filePathColumn, null, null, null
-//            )!!
-//            cursor.moveToFirst()
-//            val columnIndex: Int = cursor.getColumnIndex(filePathColumn[0])
-//            val picturePath: String = cursor.getString(columnIndex)
-//            hello.setText(picturePath)
-//            cursor.close()
-//            vm.getsth(File(picturePath))
-//        }
-    }
-
-    private fun getRealPathFromURI(contentUri: Uri): String? {
-        return contentResolver.query(contentUri, arrayOf(MediaStore.Images.Media.DATA), null, null, null)?.use { cursor ->
-            val columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-            cursor.moveToFirst()
-            cursor.getString(columnIndex)
+            val selectedImage: Uri = data.data!!
+            uriToBitmap(selectedImage).scale(512, 512).saveAsJpeg(outFile)
+            Glide.with(this).load(outFile).signature(ObjectKey(System.currentTimeMillis().toString())).into(new_group_photo)
         }
     }
 
-
-    fun verifyStoragePermissions(activity: Activity?) { // Check if we have write permission
-        val permission = ActivityCompat.checkSelfPermission(
-            activity!!,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
-        if (permission != PackageManager.PERMISSION_GRANTED) { // We don't have permission so prompt the user
-            ActivityCompat.requestPermissions(
-                activity,
-                PERMISSIONS_STORAGE,
-                REQUEST_EXTERNAL_STORAGE
-            )
-        }
+    private fun Bitmap.scale(xRes: Int, yRes: Int): Bitmap { //TODO scale proportional and crop
+        return Bitmap.createScaledBitmap(this, xRes, yRes, true)
     }
+
+    private fun Bitmap.saveAsJpeg(file: File) {
+        file.delete()
+        file.createNewFile()
+        val ostream = FileOutputStream(file)
+        compress(CompressFormat.JPEG, 90, ostream)
+        ostream.close()
+    }
+
+    @SuppressWarnings("deprecation")
+    private fun uriToBitmap(uri: Uri) = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        ImageDecoder.decodeBitmap(ImageDecoder.createSource(this.contentResolver, uri))
+    } else {
+        MediaStore.Images.Media.getBitmap(contentResolver, uri)
+
+    }
+
 }
