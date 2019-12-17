@@ -1,12 +1,12 @@
 package com.krzysztofsroga.librehome.ui.switches
 
+import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.krzysztofsroga.librehome.connection.OnlineSwitches
+import kotlinx.coroutines.launch
 
-class SwitchesViewModel : ViewModel() {
+class SwitchesViewModel(application: Application) : AndroidViewModel(application) {
 
     private val onlineSwitches: OnlineSwitches =
         OnlineSwitches() //TODO move to viewmodel
@@ -16,6 +16,10 @@ class SwitchesViewModel : ViewModel() {
     val switches : LiveData<List<LightSwitch>>
         get() = _switches
 
+    private val _favoriteIds = MutableLiveData<List<Int>>()
+
+    val favoriteIds: LiveData<List<Int>>
+        get() = _favoriteIds
 
     init {
         onlineSwitches.initialize()
@@ -27,5 +31,19 @@ class SwitchesViewModel : ViewModel() {
 
     fun sendSwitchState(switch: LightSwitch) {
         onlineSwitches.sendSwitchState(switch)
+    }
+
+    fun addFavorite(switch: LightSwitch) {
+        viewModelScope.launch {
+            FavoriteRoomDatabase.getDatabase(getApplication()).favoriteDao().update(FavoriteSwitch(switch.id!!)) //TODO id null safety
+        }
+    }
+
+
+    fun getFavoritesIds() {
+        viewModelScope.launch {
+            _favoriteIds.postValue(FavoriteRoomDatabase.getDatabase(getApplication()).favoriteDao().getAllFavorites().map { it.id })
+        }
+
     }
 }

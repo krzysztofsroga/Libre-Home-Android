@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context=".ui.switches.SwitchesFragment">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+        android:id="@+id/fav"
+        android:text="favorite switches"/>
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/switches_list"
@@ -16,4 +23,4 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-</FrameLayout>
+</LinearLayout>

@@ -60,9 +60,14 @@ class SwitchesFragment : Fragment() {
                     viewModel.sendSwitchState(it)
                 }, {
                     Toast.makeText(context, "Switch '${it.name}' is added to favorites!", Toast.LENGTH_SHORT).show()
+                    viewModel.addFavorite(it)
                 }).apply { setHasStableIds(true) }
             }
         })
+        viewModel.favoriteIds.observe(viewLifecycleOwner, Observer { favs ->
+            fav.text = favs.joinToString(", ")
+        })
+        viewModel.getFavoritesIds()
 
     }
 
