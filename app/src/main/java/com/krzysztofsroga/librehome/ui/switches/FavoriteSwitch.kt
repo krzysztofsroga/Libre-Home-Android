@@ -9,10 +9,10 @@ data class FavoriteSwitch(@PrimaryKey val id: Int)
 
 @Dao interface FavoriteDao {
     @Query("SELECT * from favorites")
-    suspend fun getAllFavorites(): List<FavoriteSwitch>
+    fun getAllFavorites(): LiveData<List<FavoriteSwitch>>
 
-    @Update
-    suspend fun update(favoriteSwitch: FavoriteSwitch)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(favoriteSwitch: FavoriteSwitch)
 
     @Delete
     suspend fun delete(favoriteSwitch: FavoriteSwitch)

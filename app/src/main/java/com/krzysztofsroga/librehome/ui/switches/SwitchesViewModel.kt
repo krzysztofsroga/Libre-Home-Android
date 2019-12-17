@@ -18,8 +18,7 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
 
     private val _favoriteIds = MutableLiveData<List<Int>>()
 
-    val favoriteIds: LiveData<List<Int>>
-        get() = _favoriteIds
+    val favoriteIds: LiveData<List<FavoriteSwitch>> = FavoriteRoomDatabase.getDatabase(getApplication()).favoriteDao().getAllFavorites()
 
     init {
         onlineSwitches.initialize()
@@ -35,15 +34,8 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
 
     fun addFavorite(switch: LightSwitch) {
         viewModelScope.launch {
-            FavoriteRoomDatabase.getDatabase(getApplication()).favoriteDao().update(FavoriteSwitch(switch.id!!)) //TODO id null safety
+            FavoriteRoomDatabase.getDatabase(getApplication()).favoriteDao().insert(FavoriteSwitch(switch.id!!)) //TODO id null safety
         }
     }
 
-
-    fun getFavoritesIds() {
-        viewModelScope.launch {
-            _favoriteIds.postValue(FavoriteRoomDatabase.getDatabase(getApplication()).favoriteDao().getAllFavorites().map { it.id })
-        }
-
-    }
 }
