@@ -50,7 +50,7 @@ class SwitchGroupFragment : Fragment() {
         }
     }
 
-    private fun showSwitchGroup(group: SwitchGroup, groupIdx: Int) {
+    private fun showSwitchGroup(group: OldSwitchGroup, groupIdx: Int) {
         Toast.makeText(context, "You selected ${group.name} which is ${group.description}!", Toast.LENGTH_SHORT).show()
 //        val intent = Intent(context, DogActivity::class.java).apply { TODO uncomment and fix
 //            putExtra(EXTRA_DOG_IDX, dogIdx)

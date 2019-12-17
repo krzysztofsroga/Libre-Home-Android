@@ -1,15 +1,14 @@
-package com.krzysztofsroga.librehome
+package com.krzysztofsroga.librehome.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.krzysztofsroga.librehome.ui.switches.FavoriteDao
-import com.krzysztofsroga.librehome.ui.switches.FavoriteSwitch
 
 @Database(entities = [FavoriteSwitch::class], version = 1)
 abstract class SwitchesRoomDatabase : RoomDatabase() {
-    abstract fun favoriteDao(): FavoriteDao
+    abstract val favoriteDao: FavoriteSwitchDao
+    abstract val switchGroupDao: SwitchGroupDao
 
     companion object {
         @Volatile

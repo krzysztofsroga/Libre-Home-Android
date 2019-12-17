@@ -39,9 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:itemCount="4"
-                tools:listitem="@layout/switch_entry">
-
-        </androidx.recyclerview.widget.RecyclerView>
+                tools:listitem="@layout/switch_entry" />
 
     </LinearLayout>
 </layout>

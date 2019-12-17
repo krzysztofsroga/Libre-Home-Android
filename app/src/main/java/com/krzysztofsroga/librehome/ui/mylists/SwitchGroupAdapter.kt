@@ -14,8 +14,8 @@ import com.krzysztofsroga.librehome.utils.isEven
 import kotlinx.android.synthetic.main.switch_group_entry.view.*
 
 class SwitchGroupAdapter(
-    val switchGroupList: List<SwitchGroup>,
-    val onItemClick: (SwitchGroup, Int) -> Unit = { _, _ -> },
+    val switchGroupList: List<OldSwitchGroup>,
+    val onItemClick: (OldSwitchGroup, Int) -> Unit = { _, _ -> },
     val onAddGroupClick: () -> Unit = {}
 ) : RecyclerView.Adapter<SwitchGroupAdapter.GroupViewHolder>() {
 

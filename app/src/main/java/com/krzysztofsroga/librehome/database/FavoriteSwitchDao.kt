@@ -1,4 +1,4 @@
-package com.krzysztofsroga.librehome.ui.switches
+package com.krzysztofsroga.librehome.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
@@ -7,7 +7,7 @@ import androidx.room.*
 data class FavoriteSwitch(@PrimaryKey val id: Int)
 
 @Dao
-interface FavoriteDao {
+interface FavoriteSwitchDao {
     @Query("SELECT * from favorites")
     fun getAllFavorites(): LiveData<List<FavoriteSwitch>>
 
