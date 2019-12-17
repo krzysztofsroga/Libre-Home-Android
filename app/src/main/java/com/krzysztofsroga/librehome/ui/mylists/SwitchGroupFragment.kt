@@ -1,5 +1,6 @@
 package com.krzysztofsroga.librehome.ui.mylists
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -46,7 +47,7 @@ class SwitchGroupFragment : Fragment() {
                     showSwitchGroup(switchGroup, i)
                 },
                 onAddGroupClick = {
-                    showSwitchGroup(TODO(), -1)
+                    startActivity(Intent(activity, NewGroupActivity::class.java))
                 })
         }
     }

@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools"  tools:ignore="MissingTranslation"> <!--TODO remove ignore missing translations-->
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation"> <!--TODO remove ignore missing translations-->
     <string name="app_name">Libre Home</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -36,4 +36,9 @@
     <string name="restart_rpi">Restart Raspberry PI</string>
     <string name="check_ssh_connection">Check SSH connection</string>
     <string name="favorite_switches">Favorite Switches:</string>
+    <string name="select_group_photo">Select group photo</string>
+    <string name="group_name">Group name</string>
+    <string name="group_description">Group description</string>
+    <string name="done">Done</string>
+    <string name="new_group">New Group</string>
 </resources>

@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [FavoriteSwitch::class, SwitchGroup::class], version = 1)
+@Database(entities = [FavoriteSwitch::class, SwitchGroup::class], version = 2)
 abstract class SwitchesRoomDatabase : RoomDatabase() {
     abstract val favoriteDao: FavoriteSwitchDao
     abstract val switchGroupDao: SwitchGroupDao
@@ -24,7 +24,7 @@ abstract class SwitchesRoomDatabase : RoomDatabase() {
                     context.applicationContext,
                     SwitchesRoomDatabase::class.java,
                     "favorites_database"
-                ).build()
+                ).fallbackToDestructiveMigration().build() //TODO when stable version, don't fallback to destructive mgration
                 INSTANCE = instance
                 return instance
             }
