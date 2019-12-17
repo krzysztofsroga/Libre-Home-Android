@@ -14,10 +14,6 @@ object AppConfig {
         SwitchGroupFragment
     )
 
-    const val sshPort = 22
-    const val rPiUsername = "pi"
-    const val defaultDomoticzHostname = "domoticz"  //"192.168.2.191"
-
     object PrefKeys {
         const val HOST = "host"
         const val SSH_PASSWORD = "ssh_password"

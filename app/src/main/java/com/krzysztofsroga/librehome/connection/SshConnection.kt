@@ -15,10 +15,10 @@ import java.io.ByteArrayOutputStream
 
 @UseExperimental(ExperimentalCoroutinesApi::class)
 class SshConnection(prefs: SharedPreferences) {
-    private val host = prefs.getString(AppConfig.PrefKeys.HOST, AppConfig.defaultDomoticzHostname)
+    private val host = prefs.getString(AppConfig.PrefKeys.HOST, InternetConfiguration.defaultDomoticzHostname)
     private val sshPassword = prefs.getString(AppConfig.PrefKeys.SSH_PASSWORD, "")
-    private val port = AppConfig.sshPort
-    private val username = AppConfig.rPiUsername
+    private val port = InternetConfiguration.sshPort
+    private val username = InternetConfiguration.rPiUsername
 
     private fun initializeSession(): Session {
         return JSch().getSession(username, host, port).apply {
