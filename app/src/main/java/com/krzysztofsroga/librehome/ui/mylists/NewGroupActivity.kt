@@ -24,7 +24,7 @@ class NewGroupActivity : AppCompatActivity() {
         private const val RESULT_LOAD_IMAGE = 1
     }
 
-    private val outFile: File by lazy { File(filesDir, "tmp.jpg") }
+    private val tmpFile: File by lazy { File(filesDir, "tmp.jpg") }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +37,15 @@ class NewGroupActivity : AppCompatActivity() {
             )
             startActivityForResult(i, RESULT_LOAD_IMAGE)
         }
+        button_done.setOnClickListener {
+            if (validateFields()) {
+                saveData()
+                finish()
+            }
+        }
+        button_cancel.setOnClickListener {
+            finish()
+        }
     }
 
     override fun onActivityResult(
@@ -47,8 +56,8 @@ class NewGroupActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && null != data) {
             val selectedImage: Uri = data.data!!
-            uriToBitmap(selectedImage).scale(512, 512).saveAsJpeg(outFile)
-            Glide.with(this).load(outFile).signature(ObjectKey(System.currentTimeMillis().toString())).into(new_group_photo)
+            uriToBitmap(selectedImage).scale(512, 512).saveAsJpeg(tmpFile)
+            Glide.with(this).load(tmpFile).signature(ObjectKey(System.currentTimeMillis().toString())).into(new_group_photo)
         }
     }
 
@@ -59,9 +68,9 @@ class NewGroupActivity : AppCompatActivity() {
     private fun Bitmap.saveAsJpeg(file: File) {
         file.delete()
         file.createNewFile()
-        val ostream = FileOutputStream(file)
-        compress(CompressFormat.JPEG, 90, ostream)
-        ostream.close()
+        FileOutputStream(file).use { ostream ->
+            compress(CompressFormat.JPEG, 90, ostream)
+        }
     }
 
     @SuppressWarnings("deprecation")
@@ -69,6 +78,20 @@ class NewGroupActivity : AppCompatActivity() {
         ImageDecoder.decodeBitmap(ImageDecoder.createSource(this.contentResolver, uri))
     } else {
         MediaStore.Images.Media.getBitmap(contentResolver, uri)
+    }
+
+    private fun validateFields(): Boolean{
+        var success = true
+        if (edit_group_name.text.isEmpty()) {
+            edit_group_name.error = getString(R.string.field_required)
+            success = false
+        }
+        //TODO check if group image is loaded!
+
+        return success
+    }
+
+    private fun saveData() {
 
     }
 

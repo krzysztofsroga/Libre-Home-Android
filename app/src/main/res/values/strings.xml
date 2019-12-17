@@ -41,4 +41,5 @@
     <string name="group_description">Group description</string>
     <string name="done">Done</string>
     <string name="new_group">New Group</string>
+    <string name="field_required">This field is required!</string>
 </resources>

@@ -22,23 +22,20 @@
                 android:adjustViewBounds="true"
                 android:src="@drawable/plus_in_circle" />
 
-        <TextView
+        <EditText
+                android:id="@+id/edit_group_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="4"
                 android:gravity="center"
-                android:text="@string/select_group_photo"
-                android:textSize="24sp" />
+                android:hint="@string/group_name"
+                android:textSize="20sp" />
 
     </LinearLayout>
 
     <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/group_name" />
-
-    <EditText
+            android:id="@+id/edit_group_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/group_description"
@@ -56,15 +53,17 @@
             android:orientation="horizontal">
 
         <Button
+                android:id="@+id/button_cancel"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/cancel" />
 
         <Button
+                android:id="@+id/button_done"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/done" />
     </LinearLayout>
 
