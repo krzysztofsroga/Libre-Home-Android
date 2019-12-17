@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -20,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3.5"
                 android:adjustViewBounds="true"
-                tools:src="@drawable/floyd" />
+                tools:src="@drawable/heating" />
 
         <LinearLayout
                 android:layout_width="0dp"
@@ -33,23 +34,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:maxLines="1"
                     android:ellipsize="end"
                     android:gravity="center"
-                    tools:text="Group name"
-                    android:textSize="24sp" />
+                    android:maxLines="1"
+                    android:textSize="24sp"
+                    tools:text="Group name" />
 
             <TextView
                     android:id="@+id/group_entry_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:ellipsize="end"
                     android:layout_marginEnd="8dp"
+                    android:ellipsize="end"
                     android:gravity="end"
-                    tools:text="Description"
+                    android:maxLines="1"
+                    android:textSize="14sp"
 
-                    android:textSize="14sp" />
+                    tools:text="Description" />
 
             <TextView
                     android:layout_width="match_parent"
@@ -63,11 +64,10 @@
                     android:id="@+id/group_entry_switch_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="4"
-                    android:ellipsize="end"
                     android:layout_marginStart="8dp"
+                    android:ellipsize="end"
+                    android:maxLines="4"
                     tools:text=" - Light in Bedroom\n - Light in Bathroom" />
-
 
 
         </LinearLayout>
