@@ -9,13 +9,16 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.signature.ObjectKey
 import com.krzysztofsroga.librehome.R
+import com.krzysztofsroga.librehome.models.SwitchGroup
 import com.krzysztofsroga.librehome.viewmodels.NewGroupViewModel
+import com.krzysztofsroga.librehome.viewmodels.SwitchGroupViewModel
 import kotlinx.android.synthetic.main.activity_new_group.*
 import java.io.File
 import java.io.FileOutputStream
@@ -31,6 +34,10 @@ class NewGroupActivity : AppCompatActivity() {
 
     private val newGroupViewModel: NewGroupViewModel by lazy {
         ViewModelProvider(this)[NewGroupViewModel::class.java]
+    }
+
+    private val switchGroupViewModel: SwitchGroupViewModel by lazy {
+        ViewModelProvider(this)[SwitchGroupViewModel::class.java]
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,6 +75,7 @@ class NewGroupActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && null != data) {
             val selectedImage: Uri = data.data!!
+            //TODO launch coroutine
             uriToBitmap(selectedImage).scale(512, 512).saveAsJpeg(tmpFile)
             newGroupViewModel.tmpImagePath.value = tmpFile
         }
@@ -98,12 +106,24 @@ class NewGroupActivity : AppCompatActivity() {
             edit_group_name.error = getString(R.string.field_required)
             success = false
         }
+        if(newGroupViewModel.tmpImagePath.value == null) {
+            success = false
+            Toast.makeText(this, "You have to select an image!", Toast.LENGTH_SHORT).show()
+        }
 
         return success
     }
 
     private fun saveData() {
-
+        val newFile = File(filesDir, "groupimage-${System.currentTimeMillis()}.jpg")
+        newGroupViewModel.tmpImagePath.value!!.renameTo(newFile) //TODO load generic image if it isn't selected? If so, change check in validateFields
+        val group = SwitchGroup(
+            0,
+            edit_group_name.text.toString(),
+            edit_group_description.text.toString(),
+            newFile.absolutePath
+        )
+        switchGroupViewModel.addGroup(group)
     }
 
 }

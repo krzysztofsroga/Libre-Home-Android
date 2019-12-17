@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.krzysztofsroga.librehome.models.FavoriteSwitch
+import com.krzysztofsroga.librehome.models.SwitchGroup
 
 @Database(entities = [FavoriteSwitch::class, SwitchGroup::class], version = 2)
 abstract class SwitchesRoomDatabase : RoomDatabase() {

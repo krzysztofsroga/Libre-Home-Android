@@ -10,12 +10,14 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.krzysztofsroga.librehome.R
+import com.krzysztofsroga.librehome.models.SwitchGroup
 import com.krzysztofsroga.librehome.utils.isEven
 import kotlinx.android.synthetic.main.switch_group_entry.view.*
+import java.io.File
 
 class SwitchGroupAdapter(
-    val switchGroupList: List<OldSwitchGroup>,
-    val onItemClick: (OldSwitchGroup, Int) -> Unit = { _, _ -> },
+    val switchGroupList: List<SwitchGroup>,
+    val onItemClick: (SwitchGroup, Int) -> Unit = { _, _ -> },
     val onAddGroupClick: () -> Unit = {}
 ) : RecyclerView.Adapter<SwitchGroupAdapter.GroupViewHolder>() {
 
@@ -42,7 +44,7 @@ class SwitchGroupAdapter(
                 }
                 holder.description.text = switchGroupList[position].description
                 holder.name.text = switchGroupList[position].name
-                Glide.with(holder.card.context).load(switchGroupList[position].image).into(holder.photo)
+                Glide.with(holder.card.context).load(File(switchGroupList[position].imagePath)).into(holder.photo)
 
             }
             is GroupViewHolder.AddGroup -> {

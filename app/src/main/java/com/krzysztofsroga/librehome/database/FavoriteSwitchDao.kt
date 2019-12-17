@@ -2,9 +2,7 @@ package com.krzysztofsroga.librehome.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-
-@Entity(tableName = "favorites")
-data class FavoriteSwitch(@PrimaryKey val id: Int)
+import com.krzysztofsroga.librehome.models.FavoriteSwitch
 
 @Dao
 interface FavoriteSwitchDao {

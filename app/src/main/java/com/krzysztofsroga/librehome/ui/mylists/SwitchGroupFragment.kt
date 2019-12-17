@@ -8,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.krzysztofsroga.librehome.R
+import com.krzysztofsroga.librehome.models.SwitchGroup
 import com.krzysztofsroga.librehome.ui.MainActivityFragmentFactory
 import com.krzysztofsroga.librehome.viewmodels.SwitchGroupViewModel
 import kotlinx.android.synthetic.main.switch_group_fragment.*
@@ -25,7 +27,7 @@ class SwitchGroupFragment : Fragment() {
             get() = "Your switches groups:"
     }
 
-    private lateinit var viewModel: SwitchGroupViewModel
+    private lateinit var switchGroupViewModel: SwitchGroupViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.switch_group_fragment, container, false)
@@ -33,7 +35,7 @@ class SwitchGroupFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity()).get(SwitchGroupViewModel::class.java)
+        switchGroupViewModel = ViewModelProvider(requireActivity()).get(SwitchGroupViewModel::class.java)
 
         switch_group_list.apply {
             setHasFixedSize(true)
@@ -42,17 +44,22 @@ class SwitchGroupFragment : Fragment() {
             } else {
                 LinearLayoutManager(context)
             }
-            adapter = SwitchGroupAdapter(viewModel.switchGroupList,
+        }
+
+        switchGroupViewModel.switchGroups.observe(viewLifecycleOwner, Observer { groups ->
+            switch_group_list.adapter = SwitchGroupAdapter(groups,
                 onItemClick = { switchGroup, i ->
-                    showSwitchGroup(switchGroup, i)
+                    showSwitchGroup(switchGroup)
                 },
                 onAddGroupClick = {
                     startActivity(Intent(activity, NewGroupActivity::class.java))
                 })
-        }
+        })
+
+
     }
 
-    private fun showSwitchGroup(group: OldSwitchGroup, groupIdx: Int) {
+    private fun showSwitchGroup(group: SwitchGroup) {
         Toast.makeText(context, "You selected ${group.name} which is ${group.description}!", Toast.LENGTH_SHORT).show()
 //        val intent = Intent(context, DogActivity::class.java).apply { TODO uncomment and fix
 //            putExtra(EXTRA_DOG_IDX, dogIdx)

@@ -43,23 +43,26 @@ class SwitchesFragment : Fragment() {
 
     private fun initializeList() {
         Log.d("initialization", "initializing list")
-
-        viewModel.switches.observe(viewLifecycleOwner, Observer { switches ->
-            switches_list.apply {
-                layoutManager = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    GridLayoutManager(context, 2)
-                } else {
-                    LinearLayoutManager(context)
-                }
-                setHasFixedSize(true)
-                adapter = SwitchListAdapter(switches, {
-                    viewModel.sendSwitchState(it)
-                }, {
-                    Toast.makeText(context, "Switch '${it.name}' is added to favorites!", Toast.LENGTH_SHORT).show()
-                    viewModel.addFavorite(it)
-                }).apply { setHasStableIds(true) }
+        switches_list.apply {
+            layoutManager = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                GridLayoutManager(context, 2)
+            } else {
+                LinearLayoutManager(context)
             }
+            setHasFixedSize(true)
+
+        }
+        viewModel.switches.observe(viewLifecycleOwner, Observer { switches ->
+            switches_list.adapter = SwitchListAdapter(switches, {
+                viewModel.sendSwitchState(it)
+            }, {
+                Toast.makeText(context, "Switch '${it.name}' is added to favorites!", Toast.LENGTH_SHORT).show()
+                viewModel.addFavorite(it)
+            }).apply {
+                setHasStableIds(true)
+
+            }
+
         })
     }
-
 }

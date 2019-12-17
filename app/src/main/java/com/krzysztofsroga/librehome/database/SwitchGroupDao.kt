@@ -2,9 +2,7 @@ package com.krzysztofsroga.librehome.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-
-@Entity(tableName = "switch_groups")
-data class SwitchGroup(@PrimaryKey(autoGenerate = true) val id: Int, val name: String, val description: String, val imagePath: String)//, @Ignore val switchesIndices: List<Int> = listOf()) //TODO don't ignore switches list
+import com.krzysztofsroga.librehome.models.SwitchGroup
 
 @Dao
 interface SwitchGroupDao {
