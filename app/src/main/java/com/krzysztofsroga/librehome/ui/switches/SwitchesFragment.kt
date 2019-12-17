@@ -63,16 +63,3 @@ class SwitchesFragment : Fragment() {
     }
 
 }
-
-//activity!!.runOnUiThread {
-//    Log.d("initialization", "ui list")
-//    switches_list.apply {
-//        setHasFixedSize(true)
-//        layoutManager = LinearLayoutManager(context)
-//        adapter = SwitchListAdapter(downloadedSwitches) {
-//            switches.sendSwitchState(it)
-//        }.apply { setHasStableIds(true) }
-//
-//    }
-//
-//}

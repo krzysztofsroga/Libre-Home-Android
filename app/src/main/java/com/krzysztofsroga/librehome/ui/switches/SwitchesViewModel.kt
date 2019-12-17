@@ -27,10 +27,4 @@ class SwitchesViewModel : ViewModel() {
     fun sendSwitchState(switch: LightSwitch) {
         onlineSwitches.sendSwitchState(switch)
     }
-//    val switches = listOf(
-//        LightSwitch("kitchen", false),
-//        LightSwitch("dining room", true),
-//        LightSwitch("bedroom", false),
-//        LightSwitch("bathroom", false)
-//    )
 }

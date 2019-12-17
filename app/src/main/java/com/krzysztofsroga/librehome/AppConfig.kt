@@ -1,7 +1,6 @@
 package com.krzysztofsroga.librehome
 
 import com.krzysztofsroga.librehome.ui.MainFragment
-import com.krzysztofsroga.librehome.ui.music.MusicFragment
 import com.krzysztofsroga.librehome.ui.mylists.SwitchGroupFragment
 import com.krzysztofsroga.librehome.ui.switches.SwitchesFragment
 

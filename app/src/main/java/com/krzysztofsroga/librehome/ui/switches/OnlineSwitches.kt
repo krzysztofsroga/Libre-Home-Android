@@ -31,39 +31,6 @@ class OnlineSwitches {
                 }
             }
         }
-//
-//        if (lightSwitch is LightSwitch.DimmableSwitch && lightSwitch.enabled) {
-//            Fuel.get( "json.htm?type=command&param=switchlight&idx=${lightSwitch.id}&switchcmd=Set%20Level&Level=${lightSwitch.dim}").responseString { _, _, result ->
-//                when (result) {
-//                    is Result.Failure -> {
-//                        Log.e(logTag, "failed: ${result.error}")
-//                    }
-//                    is Result.Success -> {
-//                        Log.d(logTag, "success: ${result.value}")
-//                    }
-//                }
-//            }
-//        }
-    }
-
-    fun sendSwitchStateOld(lightSwitch: LightSwitch) {
-        val logTag = "switches-post"
-        val json = Gson().toJson(lightSwitch)
-
-        Fuel.post("/postSwitchChange").timeout(1000).body(json).responseString { request, response, result ->
-            Log.v(logTag, "request: $request")
-            Log.v(logTag, "response: $response")
-            when (result) {
-                is Result.Failure -> {
-                    Log.d(logTag, "failed: ${result.error}")
-                    //TODO do more than logging
-                }
-                is Result.Success -> {
-                    Log.d(logTag, "success: ${result.value}")
-                    //TODO something
-                }
-            }
-        }
     }
 
     fun getAllSwitches(callback: (List<LightSwitch>) -> Unit) {
@@ -84,27 +51,6 @@ class OnlineSwitches {
             }
         }
     }
-
-    fun getAllSwitchesOld(callback: (List<LightSwitch>) -> Unit) {
-        val logTag = "switches-get-all"
-        Fuel.get("/switches").responseString { _, _, result ->
-            when (result) {
-                is Result.Failure -> {
-                    Log.e(logTag, "failed: ${result.error}")
-                    //TODO do more than logging
-                }
-                is Result.Success -> {
-                    Log.d(logTag, "success: ${result.value}")
-                    val gson = GsonBuilder().registerTypeAdapter(LightSwitch::class.java, LightSwitch.JsonSerialization)
-                        .create()
-                    val obj = gson.fromJson<SwitchStatesModel>(result.value, SwitchStatesModel::class.java)
-                    Log.d(logTag, "object: ${obj.items.joinToString { "(${it.type}: ${it.name})" }}")
-                    callback(obj.items) //TODO remove this crappy callback, use postValue of LiveData instead
-                }
-            }
-        }
-    }
-
 
     companion object {
         internal fun configureFuel() { //TODO move configuration in different place

@@ -63,7 +63,7 @@ class SshConnection(prefs: SharedPreferences) {
                 channel.disconnect()
                 session.disconnect()
                 output.toString().let {
-                    if (it.isEmpty())
+                    if (it.isBlank())
                         send("Reboot successful")
                     else
                         send(it)
