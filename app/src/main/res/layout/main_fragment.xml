@@ -2,36 +2,12 @@
 <layout
         xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
-
-        <variable
-                name="bestswitch"
-                type="com.krzysztofsroga.librehome.ui.switches.LightSwitch" />
-    </data>
-
     <LinearLayout
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             tools:context=".ui.MainFragment">
-
-
-        <Switch
-                android:id="@+id/bedroom_switch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checked="@{bestswitch.enabled}"
-                android:padding="@dimen/switch_padding"
-                android:text="@{bestswitch.name}"
-                tools:text="Binded switch" />
-
-        <Switch
-                android:id="@+id/kitchen_switch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/switch_padding"
-                android:text="@string/light_in_kitchen" />
 
         <Button
                 android:id="@+id/button_check_ssh_connection"
@@ -51,6 +27,26 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/switch_padding"
                 android:text="SSH out" />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/favorite_switches" />
+
+        <TextView
+                android:id="@+id/fav"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="favorite switches" />
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/switches_favorite_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:itemCount="4"
+                tools:listitem="@layout/switch_entry">
+
+        </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
 </layout>

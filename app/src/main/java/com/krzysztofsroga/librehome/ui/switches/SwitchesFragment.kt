@@ -64,10 +64,6 @@ class SwitchesFragment : Fragment() {
                 }).apply { setHasStableIds(true) }
             }
         })
-        viewModel.favoriteSwitches.observe(viewLifecycleOwner, Observer { favs ->
-            fav.text = favs.joinToString(", ")
-        })
-
     }
 
 }

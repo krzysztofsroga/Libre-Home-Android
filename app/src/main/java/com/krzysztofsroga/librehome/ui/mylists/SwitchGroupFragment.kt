@@ -49,8 +49,6 @@ class SwitchGroupFragment : Fragment() {
                     showSwitchGroup( TODO(), -1)
                 })
         }
-
-
     }
 
     private fun showSwitchGroup(group: SwitchGroup, groupIdx: Int) {

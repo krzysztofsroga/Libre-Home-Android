@@ -20,8 +20,8 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
 
     private val favoriteIds: LiveData<List<FavoriteSwitch>> = favoriteDao.getAllFavorites()
 
-    val favoriteSwitches = Transformations.switchMap(switches) {allSwitches ->
-        Transformations.map(favoriteIds) {favIds ->
+    val favoriteSwitches = Transformations.switchMap(switches) { allSwitches ->
+        Transformations.map(favoriteIds) { favIds ->
             allSwitches.filter { it.id in favIds.map { it.id } }
         }
     }

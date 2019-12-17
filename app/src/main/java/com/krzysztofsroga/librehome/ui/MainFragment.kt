@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.databinding.MainFragmentBinding
 import com.krzysztofsroga.librehome.ui.switches.LightSwitch
+import com.krzysztofsroga.librehome.ui.switches.SwitchesViewModel
 import kotlinx.android.synthetic.main.main_fragment.*
 
 
@@ -24,20 +25,19 @@ class MainFragment : Fragment() {
     }
 
     private lateinit var sshViewModel: SshViewModel
+    private lateinit var switchesViewModel: SwitchesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<MainFragmentBinding>(inflater, R.layout.main_fragment, container, false)
-        binding.bestswitch = LightSwitch.SimpleSwitch("BESTSWITCH", enabled = true)
-        return binding.root //inflater.inflate(R.layout.main_fragment, container, false)
-
+        return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         sshViewModel = ViewModelProvider(requireActivity()).get(SshViewModel::class.java)
+        switchesViewModel = ViewModelProvider(requireActivity()).get(SwitchesViewModel::class.java)
 
         button_check_ssh_connection.setOnClickListener {
             sshViewModel.checkConnection()
@@ -56,6 +56,10 @@ class MainFragment : Fragment() {
 
         sshViewModel.out.observe(viewLifecycleOwner, Observer { out ->
             ssh_out.text = out
+        })
+
+        switchesViewModel.favoriteSwitches.observe(viewLifecycleOwner, Observer { favs ->
+            fav.text = favs.joinToString(", ")
         })
     }
 
