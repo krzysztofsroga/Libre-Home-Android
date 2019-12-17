@@ -4,11 +4,13 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.bumptech.glide.Glide
 import com.krzysztofsroga.librehome.R
 import kotlinx.android.synthetic.main.activity_new_group.*
 
@@ -47,6 +49,10 @@ class NewGroupActivity : AppCompatActivity() {
         data: Intent?
     ) {
         super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && null != data) {
+            val selectedImage: Uri? = data.data
+            Glide.with(this).load(selectedImage).into(new_group_photo)
+        }
 //        if (requestCode == RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && null != data) {
 //            val selectedImage: Uri? = data.data
 //            val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
@@ -63,13 +69,13 @@ class NewGroupActivity : AppCompatActivity() {
 //        }
     }
 
-//    private fun getRealPathFromURI(contentUri: Uri): String? {
-//        val proj = arrayOf(MediaStore.Video.Media.DATA)
-//        val cursor = managedQuery(contentUri, proj, null, null, null)
-//        val column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-//        cursor.moveToFirst()
-//        return cursor.getString(column_index)
-//    }
+    private fun getRealPathFromURI(contentUri: Uri): String? {
+        return contentResolver.query(contentUri, arrayOf(MediaStore.Images.Media.DATA), null, null, null)?.use { cursor ->
+            val columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            cursor.moveToFirst()
+            cursor.getString(columnIndex)
+        }
+    }
 
 
     fun verifyStoragePermissions(activity: Activity?) { // Check if we have write permission
