@@ -1,15 +1,13 @@
-package com.krzysztofsroga.librehome
+package com.krzysztofsroga.librehome.ui
 
-import android.content.res.Configuration
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
-import android.view.KeyEvent
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
+import com.krzysztofsroga.librehome.R
 import com.yariksoffice.lingver.Lingver
 import java.util.*
 
@@ -20,7 +18,10 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(R.layout.settings_activity)
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.settings, SettingsFragment())
+            .replace(
+                R.id.settings,
+                SettingsFragment()
+            )
             .commit()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }

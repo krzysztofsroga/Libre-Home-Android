@@ -1,5 +1,7 @@
 package com.krzysztofsroga.librehome.ui.switches
 
+import com.krzysztofsroga.librehome.connection.OnlineSwitches
+
 class DomoticzSwitch (
     val Name: String,
     val idx: Int,

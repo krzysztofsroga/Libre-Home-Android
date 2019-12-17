@@ -1,4 +1,4 @@
-package com.krzysztofsroga.librehome
+package com.krzysztofsroga.librehome.ui
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

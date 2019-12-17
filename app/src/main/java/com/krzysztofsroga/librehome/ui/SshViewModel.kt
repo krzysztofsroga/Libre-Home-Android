@@ -3,6 +3,7 @@ package com.krzysztofsroga.librehome.ui
 import android.app.Application
 import androidx.lifecycle.*
 import androidx.preference.PreferenceManager
+import com.krzysztofsroga.librehome.connection.SshConnection
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 

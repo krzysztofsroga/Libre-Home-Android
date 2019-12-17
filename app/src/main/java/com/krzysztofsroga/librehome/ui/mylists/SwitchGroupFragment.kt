@@ -1,7 +1,5 @@
 package com.krzysztofsroga.librehome.ui.mylists
 
-import android.app.ActivityOptions
-import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,14 +10,15 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.krzysztofsroga.librehome.MainActivityFragmentFactory
+import com.krzysztofsroga.librehome.ui.MainActivityFragmentFactory
 
 import com.krzysztofsroga.librehome.R
 import kotlinx.android.synthetic.main.switch_group_fragment.*
 
 class SwitchGroupFragment : Fragment() {
 
-    companion object : MainActivityFragmentFactory<SwitchGroupFragment> {
+    companion object :
+        MainActivityFragmentFactory<SwitchGroupFragment> {
         override fun newInstance() = SwitchGroupFragment()
         override val name: String
             get() = "Your switches groups:"

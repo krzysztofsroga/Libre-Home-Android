@@ -1,4 +1,4 @@
-package com.krzysztofsroga.librehome
+package com.krzysztofsroga.librehome.utils
 
 import kotlin.time.*
 

@@ -4,11 +4,12 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.krzysztofsroga.librehome.connection.OnlineSwitches
 
 class SwitchesViewModel : ViewModel() {
 
-    private val onlineSwitches: OnlineSwitches = OnlineSwitches() //TODO move to viewmodel
+    private val onlineSwitches: OnlineSwitches =
+        OnlineSwitches() //TODO move to viewmodel
 
     private val _switches = MutableLiveData<List<LightSwitch>>()
 

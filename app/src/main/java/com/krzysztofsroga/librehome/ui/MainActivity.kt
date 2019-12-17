@@ -1,4 +1,4 @@
-package com.krzysztofsroga.librehome
+package com.krzysztofsroga.librehome.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.navigation.NavigationView
-import com.krzysztofsroga.librehome.ui.MainFragment
+import com.krzysztofsroga.librehome.AppConfig
+import com.krzysztofsroga.librehome.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlin.math.roundToInt
@@ -49,9 +50,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        pager.adapter = ScreenSlidePagerAdapter(supportFragmentManager, AppConfig.screens)
+        pager.adapter = ScreenSlidePagerAdapter(
+            supportFragmentManager,
+            AppConfig.screens
+        )
         pager.addOnPageChangeListener(listener)
-        pager.currentItem = AppConfig.defaultScreenIndex
+        pager.currentItem =
+            AppConfig.defaultScreenIndex
 
 //        fab.setOnClickListener { view ->
 //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -59,7 +64,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //        }
 
         val toggle = ActionBarDrawerToggle(
-            this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+            this, drawer_layout, toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
         )
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
