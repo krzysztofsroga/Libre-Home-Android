@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [FavoriteSwitch::class], version = 1)
+@Database(entities = [FavoriteSwitch::class, SwitchGroup::class], version = 1)
 abstract class SwitchesRoomDatabase : RoomDatabase() {
     abstract val favoriteDao: FavoriteSwitchDao
     abstract val switchGroupDao: SwitchGroupDao
