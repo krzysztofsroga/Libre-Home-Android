@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -20,12 +21,9 @@ import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainFragment : Fragment() {
 
-    private val sshViewModel: SshViewModel by lazy {
-        ViewModelProvider(requireActivity())[SshViewModel::class.java]
-    }
-    private val switchesViewModel: SwitchesViewModel by lazy {
-        ViewModelProvider(requireActivity())[SwitchesViewModel::class.java]
-    }
+    private val sshViewModel: SshViewModel by activityViewModels()
+
+    private val switchesViewModel: SwitchesViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.main_fragment, container, false)

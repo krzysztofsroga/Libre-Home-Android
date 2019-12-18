@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -27,7 +28,7 @@ class SwitchGroupFragment : Fragment() {
             get() = "Your switches groups:"
     }
 
-    private lateinit var switchGroupViewModel: SwitchGroupViewModel
+    private val switchGroupViewModel: SwitchGroupViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.switch_group_fragment, container, false)
@@ -35,7 +36,6 @@ class SwitchGroupFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        switchGroupViewModel = ViewModelProvider(requireActivity()).get(SwitchGroupViewModel::class.java)
 
         switch_group_list.apply {
             setHasFixedSize(true)

@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -32,13 +33,9 @@ class NewGroupActivity : AppCompatActivity() {
 
     private val tmpFile: File by lazy { File(filesDir, "tmp.jpg") }
 
-    private val newGroupViewModel: NewGroupViewModel by lazy {
-        ViewModelProvider(this)[NewGroupViewModel::class.java]
-    }
+    private val newGroupViewModel: NewGroupViewModel by viewModels()
 
-    private val switchGroupViewModel: SwitchGroupViewModel by lazy {
-        ViewModelProvider(this)[SwitchGroupViewModel::class.java]
-    }
+    private val switchGroupViewModel: SwitchGroupViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
