@@ -5,12 +5,14 @@ import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.result.Result
 import com.google.gson.GsonBuilder
+import com.krzysztofsroga.librehome.AppConfig
 import com.krzysztofsroga.librehome.models.DomoticzSwitches
 import com.krzysztofsroga.librehome.models.LightSwitch
 
 
-class OnlineSwitches {
-    fun initialize() {
+class OnlineSwitches(private val hostname: String) {
+
+    init {
         configureFuel()
     }
 
@@ -53,14 +55,12 @@ class OnlineSwitches {
         }
     }
 
-    companion object {
-        internal fun configureFuel() { //TODO move configuration in different place
-            FuelManager.instance.baseHeaders = mapOf("Content-Type" to "application/json")
-            FuelManager.instance.basePath = InternetConfiguration.fullPath
-            Log.d("Fuel initialization", InternetConfiguration.fullPath)
-        }
+    private fun configureFuel() {
+        val fullPath = "http://$hostname:${InternetConfiguration.defaultDomoticzPort}" //TODO allow port config?
+        FuelManager.instance.baseHeaders = mapOf("Content-Type" to "application/json")
+        FuelManager.instance.basePath = fullPath
+        Log.d("Fuel initialization", fullPath)
     }
-
 
     data class SwitchStatesModel(val name: String, val items: List<LightSwitch>)
 }

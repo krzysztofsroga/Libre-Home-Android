@@ -3,6 +3,9 @@ package com.krzysztofsroga.librehome.viewmodels
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
+import androidx.preference.PreferenceManager
+import com.krzysztofsroga.librehome.AppConfig
+import com.krzysztofsroga.librehome.connection.InternetConfiguration
 import com.krzysztofsroga.librehome.database.SwitchesRoomDatabase
 import com.krzysztofsroga.librehome.connection.OnlineSwitches
 import com.krzysztofsroga.librehome.models.FavoriteSwitch
@@ -14,7 +17,11 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
 
     private val favoriteDao = SwitchesRoomDatabase.getDatabase(getApplication()).favoriteDao
 
-    private val onlineSwitches: OnlineSwitches = OnlineSwitches() //TODO inject this
+    private val onlineSwitches: OnlineSwitches by lazy {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(getApplication())
+        val hostname = prefs.getString(AppConfig.PrefKeys.HOST, InternetConfiguration.defaultDomoticzHostname)!!
+        OnlineSwitches(hostname)
+    }
 
     private val _switches = MutableLiveData<List<LightSwitch>>()
 
@@ -29,8 +36,7 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    init {
-        onlineSwitches.initialize()
+    fun updateSwitches() {
         onlineSwitches.getAllSwitches { downloadedSwitches: List<LightSwitch> ->
             Log.d("initialization", "callback list")
             _switches.postValue(downloadedSwitches)

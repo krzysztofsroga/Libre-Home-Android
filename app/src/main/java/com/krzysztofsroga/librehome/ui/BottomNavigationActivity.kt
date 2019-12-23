@@ -5,16 +5,20 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.krzysztofsroga.librehome.R
+import com.krzysztofsroga.librehome.viewmodels.SwitchesViewModel
 import kotlinx.android.synthetic.main.activity_bottom_navigation.*
 
 
 class BottomNavigationActivity : AppCompatActivity() {
+
+    val switchesViewModel: SwitchesViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +35,11 @@ class BottomNavigationActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         nav_view.setupWithNavController(navController)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        switchesViewModel.updateSwitches()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

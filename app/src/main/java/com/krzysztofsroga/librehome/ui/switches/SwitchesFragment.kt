@@ -44,9 +44,7 @@ class SwitchesFragment : Fragment() {
                 viewModel.addFavorite(it)
             }).apply {
                 setHasStableIds(true)
-
             }
-
         })
 
     }
