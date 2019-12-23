@@ -5,29 +5,29 @@
         android:id="@+id/mobile_navigation"
         app:startDestination="@+id/navigation_home">
 
-    <fragment
-            android:id="@+id/navigation_home"
-            android:name="com.krzysztofsroga.librehome.ui.ui.home.HomeFragment"
-            android:label="@string/title_home"
-            tools:layout="@layout/fragment_home">
+<!--    <fragment-->
+<!--            android:id="@+id/navigation_home"-->
+<!--            android:name="com.krzysztofsroga.librehome.ui.ui.home.HomeFragment"-->
+<!--            android:label="@string/title_home"-->
+<!--            tools:layout="@layout/fragment_home">-->
 
-        <action
-                android:id="@+id/action_HomeFragment_to_HomeSecondFragment"
-                app:destination="@id/navigation_home_second" />
-    </fragment>
-    <fragment
-            android:id="@+id/navigation_home_second"
-            android:name="com.krzysztofsroga.librehome.ui.ui.home.HomeSecondFragment"
-            android:label="@string/home_second"
-            tools:layout="@layout/fragment_home_second">
-        <action
-                android:id="@+id/action_HomeSecondFragment_to_HomeFragment"
-                app:destination="@id/navigation_home" />
+<!--        <action-->
+<!--                android:id="@+id/action_HomeFragment_to_HomeSecondFragment"-->
+<!--                app:destination="@id/navigation_home_second" />-->
+<!--    </fragment>-->
+<!--    <fragment-->
+<!--            android:id="@+id/navigation_home_second"-->
+<!--            android:name="com.krzysztofsroga.librehome.ui.ui.home.HomeSecondFragment"-->
+<!--            android:label="@string/home_second"-->
+<!--            tools:layout="@layout/fragment_home_second">-->
+<!--        <action-->
+<!--                android:id="@+id/action_HomeSecondFragment_to_HomeFragment"-->
+<!--                app:destination="@id/navigation_home" />-->
 
-        <argument
-                android:name="myArg"
-                app:argType="string" />
-    </fragment>
+<!--        <argument-->
+<!--                android:name="myArg"-->
+<!--                app:argType="string" />-->
+<!--    </fragment>-->
 
     <fragment
             android:id="@+id/navigation_dashboard"
@@ -36,10 +36,16 @@
             tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-            android:id="@+id/navigation_notifications"
-            android:name="com.krzysztofsroga.librehome.ui.ui.notifications.NotificationsFragment"
+            android:id="@+id/navigation_home"
+            android:name="com.krzysztofsroga.librehome.ui.MainFragment"
+            android:label="Maiiiiiin"
+            tools:layout="@layout/main_fragment" />
+
+    <fragment
+            android:id="@+id/navigation_groups"
+            android:name="com.krzysztofsroga.librehome.ui.mylists.SwitchGroupFragment"
             android:label="@string/title_notifications"
-            tools:layout="@layout/fragment_notifications" />
+            tools:layout="@layout/switch_group_fragment" />
 
     <fragment
         android:id="@+id/navigation_switches"

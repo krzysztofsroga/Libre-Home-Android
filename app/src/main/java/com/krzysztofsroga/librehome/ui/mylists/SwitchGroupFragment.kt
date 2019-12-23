@@ -21,13 +21,6 @@ import kotlinx.android.synthetic.main.switch_group_fragment.*
 
 class SwitchGroupFragment : Fragment() {
 
-    companion object :
-        MainActivityFragmentFactory<SwitchGroupFragment> {
-        override fun newInstance() = SwitchGroupFragment()
-        override val name: String
-            get() = "Your switches groups:"
-    }
-
     private val switchGroupViewModel: SwitchGroupViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -67,4 +60,10 @@ class SwitchGroupFragment : Fragment() {
 //        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle())
     }
 
+    companion object :
+        MainActivityFragmentFactory<SwitchGroupFragment> {
+        override fun newInstance() = SwitchGroupFragment()
+        override val name: String
+            get() = "Your switches groups:"
+    }
 }

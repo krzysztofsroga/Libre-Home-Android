@@ -6,22 +6,19 @@
             android:icon="@drawable/ic_home_black_24dp"
             android:title="@string/title_home" />
 
-    <item
-            android:id="@+id/navigation_dashboard"
-            android:icon="@drawable/ic_dashboard_black_24dp"
-            android:title="@string/title_dashboard" />
-
-    <item
-            android:id="@+id/navigation_notifications"
-            android:icon="@drawable/ic_notifications_black_24dp"
-            android:title="@string/title_notifications" />
-
+        <item
+                android:id="@+id/navigation_dashboard"
+                android:icon="@drawable/ic_dashboard_black_24dp"
+                android:title="@string/title_dashboard" />
 
     <item
             android:id="@+id/navigation_switches"
-            android:icon="@drawable/ic_notifications_black_24dp"
-            android:title="Navigation Switches" />
+            android:icon="@drawable/ic_lightbulb_outline_black_24dp"
+            android:title="Switches" />
 
-
+    <item
+            android:id="@+id/navigation_groups"
+            android:icon="@drawable/ic_view_comfy_black_24dp"
+            android:title="Groups" />
 
 </menu>

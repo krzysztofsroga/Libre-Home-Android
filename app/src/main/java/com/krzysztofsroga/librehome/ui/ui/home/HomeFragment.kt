@@ -30,8 +30,8 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         button_home.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToHomeSecondFragment("From HomeFragment")
-            NavHostFragment.findNavController(this@HomeFragment).navigate(action)
+//            val action = HomeFragmentDirections.actionHomeFragmentToHomeSecondFragment("From HomeFragment")
+//            NavHostFragment.findNavController(this@HomeFragment).navigate(action)
         }
     }
 }

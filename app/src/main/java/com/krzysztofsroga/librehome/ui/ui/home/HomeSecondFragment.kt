@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.fragment_home_second.*
 
 class HomeSecondFragment : Fragment() {
 
-    private val args: HomeSecondFragmentArgs by navArgs()
+//    private val args: HomeSecondFragmentArgs by navArgs()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_home_second, container, false)
@@ -21,10 +21,10 @@ class HomeSecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        textview_home_second.text = getString(R.string.hello_home_second, args.myArg)
+//        textview_home_second.text = getString(R.string.hello_home_second, args.myArg)
 
         button_home_second.setOnClickListener {
-            findNavController().navigate(R.id.action_HomeSecondFragment_to_HomeFragment)
+//            findNavController().navigate(R.id.action_HomeSecondFragment_to_HomeFragment)
         }
     }
 }

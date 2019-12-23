@@ -21,8 +21,7 @@ class BottomNavigationActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_home,
-                R.id.navigation_dashboard,
-                R.id.navigation_notifications,
+                R.id.navigation_groups,
                 R.id.navigation_switches
             )
         )

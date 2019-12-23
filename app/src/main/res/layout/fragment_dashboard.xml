@@ -7,6 +7,12 @@
         android:layout_height="match_parent"
         tools:context=".ui.ui.dashboard.DashboardFragment">
 
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="0dp" />
+
     <TextView
             android:id="@+id/text_dashboard"
             android:layout_width="match_parent"
