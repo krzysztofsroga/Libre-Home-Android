@@ -1,10 +1,10 @@
 package com.krzysztofsroga.librehome.ui
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -12,6 +12,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.krzysztofsroga.librehome.R
 import kotlinx.android.synthetic.main.activity_bottom_navigation.*
+
 
 class BottomNavigationActivity : AppCompatActivity() {
 
@@ -44,7 +45,7 @@ class BottomNavigationActivity : AppCompatActivity() {
                 true
             }
             R.id.action_about -> {
-//                startActivity(Intent(this, BottomNavigationActivity::class.java))
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.about_url))))
                 true
             }
             else -> super.onOptionsItemSelected(item)
