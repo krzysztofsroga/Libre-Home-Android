@@ -1,4 +1,4 @@
-package com.krzysztofsroga.librehome.ui.mylists
+package com.krzysztofsroga.librehome.viewmodels
 
 import androidx.lifecycle.ViewModel
 

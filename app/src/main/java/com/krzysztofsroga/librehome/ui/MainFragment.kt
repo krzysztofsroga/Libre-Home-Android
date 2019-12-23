@@ -73,11 +73,4 @@ class MainFragment : Fragment() {
         }
     }
 
-    companion object :
-        MainActivityFragmentFactory<MainFragment> {
-        override fun newInstance() = MainFragment()
-        override val name: String
-            get() = "Main screen"
-    }
-
 }

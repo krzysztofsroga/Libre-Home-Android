@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 
 import com.krzysztofsroga.librehome.R
+import com.krzysztofsroga.librehome.viewmodels.SelectedGroupViewModel
 import kotlinx.android.synthetic.main.selected_group_fragment.*
 
 class SelectedGroupFragment : Fragment() {
