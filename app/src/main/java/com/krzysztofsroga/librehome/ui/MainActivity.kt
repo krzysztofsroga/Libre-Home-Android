@@ -43,7 +43,10 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
                 startActivity(Intent(this, SettingsActivity::class.java))
                 true
             }
-            R.id.action_about -> true
+            R.id.action_about -> {
+                startActivity(Intent(this, BottomNavigationActivity::class.java))
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
