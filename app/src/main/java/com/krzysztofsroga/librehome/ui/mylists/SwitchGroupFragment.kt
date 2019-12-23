@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.krzysztofsroga.librehome.R
@@ -54,6 +55,8 @@ class SwitchGroupFragment : Fragment() {
 
     private fun showSwitchGroup(group: SwitchGroup) {
         Toast.makeText(context, "You selected ${group.name} which is ${group.description}!", Toast.LENGTH_SHORT).show()
+        val action = SwitchGroupFragmentDirections.actionGroupsToSelectedGroup(group.name)
+        NavHostFragment.findNavController(this).navigate(action)
 //        val intent = Intent(context, GroupActivity::class.java).apply { TODO uncomment and fix
 //            putExtra(EXTRA_GROUP_ID, group.id)
 //        }
