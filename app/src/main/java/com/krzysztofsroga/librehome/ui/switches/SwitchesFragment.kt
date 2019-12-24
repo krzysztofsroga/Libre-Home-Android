@@ -33,18 +33,16 @@ class SwitchesFragment : Fragment() {
                 LinearLayoutManager(context)
             }
             setHasFixedSize(true)
-
-        }
-
-        viewModel.switches.observe(viewLifecycleOwner, Observer { switches ->
-            switches_list.adapter = SwitchListAdapter(switches, {
+            adapter = SwitchListAdapter(listOf(), {
                 viewModel.sendSwitchState(it)
             }, {
                 Toast.makeText(context, "Switch '${it.name}' is added to favorites!", Toast.LENGTH_SHORT).show()
                 viewModel.addFavorite(it)
-            }).apply {
-                setHasStableIds(true)
-            }
+            }).apply { setHasStableIds(true) }
+        }
+
+        viewModel.switches.observe(viewLifecycleOwner, Observer { switches ->
+            (switches_list.adapter as SwitchListAdapter).updateData(switches)
         })
 
     }

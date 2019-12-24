@@ -46,15 +46,15 @@ class MainFragment : Fragment() {
             } else {
                 LinearLayoutManager(context)
             }
-            setHasFixedSize(true)
-        }
-
-        switchesViewModel.favoriteSwitches.observe(viewLifecycleOwner, Observer { favs ->
-            switches_favorite_list.adapter = SwitchListAdapter(favs, {
+            adapter = SwitchListAdapter(listOf(), {
                 switchesViewModel.sendSwitchState(it)
             }, {
                 switchesViewModel.removeFavorite(it)
             }).apply { setHasStableIds(true) }
+        }
+
+        switchesViewModel.favoriteSwitches.observe(viewLifecycleOwner, Observer { favs ->
+            (switches_favorite_list.adapter as SwitchListAdapter).updateData(favs)
         })
 
         sshViewModel.out.observe(viewLifecycleOwner, Observer { out ->

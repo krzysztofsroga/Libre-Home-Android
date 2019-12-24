@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.models.LightSwitch
 import kotlinx.android.synthetic.main.switch_entry.view.*
-
-class SwitchListAdapter(private val lightSwitchList: List<LightSwitch>, private val callback: (LightSwitch) -> Unit, private val longCallback: (LightSwitch) -> Unit) :
+//TODO pass livedata?
+class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private val callback: (LightSwitch) -> Unit, private val longCallback: (LightSwitch) -> Unit) :
     RecyclerView.Adapter<SwitchListAdapter.SwitchViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SwitchViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.switch_entry, parent, false)
@@ -25,9 +25,20 @@ class SwitchListAdapter(private val lightSwitchList: List<LightSwitch>, private 
     }
 
     override fun getItemViewType(position: Int): Int {
-        return position //TODO return 0 for simple, 1 for dimmable
+        return when(lightSwitchList[position]) {
+            is LightSwitch.SimpleSwitch -> 1
+            is LightSwitch.DimmableSwitch -> 2
+        }
     }
 
+    override fun getItemId(position: Int): Long {
+        return lightSwitchList[position].id!!.toLong() //TODO make id non nullable
+    }
+
+    fun updateData(newLightSwitchList : List<LightSwitch>) {
+        lightSwitchList = newLightSwitchList
+        notifyDataSetChanged()
+    }
 
     class SwitchViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val switch: Switch = view.switchName
