@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
         xmlns:android="http://schemas.android.com/apk/res/android">
-
+<ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             tools:context=".ui.MainFragment">
 
@@ -43,12 +45,17 @@
                 android:padding="@dimen/switch_padding"
                 android:text="@string/favorite_switches" />
 
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/switches_favorite_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 tools:itemCount="4"
                 tools:listitem="@layout/switch_entry" />
+        </RelativeLayout>
 
     </LinearLayout>
+</ScrollView>
 </layout>

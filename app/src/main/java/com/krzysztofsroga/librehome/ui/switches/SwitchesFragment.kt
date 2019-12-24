@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.viewmodels.SwitchesViewModel
 import kotlinx.android.synthetic.main.switches_fragment.*
@@ -28,7 +29,7 @@ class SwitchesFragment : Fragment() {
 
         switches_list.apply {
             layoutManager = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                GridLayoutManager(context, 2)
+                StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             } else {
                 LinearLayoutManager(context)
             }
