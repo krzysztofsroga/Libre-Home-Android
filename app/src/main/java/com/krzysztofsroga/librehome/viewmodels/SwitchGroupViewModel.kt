@@ -12,6 +12,8 @@ class SwitchGroupViewModel(application: Application) : AndroidViewModel(applicat
 
     private val switchGroupDao = SwitchesRoomDatabase.getDatabase(getApplication()).switchGroupDao
 
+    val switchGroups: LiveData<List<SwitchGroup>> = switchGroupDao.getAllSwichGroup()
+
     fun addGroup(switchGroup: SwitchGroup) {
         viewModelScope.launch {
             switchGroupDao.insert(switchGroup)
@@ -23,8 +25,4 @@ class SwitchGroupViewModel(application: Application) : AndroidViewModel(applicat
             switchGroupDao.delete(switchGroup)
         }
     }
-
-    val switchGroups: LiveData<List<SwitchGroup>>
-        get() = switchGroupDao.getAllSwichGroup()
-
 }

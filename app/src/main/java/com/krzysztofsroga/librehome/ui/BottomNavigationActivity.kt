@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_bottom_navigation.*
 
 class BottomNavigationActivity : AppCompatActivity() {
 
-    val switchesViewModel: SwitchesViewModel by viewModels()
+    private val switchesViewModel: SwitchesViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
