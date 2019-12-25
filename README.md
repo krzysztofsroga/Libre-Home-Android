@@ -1,9 +1,8 @@
 # LibreHome Android
 
-Free and Open Source Domoticz Client built with Android Jetpack
-<img src=docs/icon.png height=100/>
----
+### Free and Open Source Domoticz Client built with Android Jetpack
 
+<img src=docs/icon.png height=100/>
 
 This application is still in early development stage. Some functionality may not be implemented yet. 
 
