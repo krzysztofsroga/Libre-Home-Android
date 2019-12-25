@@ -57,6 +57,10 @@ class BottomNavigationActivity : AppCompatActivity() {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.about_url))))
                 true
             }
+            R.id.action_refresh -> {
+                switchesViewModel.updateSwitches()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

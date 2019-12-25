@@ -27,4 +27,5 @@
     <string name="title_home">Home</string>
     <string name="title_notifications">Notifications</string>
     <string name="about_url">https://www.sroga.dev/projects/librehome</string>
+    <string name="refresh">Refresh</string>
 </resources>
