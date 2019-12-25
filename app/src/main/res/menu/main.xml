@@ -4,21 +4,21 @@
 
     <item
             android:id="@+id/action_refresh"
-            android:icon="@drawable/ic_refresh_black_24dp"
+            android:icon="@drawable/ic_refresh_white_24dp"
             android:orderInCategory="50"
             android:title="@string/refresh"
             app:showAsAction="ifRoom" />
     <item
-            android:id="@+id/action_settings"
-            android:icon="@drawable/ic_tune_black_24dp"
-            android:orderInCategory="100"
-            android:title="@string/action_settings"
-            app:showAsAction="ifRoom" />
-    <item
             android:id="@+id/action_about"
-            android:icon="@drawable/ic_info_outline_black_24dp"
+            android:icon="@drawable/ic_info_outline_white_24dp"
             android:orderInCategory="100"
             android:title="@string/action_about"
+            app:showAsAction="ifRoom" />
+    <item
+            android:id="@+id/action_settings"
+            android:icon="@drawable/ic_tune_white_24dp"
+            android:orderInCategory="100"
+            android:title="@string/action_settings"
             app:showAsAction="ifRoom" />
 
 </menu>
