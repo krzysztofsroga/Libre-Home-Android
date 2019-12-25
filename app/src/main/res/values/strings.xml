@@ -23,8 +23,9 @@
     <string name="done">Done</string>
     <string name="new_group">New Group</string>
     <string name="field_required">This field is required!</string>
-    <string name="title_activity_bottom_navigation">BottomNavigationActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="about_url">https://www.sroga.dev/projects/librehome</string>
+    <string name="title_home">Libre Home</string>
+    <string name="about_url">https://librehome.sroga.dev</string>
+    <string name="refresh">Refresh</string>
+    <string name="title_switches">Switches</string>
+    <string name="title_groups">Groups</string>
 </resources>

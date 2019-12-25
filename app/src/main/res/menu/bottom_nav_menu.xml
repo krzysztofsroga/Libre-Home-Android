@@ -9,11 +9,11 @@
     <item
             android:id="@+id/navigation_switches"
             android:icon="@drawable/ic_lightbulb_outline_black_24dp"
-            android:title="Switches" />
+            android:title="@string/title_switches" />
 
     <item
             android:id="@+id/navigation_groups"
             android:icon="@drawable/ic_view_comfy_black_24dp"
-            android:title="Groups" />
+            android:title="@string/title_groups" />
 
 </menu>

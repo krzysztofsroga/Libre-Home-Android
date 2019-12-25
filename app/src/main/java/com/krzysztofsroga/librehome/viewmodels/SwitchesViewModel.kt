@@ -38,7 +38,7 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
 
     fun updateSwitches() {
         onlineSwitches.getAllSwitches { downloadedSwitches: List<LightSwitch> ->
-            Log.d("initialization", "callback list")
+            Log.d("switches", "refreshing switches")
             _switches.postValue(downloadedSwitches)
         }
     }
