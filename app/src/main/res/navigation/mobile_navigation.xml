@@ -8,19 +8,19 @@
     <fragment
             android:id="@+id/navigation_home"
             android:name="com.krzysztofsroga.librehome.ui.MainFragment"
-            android:label="Maiiiiiin"
+            android:label="@string/title_home"
             tools:layout="@layout/main_fragment" />
 
     <fragment
             android:id="@+id/navigation_switches"
             android:name="com.krzysztofsroga.librehome.ui.switches.SwitchesFragment"
-            android:label="Navigation Switches"
+            android:label="@string/title_switches"
             tools:layout="@layout/switches_fragment" />
 
     <fragment
             android:id="@+id/navigation_groups"
             android:name="com.krzysztofsroga.librehome.ui.mylists.SwitchGroupFragment"
-            android:label="@string/title_notifications"
+            android:label="@string/title_groups"
             tools:layout="@layout/switch_group_fragment">
         <action
                 android:id="@+id/action_Groups_to_SelectedGroup"
