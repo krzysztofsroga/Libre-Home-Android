@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/mobile_navigation"
+        app:startDestination="@+id/navigation_home">
+
+    <fragment
+            android:id="@+id/navigation_home"
+            android:name="com.krzysztofsroga.librehome.ui.MainFragment"
+            android:label="Maiiiiiin"
+            tools:layout="@layout/main_fragment" />
+
+    <fragment
+            android:id="@+id/navigation_switches"
+            android:name="com.krzysztofsroga.librehome.ui.switches.SwitchesFragment"
+            android:label="Navigation Switches"
+            tools:layout="@layout/switches_fragment" />
+
+    <fragment
+            android:id="@+id/navigation_groups"
+            android:name="com.krzysztofsroga.librehome.ui.mylists.SwitchGroupFragment"
+            android:label="@string/title_notifications"
+            tools:layout="@layout/switch_group_fragment">
+        <action
+                android:id="@+id/action_Groups_to_SelectedGroup"
+                app:destination="@id/navigation_selected_group" />
+    </fragment>
+
+    <fragment
+            android:id="@+id/navigation_selected_group"
+            android:name="com.krzysztofsroga.librehome.ui.mylists.SelectedGroupFragment"
+            android:label="Selected Group"
+            tools:layout="@layout/selected_group_fragment">
+        <action
+                android:id="@+id/action_SelectedGroupFragment_to_GroupsFragment"
+                app:destination="@id/navigation_groups" />
+
+        <argument
+                android:name="myArg"
+                app:argType="string" />
+    </fragment>
+
+</navigation>

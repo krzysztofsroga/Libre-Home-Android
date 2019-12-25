@@ -5,6 +5,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs'
 
 android {
     compileSdkVersion 29
@@ -24,14 +25,15 @@ android {
     }
     buildToolsVersion = '29.0.2'
     compileOptions {
-        sourceCompatibility = "1.8"
-        targetCompatibility = 1.8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     dataBinding {
         enabled = true
     }
     kotlinOptions {
         freeCompilerArgs += "-Xuse-experimental=kotlin.Experimental"
+        jvmTarget = "1.8"
     }
 }
 
@@ -59,9 +61,9 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
 
     // Persistance
-    implementation 'androidx.room:room-runtime:2.2.2'
-    implementation 'androidx.room:room-ktx:2.2.2'
-    kapt 'androidx.room:room-compiler:2.2.2'
+    implementation 'androidx.room:room-runtime:2.2.3'
+    implementation 'androidx.room:room-ktx:2.2.3'
+    kapt 'androidx.room:room-compiler:2.2.3'
 
     // Domoticz connection:
     implementation 'com.github.kittinunf.fuel:fuel:2.2.1'
@@ -70,7 +72,7 @@ dependencies {
 
     // Glide image loading
     implementation 'com.github.bumptech.glide:glide:4.10.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
+    kapt 'com.github.bumptech.glide:compiler:4.10.0'
 
     //SSH
     implementation 'com.jcraft:jsch:0.1.54'
@@ -83,4 +85,9 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+    //Navigation
+    implementation 'androidx.navigation:navigation-fragment:2.1.0'
+    implementation 'androidx.navigation:navigation-ui:2.1.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.1.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.1.0'
 }

@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.ui.switches.SwitchListAdapter
 import com.krzysztofsroga.librehome.viewmodels.SwitchesViewModel
@@ -42,19 +43,19 @@ class MainFragment : Fragment() {
 
         switches_favorite_list.apply {
             layoutManager = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                GridLayoutManager(context, 2)
+                StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             } else {
                 LinearLayoutManager(context)
             }
-            setHasFixedSize(true)
-        }
-
-        switchesViewModel.favoriteSwitches.observe(viewLifecycleOwner, Observer { favs ->
-            switches_favorite_list.adapter = SwitchListAdapter(favs, {
+            adapter = SwitchListAdapter(listOf(), {
                 switchesViewModel.sendSwitchState(it)
             }, {
                 switchesViewModel.removeFavorite(it)
             }).apply { setHasStableIds(true) }
+        }
+
+        switchesViewModel.favoriteSwitches.observe(viewLifecycleOwner, Observer { favs ->
+            (switches_favorite_list.adapter as SwitchListAdapter).updateData(favs)
         })
 
         sshViewModel.out.observe(viewLifecycleOwner, Observer { out ->
@@ -71,13 +72,6 @@ class MainFragment : Fragment() {
             setNegativeButton(getString(R.string.cancel)) { _, _ -> }
             create().show()
         }
-    }
-
-    companion object :
-        MainActivityFragmentFactory<MainFragment> {
-        override fun newInstance() = MainFragment()
-        override val name: String
-            get() = "Main screen"
     }
 
 }

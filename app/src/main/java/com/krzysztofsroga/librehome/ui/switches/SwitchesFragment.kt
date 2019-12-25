@@ -2,7 +2,6 @@ package com.krzysztofsroga.librehome.ui.switches
 
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +9,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.krzysztofsroga.librehome.R
-import com.krzysztofsroga.librehome.ui.MainActivityFragmentFactory
 import com.krzysztofsroga.librehome.viewmodels.SwitchesViewModel
 import kotlinx.android.synthetic.main.switches_fragment.*
 
@@ -31,33 +29,23 @@ class SwitchesFragment : Fragment() {
 
         switches_list.apply {
             layoutManager = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                GridLayoutManager(context, 2)
+                StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             } else {
                 LinearLayoutManager(context)
             }
             setHasFixedSize(true)
-
-        }
-
-        viewModel.switches.observe(viewLifecycleOwner, Observer { switches ->
-            switches_list.adapter = SwitchListAdapter(switches, {
+            adapter = SwitchListAdapter(listOf(), {
                 viewModel.sendSwitchState(it)
             }, {
                 Toast.makeText(context, "Switch '${it.name}' is added to favorites!", Toast.LENGTH_SHORT).show()
                 viewModel.addFavorite(it)
-            }).apply {
-                setHasStableIds(true)
+            }).apply { setHasStableIds(true) }
+        }
 
-            }
-
+        viewModel.switches.observe(viewLifecycleOwner, Observer { switches ->
+            (switches_list.adapter as SwitchListAdapter).updateData(switches)
         })
 
     }
 
-    companion object :
-        MainActivityFragmentFactory<SwitchesFragment> {
-        override fun newInstance() = SwitchesFragment()
-        override val name: String
-            get() = "All Switches"
-    }
 }

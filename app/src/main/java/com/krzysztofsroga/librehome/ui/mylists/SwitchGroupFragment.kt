@@ -10,23 +10,15 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.models.SwitchGroup
-import com.krzysztofsroga.librehome.ui.MainActivityFragmentFactory
 import com.krzysztofsroga.librehome.viewmodels.SwitchGroupViewModel
 import kotlinx.android.synthetic.main.switch_group_fragment.*
 
 class SwitchGroupFragment : Fragment() {
-
-    companion object :
-        MainActivityFragmentFactory<SwitchGroupFragment> {
-        override fun newInstance() = SwitchGroupFragment()
-        override val name: String
-            get() = "Your switches groups:"
-    }
 
     private val switchGroupViewModel: SwitchGroupViewModel by activityViewModels()
 
@@ -61,10 +53,8 @@ class SwitchGroupFragment : Fragment() {
 
     private fun showSwitchGroup(group: SwitchGroup) {
         Toast.makeText(context, "You selected ${group.name} which is ${group.description}!", Toast.LENGTH_SHORT).show()
-//        val intent = Intent(context, GroupActivity::class.java).apply { TODO uncomment and fix
-//            putExtra(EXTRA_GROUP_ID, group.id)
-//        }
-//        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle())
+        val action = SwitchGroupFragmentDirections.actionGroupsToSelectedGroup(group.name)
+        NavHostFragment.findNavController(this).navigate(action)
     }
 
 }
