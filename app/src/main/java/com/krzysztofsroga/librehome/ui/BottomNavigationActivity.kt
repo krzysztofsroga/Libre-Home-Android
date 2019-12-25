@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -35,11 +36,24 @@ class BottomNavigationActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         nav_view.setupWithNavController(navController)
+
+        swipe_refresh.setOnRefreshListener {
+            refreshSwitches()
+        }
+
+        switchesViewModel.switches.observe(this, Observer {
+            swipe_refresh.isRefreshing = false
+        })
+    }
+
+    private fun refreshSwitches() {
+        swipe_refresh.isRefreshing = true
+        switchesViewModel.updateSwitches()
     }
 
     override fun onStart() {
         super.onStart()
-        switchesViewModel.updateSwitches()
+        refreshSwitches()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -58,7 +72,7 @@ class BottomNavigationActivity : AppCompatActivity() {
                 true
             }
             R.id.action_refresh -> {
-                switchesViewModel.updateSwitches()
+                refreshSwitches()
                 true
             }
             else -> super.onOptionsItemSelected(item)
