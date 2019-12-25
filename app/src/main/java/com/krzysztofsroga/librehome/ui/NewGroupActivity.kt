@@ -1,7 +1,8 @@
-package com.krzysztofsroga.librehome.ui.mylists
+package com.krzysztofsroga.librehome.ui
 
 import android.app.Activity
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.ImageDecoder
@@ -12,24 +13,29 @@ import android.provider.MediaStore
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.signature.ObjectKey
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.models.SwitchGroup
+import com.krzysztofsroga.librehome.ui.adapters.SwitchCheckBoxAdapter
+import com.krzysztofsroga.librehome.ui.adapters.SwitchListAdapter
+import com.krzysztofsroga.librehome.utils.getCurrentOrientationLayoutManager
 import com.krzysztofsroga.librehome.viewmodels.NewGroupViewModel
 import com.krzysztofsroga.librehome.viewmodels.SwitchGroupViewModel
+import com.krzysztofsroga.librehome.viewmodels.SwitchesViewModel
 import kotlinx.android.synthetic.main.activity_new_group.*
+import kotlinx.android.synthetic.main.switches_fragment.*
 import java.io.File
 import java.io.FileOutputStream
 
 
 class NewGroupActivity : AppCompatActivity() {
 
-    companion object {
-        private const val RESULT_LOAD_IMAGE = 1
-    }
+    private val switchesViewModel: SwitchesViewModel by viewModels()
 
     private val tmpFile: File by lazy { File(filesDir, "tmp.jpg") }
 
@@ -62,6 +68,17 @@ class NewGroupActivity : AppCompatActivity() {
             if (file == null) return@Observer
             Glide.with(this).load(file).signature(ObjectKey(System.currentTimeMillis().toString())).into(new_group_photo)
         })
+
+        switches_check_list.apply {
+            layoutManager = getCurrentOrientationLayoutManager()
+            setHasFixedSize(true)
+            adapter = SwitchCheckBoxAdapter(listOf()).apply { setHasStableIds(true) }
+        }
+
+        switchesViewModel.switches.observe(this, Observer { switches ->
+            (switches_check_list.adapter as SwitchCheckBoxAdapter).updateData(switches)
+        })
+        switchesViewModel.updateSwitches()
     }
 
     override fun onActivityResult(
@@ -121,6 +138,10 @@ class NewGroupActivity : AppCompatActivity() {
             newFile.absolutePath
         )
         switchGroupViewModel.addGroup(group)
+    }
+
+    companion object {
+        private const val RESULT_LOAD_IMAGE = 1
     }
 
 }

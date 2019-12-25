@@ -13,13 +13,13 @@
 
     <fragment
             android:id="@+id/navigation_switches"
-            android:name="com.krzysztofsroga.librehome.ui.switches.SwitchesFragment"
+            android:name="com.krzysztofsroga.librehome.ui.SwitchesFragment"
             android:label="@string/title_switches"
             tools:layout="@layout/switches_fragment" />
 
     <fragment
             android:id="@+id/navigation_groups"
-            android:name="com.krzysztofsroga.librehome.ui.mylists.SwitchGroupFragment"
+            android:name="com.krzysztofsroga.librehome.ui.SwitchGroupFragment"
             android:label="@string/title_groups"
             tools:layout="@layout/switch_group_fragment">
         <action
@@ -29,7 +29,7 @@
 
     <fragment
             android:id="@+id/navigation_selected_group"
-            android:name="com.krzysztofsroga.librehome.ui.mylists.SelectedGroupFragment"
+            android:name="com.krzysztofsroga.librehome.ui.SelectedGroupFragment"
             android:label="Selected Group"
             tools:layout="@layout/selected_group_fragment">
         <action

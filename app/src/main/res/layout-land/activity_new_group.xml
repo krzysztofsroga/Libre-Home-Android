@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="8dp"
-        tools:context=".ui.mylists.NewGroupActivity">
+        tools:context=".ui.NewGroupActivity">
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -54,13 +54,15 @@
 
         </LinearLayout>
 
-
-        <TextView
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/switches_check_list"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="There should be a list of all selectable switches..." />
-
+                android:clipToPadding="false"
+                android:padding="4dp"
+                tools:itemCount="8"
+                tools:listitem="@layout/switch_check_entry" />
 
     </LinearLayout>
 

@@ -26,7 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.mylists.NewGroupActivity" />
+        <activity android:name=".ui.NewGroupActivity" />
         <activity
                 android:name=".ui.SettingsActivity"
                 android:label="@string/title_activity_settings" />

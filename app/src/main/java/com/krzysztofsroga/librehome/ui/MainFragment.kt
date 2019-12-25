@@ -9,12 +9,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.krzysztofsroga.librehome.R
-import com.krzysztofsroga.librehome.ui.switches.SwitchListAdapter
+import com.krzysztofsroga.librehome.ui.adapters.SwitchListAdapter
+import com.krzysztofsroga.librehome.utils.getCurrentOrientationLayoutManager
 import com.krzysztofsroga.librehome.viewmodels.SwitchesViewModel
 import com.krzysztofsroga.librehome.viewmodels.SshViewModel
 import kotlinx.android.synthetic.main.main_fragment.*
@@ -42,11 +41,7 @@ class MainFragment : Fragment() {
         }
 
         switches_favorite_list.apply {
-            layoutManager = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-            } else {
-                LinearLayoutManager(context)
-            }
+            layoutManager = getCurrentOrientationLayoutManager()
             adapter = SwitchListAdapter(listOf(), {
                 switchesViewModel.sendSwitchState(it)
             }, {

@@ -31,5 +31,6 @@ sealed class LightSwitch(
             return context.deserialize(json, type!!.java)
         }
     }
+
 }
 

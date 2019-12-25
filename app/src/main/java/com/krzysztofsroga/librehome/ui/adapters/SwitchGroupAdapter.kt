@@ -1,4 +1,4 @@
-package com.krzysztofsroga.librehome.ui.mylists
+package com.krzysztofsroga.librehome.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.View

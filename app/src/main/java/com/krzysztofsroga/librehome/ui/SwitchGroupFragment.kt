@@ -1,4 +1,4 @@
-package com.krzysztofsroga.librehome.ui.mylists
+package com.krzysztofsroga.librehome.ui
 
 import android.content.Intent
 import android.content.res.Configuration
@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.models.SwitchGroup
+import com.krzysztofsroga.librehome.ui.adapters.SwitchGroupAdapter
+import com.krzysztofsroga.librehome.utils.getCurrentOrientationLayoutManager
 import com.krzysztofsroga.librehome.viewmodels.SwitchGroupViewModel
 import kotlinx.android.synthetic.main.switch_group_fragment.*
 
@@ -30,12 +32,8 @@ class SwitchGroupFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         switch_group_list.apply {
+            layoutManager = getCurrentOrientationLayoutManager()
             setHasFixedSize(true)
-            layoutManager = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                GridLayoutManager(context, 2)
-            } else {
-                LinearLayoutManager(context)
-            }
         }
 
         switchGroupViewModel.switchGroups.observe(viewLifecycleOwner, Observer { groups ->

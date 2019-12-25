@@ -1,4 +1,4 @@
-package com.krzysztofsroga.librehome.ui.mylists
+package com.krzysztofsroga.librehome.ui
 
 import android.os.Bundle
 import android.util.Log

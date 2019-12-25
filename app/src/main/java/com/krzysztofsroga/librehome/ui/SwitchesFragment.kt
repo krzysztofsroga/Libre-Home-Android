@@ -1,4 +1,4 @@
-package com.krzysztofsroga.librehome.ui.switches
+package com.krzysztofsroga.librehome.ui
 
 import android.content.res.Configuration
 import android.os.Bundle
@@ -9,16 +9,17 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.krzysztofsroga.librehome.R
+import com.krzysztofsroga.librehome.ui.adapters.SwitchListAdapter
+import com.krzysztofsroga.librehome.utils.getCurrentOrientationLayoutManager
 import com.krzysztofsroga.librehome.viewmodels.SwitchesViewModel
 import kotlinx.android.synthetic.main.switches_fragment.*
 
 
 class SwitchesFragment : Fragment() {
-    private val viewModel: SwitchesViewModel by activityViewModels() //getting viewmodel in activity scope so that all fragments in pager have access to it
+    private val switchesViewModel: SwitchesViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.switches_fragment, container, false)
@@ -28,21 +29,17 @@ class SwitchesFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         switches_list.apply {
-            layoutManager = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-            } else {
-                LinearLayoutManager(context)
-            }
+            layoutManager = getCurrentOrientationLayoutManager()
             setHasFixedSize(true)
             adapter = SwitchListAdapter(listOf(), {
-                viewModel.sendSwitchState(it)
+                switchesViewModel.sendSwitchState(it)
             }, {
                 Toast.makeText(context, "Switch '${it.name}' is added to favorites!", Toast.LENGTH_SHORT).show()
-                viewModel.addFavorite(it)
+                switchesViewModel.addFavorite(it)
             }).apply { setHasStableIds(true) }
         }
 
-        viewModel.switches.observe(viewLifecycleOwner, Observer { switches ->
+        switchesViewModel.switches.observe(viewLifecycleOwner, Observer { switches ->
             (switches_list.adapter as SwitchListAdapter).updateData(switches)
         })
 

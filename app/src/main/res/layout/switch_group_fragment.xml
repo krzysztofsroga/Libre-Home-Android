@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:orientation="vertical"
-        tools:context=".ui.mylists.SwitchGroupFragment">
+        tools:context=".ui.SwitchGroupFragment">
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/switch_group_list"
