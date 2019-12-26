@@ -28,4 +28,6 @@
     <string name="refresh">Refresh</string>
     <string name="title_switches">Switches</string>
     <string name="title_groups">Groups</string>
+    <string name="delete_group">Delete group</string>
+    <string name="edit_group">Edit group</string>
 </resources>

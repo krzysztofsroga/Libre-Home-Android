@@ -10,33 +10,31 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            android:orientation="horizontal">
 
         <Button
                 android:id="@+id/button_group_delete"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Hello" />
+                android:text="@string/delete_group" />
 
         <Button
                 android:id="@+id/button_group_edit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Edit group" />
-
+                android:text="@string/edit_group" />
 
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/switches__check_list"
+            android:id="@+id/switches_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:padding="4dp"
             tools:itemCount="8"
-            tools:listitem="@layout/switch_check_entry" />
-
+            tools:listitem="@layout/switch_entry" />
 
 </LinearLayout>

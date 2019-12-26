@@ -10,6 +10,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.krzysztofsroga.librehome.R
+import com.krzysztofsroga.librehome.models.LightSwitch
 import com.krzysztofsroga.librehome.models.SwitchGroup
 import com.krzysztofsroga.librehome.utils.isEven
 import kotlinx.android.synthetic.main.switch_group_entry.view.*
@@ -17,10 +18,10 @@ import java.io.File
 
 class SwitchGroupAdapter(
     private val switchGroupList: List<SwitchGroup>,
+    private val switches: List<LightSwitch>,
     private val onItemClick: (SwitchGroup) -> Unit = { _ -> },
     private val onAddGroupClick: () -> Unit = {}
 ) : RecyclerView.Adapter<SwitchGroupAdapter.GroupViewHolder>() {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
         return if (viewType == 1) {
@@ -46,7 +47,7 @@ class SwitchGroupAdapter(
                 holder.description.text = switchGroup.description
                 holder.name.text = switchGroup.name
                 Glide.with(holder.card.context).load(File(switchGroup.imagePath)).into(holder.photo)
-                holder.switchList.text = switchGroup.switchesIndices.toString()
+                holder.switchList.text = switchGroup.switchesIndices.map { id -> switches.find { it.id == id }?.name ?: id }.joinToString(", ")
             }
             is GroupViewHolder.AddGroup -> {
                 Glide.with(holder.card.context).load(R.drawable.plus_in_circle_inv).into(holder.photo)
@@ -56,7 +57,6 @@ class SwitchGroupAdapter(
             }
         }
     }
-
 
     sealed class GroupViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val layout: LinearLayout = view.group_entry_linear_layout as LinearLayout

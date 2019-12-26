@@ -18,11 +18,13 @@ import com.krzysztofsroga.librehome.models.SwitchGroup
 import com.krzysztofsroga.librehome.ui.adapters.SwitchGroupAdapter
 import com.krzysztofsroga.librehome.utils.getCurrentOrientationLayoutManager
 import com.krzysztofsroga.librehome.viewmodels.SwitchGroupViewModel
+import com.krzysztofsroga.librehome.viewmodels.SwitchesViewModel
 import kotlinx.android.synthetic.main.switch_group_fragment.*
 
 class SwitchGroupFragment : Fragment() {
 
     private val switchGroupViewModel: SwitchGroupViewModel by activityViewModels()
+    private val switchesViewModel: SwitchesViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.switch_group_fragment, container, false)
@@ -37,13 +39,16 @@ class SwitchGroupFragment : Fragment() {
         }
 
         switchGroupViewModel.switchGroups.observe(viewLifecycleOwner, Observer { groups ->
-            switch_group_list.adapter = SwitchGroupAdapter(groups,
-                onItemClick = { switchGroup ->
-                    showSwitchGroup(switchGroup)
-                },
-                onAddGroupClick = {
-                    startActivity(Intent(activity, NewGroupActivity::class.java))
-                })
+            switchesViewModel.switches.observe(viewLifecycleOwner, Observer { switches ->
+                //TODO think about whether nested observers is a good pattern
+                switch_group_list.adapter = SwitchGroupAdapter(groups, switches,
+                    onItemClick = { switchGroup ->
+                        showSwitchGroup(switchGroup)
+                    },
+                    onAddGroupClick = {
+                        startActivity(Intent(activity, NewGroupActivity::class.java))
+                    })
+            })
         })
 
 

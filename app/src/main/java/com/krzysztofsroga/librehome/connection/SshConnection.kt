@@ -56,7 +56,7 @@ class SshConnection(prefs: SharedPreferences) {
                 channel.outputStream = output
 
                 // Execute command
-                channel.setCommand("sudo shutdown -r now") //TODO sudo reboot
+                channel.setCommand("sudo shutdown -r now")
                 send("Sending command...")
                 channel.connect()
                 send("Awaiting response...")
