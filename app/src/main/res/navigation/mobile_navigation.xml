@@ -32,9 +32,6 @@
             android:name="com.krzysztofsroga.librehome.ui.SelectedGroupFragment"
             android:label="Selected Group"
             tools:layout="@layout/selected_group_fragment">
-        <action
-                android:id="@+id/action_SelectedGroupFragment_to_GroupsFragment"
-                app:destination="@id/navigation_groups" />
 
         <argument
                 android:name="myArg"

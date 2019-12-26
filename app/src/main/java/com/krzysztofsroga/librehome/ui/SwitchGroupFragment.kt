@@ -1,18 +1,15 @@
 package com.krzysztofsroga.librehome.ui
 
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.NavHostFragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.navigation.fragment.findNavController
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.models.SwitchGroup
 import com.krzysztofsroga.librehome.ui.adapters.SwitchGroupAdapter
@@ -55,9 +52,7 @@ class SwitchGroupFragment : Fragment() {
     }
 
     private fun showSwitchGroup(group: SwitchGroup) {
-        Toast.makeText(context, "You selected ${group.name} which is ${group.description}!", Toast.LENGTH_SHORT).show()
         val action = SwitchGroupFragmentDirections.actionGroupsToSelectedGroup(group.name)
-        NavHostFragment.findNavController(this).navigate(action)
+        findNavController().navigate(action)
     }
-
 }
