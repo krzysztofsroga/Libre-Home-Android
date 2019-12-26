@@ -82,7 +82,6 @@ class BottomNavigationActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        Log.d("hello", "etuhoe")
         onBackPressed()
         return super.onSupportNavigateUp()
     }

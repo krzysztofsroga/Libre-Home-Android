@@ -1,6 +1,5 @@
 package com.krzysztofsroga.librehome.ui.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +25,7 @@ class SwitchCheckBoxAdapter(private var lightSwitchList: List<LightSwitch>, priv
         val switch = lightSwitchList[position]
         holder.loadSwitch(switch, switch.id in selected) { isChecked ->
             when (isChecked) {
-                true -> selected.add( switch.id!!) //TODO id nullability
+                true -> selected.add(switch.id!!) //TODO id nullability
                 false -> selected.remove(switch.id!!)
             }
         }

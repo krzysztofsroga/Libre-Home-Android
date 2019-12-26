@@ -53,7 +53,7 @@ class SelectedGroupFragment : Fragment() {
             adapter = SwitchListAdapter(listOf(), {
                 switchesViewModel.sendSwitchState(it)
             }, {
-                Toast.makeText(context, "Switch '${it.name}' is added to favorites!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Switch '${it.name}' is added to favorites!", Toast.LENGTH_SHORT).show() //TODO string template
                 switchesViewModel.addFavorite(it)
             }).apply { setHasStableIds(true) }
         }
