@@ -1,6 +1,5 @@
 package com.krzysztofsroga.librehome.ui
 
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,13 +8,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.ui.adapters.SwitchListAdapter
 import com.krzysztofsroga.librehome.utils.getCurrentOrientationLayoutManager
-import com.krzysztofsroga.librehome.viewmodels.SwitchesViewModel
 import com.krzysztofsroga.librehome.viewmodels.SshViewModel
+import com.krzysztofsroga.librehome.viewmodels.SwitchesViewModel
 import kotlinx.android.synthetic.main.main_fragment.*
 
 

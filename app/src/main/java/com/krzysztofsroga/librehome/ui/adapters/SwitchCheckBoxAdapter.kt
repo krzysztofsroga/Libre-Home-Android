@@ -15,10 +15,10 @@ import kotlinx.android.synthetic.main.switch_entry.view.lightIcon
 //TODO pass livedata?
 class SwitchCheckBoxAdapter(private var lightSwitchList: List<LightSwitch>) : RecyclerView.Adapter<SwitchCheckBoxAdapter.SwitchViewHolder>() {
 
-    private val _selected: MutableSet<LightSwitch> = mutableSetOf()
+    private val _selected: MutableSet<Int> = mutableSetOf()
 
-    val selected: Set<LightSwitch>
-        get() = _selected
+    val selected: List<Int>
+        get() = _selected.toList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SwitchViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.switch_check_entry, parent, false)
@@ -29,10 +29,10 @@ class SwitchCheckBoxAdapter(private var lightSwitchList: List<LightSwitch>) : Re
 
     override fun onBindViewHolder(holder: SwitchViewHolder, position: Int) {
         val switch = lightSwitchList[position]
-        holder.loadSwitch(switch, switch in _selected) { isChecked ->
+        holder.loadSwitch(switch, switch.id in _selected) { isChecked ->
             when (isChecked) {
-                true -> _selected += switch
-                false -> _selected.remove(switch)
+                true -> _selected.add( switch.id!!) //TODO id nullability
+                false -> _selected.remove(switch.id!!)
             }
         }
     }

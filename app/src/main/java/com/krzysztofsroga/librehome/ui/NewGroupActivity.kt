@@ -135,7 +135,8 @@ class NewGroupActivity : AppCompatActivity() {
             0,
             edit_group_name.text.toString(),
             edit_group_description.text.toString(),
-            newFile.absolutePath
+            newFile.absolutePath,
+            (switches_check_list.adapter as SwitchCheckBoxAdapter).selected //TODO keep it in viewmodel
         )
         switchGroupViewModel.addGroup(group)
     }

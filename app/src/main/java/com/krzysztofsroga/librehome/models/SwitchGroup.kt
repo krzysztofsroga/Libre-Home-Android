@@ -9,5 +9,5 @@ data class SwitchGroup(
     val name: String,
     val description: String,
     val imagePath: String,
-    val switchesIndices: List<Int> = listOf()
+    val switchesIndices: List<Int>
 )

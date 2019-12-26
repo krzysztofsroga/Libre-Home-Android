@@ -39,13 +39,14 @@ class SwitchGroupAdapter(
         }
         when (holder) {
             is GroupViewHolder.Group -> {
+                val switchGroup = switchGroupList[position]
                 holder.card.setOnClickListener {
-                    onItemClick(switchGroupList[position])
+                    onItemClick(switchGroup)
                 }
-                holder.description.text = switchGroupList[position].description
-                holder.name.text = switchGroupList[position].name
-                Glide.with(holder.card.context).load(File(switchGroupList[position].imagePath)).into(holder.photo)
-
+                holder.description.text = switchGroup.description
+                holder.name.text = switchGroup.name
+                Glide.with(holder.card.context).load(File(switchGroup.imagePath)).into(holder.photo)
+                holder.switchList.text = switchGroup.switchesIndices.toString()
             }
             is GroupViewHolder.AddGroup -> {
                 Glide.with(holder.card.context).load(R.drawable.plus_in_circle_inv).into(holder.photo)
@@ -66,6 +67,7 @@ class SwitchGroupAdapter(
         class Group(view: View) : GroupViewHolder(view) {
             val name: TextView = view.group_entry_name
             val description: TextView = view.group_entry_description
+            val switchList: TextView = view.group_entry_switch_list
         }
     }
 
