@@ -4,10 +4,14 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.krzysztofsroga.librehome.models.FavoriteSwitch
 import com.krzysztofsroga.librehome.models.SwitchGroup
 
-@Database(entities = [FavoriteSwitch::class, SwitchGroup::class], version = 2)
+@Database(entities = [FavoriteSwitch::class, SwitchGroup::class], version = 3)
+@TypeConverters(Converters::class)
 abstract class SwitchesRoomDatabase : RoomDatabase() {
     abstract val favoriteDao: FavoriteSwitchDao
     abstract val switchGroupDao: SwitchGroupDao
@@ -15,6 +19,12 @@ abstract class SwitchesRoomDatabase : RoomDatabase() {
     companion object {
         @Volatile
         private var INSTANCE: SwitchesRoomDatabase? = null
+
+        private val MIGRATION_2_3 = object : Migration(2, 3){
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE switch_groups ADD COLUMN switchesIndices TEXT NOT NULL DEFAULT ''")
+            }
+        }
 
         fun getDatabase(context: Context): SwitchesRoomDatabase {
             val tempInstance = INSTANCE
@@ -26,7 +36,7 @@ abstract class SwitchesRoomDatabase : RoomDatabase() {
                     context.applicationContext,
                     SwitchesRoomDatabase::class.java,
                     "favorites_database"
-                ).fallbackToDestructiveMigration().build() //TODO when stable version, don't fallback to destructive mgration
+                ).addMigrations(MIGRATION_2_3).fallbackToDestructiveMigrationOnDowngrade().build()
                 INSTANCE = instance
                 return instance
             }

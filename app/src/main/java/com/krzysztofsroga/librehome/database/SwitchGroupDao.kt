@@ -7,7 +7,7 @@ import com.krzysztofsroga.librehome.models.SwitchGroup
 @Dao
 interface SwitchGroupDao {
     @Query("SELECT * from switch_groups")
-    fun getAllSwichGroup(): LiveData<List<SwitchGroup>>
+    fun getAllSwitchGroup(): LiveData<List<SwitchGroup>>
 
     @Insert
     suspend fun insert(switchGroup: SwitchGroup)

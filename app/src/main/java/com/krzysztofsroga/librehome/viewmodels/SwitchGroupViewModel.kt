@@ -12,7 +12,7 @@ class SwitchGroupViewModel(application: Application) : AndroidViewModel(applicat
 
     private val switchGroupDao = SwitchesRoomDatabase.getDatabase(getApplication()).switchGroupDao
 
-    val switchGroups: LiveData<List<SwitchGroup>> = switchGroupDao.getAllSwichGroup()
+    val switchGroups: LiveData<List<SwitchGroup>> = switchGroupDao.getAllSwitchGroup()
 
     fun addGroup(switchGroup: SwitchGroup) {
         viewModelScope.launch {
