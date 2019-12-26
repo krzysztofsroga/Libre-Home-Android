@@ -72,7 +72,7 @@ class NewGroupActivity : AppCompatActivity() {
         switches_check_list.apply {
             layoutManager = getCurrentOrientationLayoutManager()
             setHasFixedSize(true)
-            adapter = SwitchCheckBoxAdapter(listOf()).apply { setHasStableIds(true) }
+            adapter = SwitchCheckBoxAdapter(listOf(), newGroupViewModel.selected).apply { setHasStableIds(true) }
         }
 
         switchesViewModel.switches.observe(this, Observer { switches ->
@@ -136,7 +136,7 @@ class NewGroupActivity : AppCompatActivity() {
             edit_group_name.text.toString(),
             edit_group_description.text.toString(),
             newFile.absolutePath,
-            (switches_check_list.adapter as SwitchCheckBoxAdapter).selected //TODO keep it in viewmodel
+            newGroupViewModel.selected.toList()
         )
         switchGroupViewModel.addGroup(group)
     }
