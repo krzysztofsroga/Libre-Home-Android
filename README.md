@@ -4,7 +4,7 @@
 
 <img src=docs/icon.png height=100/>
 
-This application is still in early development stage. Some functionality may not be implemented yet. 
+This application is still in early development stage. Some functionality may not be implemented yet. Take a look in current version release notes for more details
 
 ---
 Screenshots:
