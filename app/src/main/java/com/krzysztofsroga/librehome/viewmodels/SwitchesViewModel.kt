@@ -23,10 +23,13 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
         OnlineSwitches(hostname)
     }
 
+    private val _error = MutableLiveData<String>()
+
+    val error : LiveData<String> = _error
+
     private val _switches = MutableLiveData<List<LightSwitch>>()
 
-    val switches: LiveData<List<LightSwitch>>
-        get() = _switches
+    val switches: LiveData<List<LightSwitch>> = _switches
 
     private val favoriteIds: LiveData<List<FavoriteSwitch>> = favoriteDao.getAllFavorites()
 

@@ -20,7 +20,7 @@
     <PreferenceCategory app:title="@string/domoticz">
 
         <EditTextPreference
-                app:defaultValue="domoticz:8080"
+                app:defaultValue="@string/default_host"
                 app:key="host"
                 app:title="@string/host"
                 app:useSimpleSummaryProvider="true" />

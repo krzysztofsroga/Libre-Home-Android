@@ -30,4 +30,5 @@
     <string name="title_groups">Groups</string>
     <string name="delete_group">Delete group</string>
     <string name="edit_group">Edit group</string>
+    <string name="default_host">domoticz</string>
 </resources>
