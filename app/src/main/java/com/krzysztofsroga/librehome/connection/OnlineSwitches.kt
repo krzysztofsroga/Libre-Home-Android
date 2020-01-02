@@ -9,6 +9,8 @@ import com.google.gson.GsonBuilder
 import com.krzysztofsroga.librehome.models.DomoticzSwitches
 import com.krzysztofsroga.librehome.models.LightSwitch
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 
 

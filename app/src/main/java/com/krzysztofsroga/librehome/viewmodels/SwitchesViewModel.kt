@@ -12,7 +12,6 @@ import com.krzysztofsroga.librehome.models.FavoriteSwitch
 import com.krzysztofsroga.librehome.models.LightSwitch
 import com.krzysztofsroga.librehome.utils.Event
 import kotlinx.coroutines.launch
-import java.net.MalformedURLException
 
 
 class SwitchesViewModel(application: Application) : AndroidViewModel(application) {
@@ -25,9 +24,9 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
         OnlineSwitches(hostname)
     }
 
-    private val _error = MutableLiveData<Event<String>>()
+    private val _error = MutableLiveData<Event<Exception>>()
 
-    val error: LiveData<Event<String>> = _error
+    val error: LiveData<Event<Exception>> = _error
 
     private val _switches = MutableLiveData<List<LightSwitch>>()
 
@@ -46,8 +45,8 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
             Log.d("switches", "refreshing switches")
             try {
                 _switches.postValue(onlineSwitches.suspendGetAllSwitches())
-            } catch (e: MalformedURLException) {
-                _error.postValue(Event("Connection error: $e"))
+            } catch (e: Exception) {
+                _error.postValue(Event(e))
             }
         }
     }
@@ -55,10 +54,9 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
     fun sendSwitchState(switch: LightSwitch) {
         viewModelScope.launch {
             try {
-            onlineSwitches.suspendSendSwitchState(switch)
-
-            } catch(e: MalformedURLException) {
-                _error.postValue(Event("Connection error: $e"))
+                onlineSwitches.suspendSendSwitchState(switch)
+            } catch (e: Exception) {
+                _error.postValue(Event(e))
             }
         }
     }

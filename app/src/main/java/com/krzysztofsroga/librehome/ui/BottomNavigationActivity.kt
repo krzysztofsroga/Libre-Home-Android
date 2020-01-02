@@ -3,6 +3,7 @@ package com.krzysztofsroga.librehome.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -49,7 +50,8 @@ class BottomNavigationActivity : AppCompatActivity() {
         switchesViewModel.error.observe(this, Observer { e ->
             val error = e.value ?: return@Observer
             swipe_refresh.isRefreshing = false
-            Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
+            Log.e("Domoticz Connection", error.toString())
+            Toast.makeText(this, "Connection error: ${error.message}", Toast.LENGTH_LONG).show()
         })
     }
 
