@@ -31,4 +31,5 @@
     <string name="delete_group">Delete group</string>
     <string name="edit_group">Edit group</string>
     <string name="default_host">domoticz</string>
+    <string name="domoticz_username">Domoticz username</string>
 </resources>
