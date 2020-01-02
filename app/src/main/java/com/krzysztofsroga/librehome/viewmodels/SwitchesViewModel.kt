@@ -6,11 +6,13 @@ import androidx.lifecycle.*
 import androidx.preference.PreferenceManager
 import com.krzysztofsroga.librehome.AppConfig
 import com.krzysztofsroga.librehome.connection.InternetConfiguration
-import com.krzysztofsroga.librehome.database.SwitchesRoomDatabase
 import com.krzysztofsroga.librehome.connection.OnlineSwitches
+import com.krzysztofsroga.librehome.database.SwitchesRoomDatabase
 import com.krzysztofsroga.librehome.models.FavoriteSwitch
 import com.krzysztofsroga.librehome.models.LightSwitch
+import com.krzysztofsroga.librehome.utils.Event
 import kotlinx.coroutines.launch
+import java.net.MalformedURLException
 
 
 class SwitchesViewModel(application: Application) : AndroidViewModel(application) {
@@ -23,9 +25,9 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
         OnlineSwitches(hostname)
     }
 
-    private val _error = MutableLiveData<String>()
+    private val _error = MutableLiveData<Event<String>>()
 
-    val error : LiveData<String> = _error
+    val error: LiveData<Event<String>> = _error
 
     private val _switches = MutableLiveData<List<LightSwitch>>()
 
@@ -40,14 +42,25 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun updateSwitches() {
-        onlineSwitches.getAllSwitches { downloadedSwitches: List<LightSwitch> ->
+        viewModelScope.launch {
             Log.d("switches", "refreshing switches")
-            _switches.postValue(downloadedSwitches)
+            try {
+                _switches.postValue(onlineSwitches.suspendGetAllSwitches())
+            } catch (e: MalformedURLException) {
+                _error.postValue(Event("Connection error: $e"))
+            }
         }
     }
 
     fun sendSwitchState(switch: LightSwitch) {
-        onlineSwitches.sendSwitchState(switch)
+        viewModelScope.launch {
+            try {
+            onlineSwitches.suspendSendSwitchState(switch)
+
+            } catch(e: MalformedURLException) {
+                _error.postValue(Event("Connection error: $e"))
+            }
+        }
     }
 
     fun addFavorite(switch: LightSwitch) {
