@@ -3,11 +3,15 @@ package com.krzysztofsroga.librehome.connection
 import android.util.Log
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.FuelManager
-import com.github.kittinunf.result.Result
+import com.github.kittinunf.fuel.coroutines.awaitStringResult
+import com.github.kittinunf.result.failure
 import com.google.gson.GsonBuilder
-import com.krzysztofsroga.librehome.AppConfig
 import com.krzysztofsroga.librehome.models.DomoticzSwitches
 import com.krzysztofsroga.librehome.models.LightSwitch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 
 
 class OnlineSwitches(private val hostname: String) {
@@ -16,42 +20,25 @@ class OnlineSwitches(private val hostname: String) {
         configureFuel()
     }
 
-    fun sendSwitchState(lightSwitch: LightSwitch) {
-        val logTag = "switches-post"
+    suspend fun suspendSendSwitchState(lightSwitch: LightSwitch) {
         val cmd = if (lightSwitch.enabled) if (lightSwitch is LightSwitch.DimmableSwitch) "Set%20Level&level=${lightSwitch.dim}" else "On" else "Off"
-
-//        val cmd = if (lightSwitch.enabled) "On" else "Off"
         val path = "json.htm?type=command&param=switchlight&idx=${lightSwitch.id}&switchcmd=$cmd" //TODO pass parameters
-        Log.d(logTag, path)
-        Fuel.get(path).responseString { _, _, result ->
-            when (result) {
-                is Result.Failure -> {
-                    Log.e(logTag, "failed: ${result.error}")
-                }
-                is Result.Success -> {
-                    Log.d(logTag, "success: ${result.value}")
-                }
-            }
+        withContext(Dispatchers.IO) {
+            Fuel.get(path).awaitStringResult().failure { throw it }
         }
     }
 
-    fun getAllSwitches(callback: (List<LightSwitch>) -> Unit) {
-        val logTag = "switches-get-domoticz"
+    suspend fun suspendGetAllSwitches(): List<LightSwitch> {
         val path = "json.htm?type=devices&filter=lights&used=true&order=Name"
-        Fuel.get(path).responseString { _, _, result ->
-            when (result) {
-                is Result.Failure -> {
-                    Log.e(logTag, "failed: ${result.error}")
-                }
-                is Result.Success -> {
-                    Log.d(logTag, "success: ${result.value}")
+        return withContext(Dispatchers.IO) {
+            Fuel.get(path).awaitStringResult().fold(
+                { resultString ->
                     val gson = GsonBuilder().create()
-                    val dObj = gson.fromJson<DomoticzSwitches>(result.value, DomoticzSwitches::class.java)
+                    val dObj = gson.fromJson<DomoticzSwitches>(resultString, DomoticzSwitches::class.java)
                     val obj = dObj.toSwitchStatesModel()
-                    Log.d(logTag, "object: ${obj.items.joinToString { "(${it.type}: ${it.name}), id: ${it.id}\n" }}")
-                    callback(obj.items)
-                }
-            }
+                    obj.items
+                },
+                { throw it })
         }
     }
 

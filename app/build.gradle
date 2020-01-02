@@ -22,6 +22,8 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug {
+        }
     }
     buildToolsVersion = '29.0.2'
     compileOptions {
@@ -67,6 +69,7 @@ dependencies {
 
     // Domoticz connection:
     implementation 'com.github.kittinunf.fuel:fuel:2.2.1'
+    implementation 'com.github.kittinunf.fuel:fuel-coroutines:2.2.1'
     implementation 'com.github.kittinunf.fuel:fuel-gson:2.2.1'
     implementation 'com.google.code.gson:gson:2.8.6'
 

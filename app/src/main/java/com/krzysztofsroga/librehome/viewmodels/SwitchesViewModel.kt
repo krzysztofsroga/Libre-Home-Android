@@ -6,10 +6,11 @@ import androidx.lifecycle.*
 import androidx.preference.PreferenceManager
 import com.krzysztofsroga.librehome.AppConfig
 import com.krzysztofsroga.librehome.connection.InternetConfiguration
-import com.krzysztofsroga.librehome.database.SwitchesRoomDatabase
 import com.krzysztofsroga.librehome.connection.OnlineSwitches
+import com.krzysztofsroga.librehome.database.SwitchesRoomDatabase
 import com.krzysztofsroga.librehome.models.FavoriteSwitch
 import com.krzysztofsroga.librehome.models.LightSwitch
+import com.krzysztofsroga.librehome.utils.Event
 import kotlinx.coroutines.launch
 
 
@@ -23,10 +24,13 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
         OnlineSwitches(hostname)
     }
 
+    private val _error = MutableLiveData<Event<Exception>>()
+
+    val error: LiveData<Event<Exception>> = _error
+
     private val _switches = MutableLiveData<List<LightSwitch>>()
 
-    val switches: LiveData<List<LightSwitch>>
-        get() = _switches
+    val switches: LiveData<List<LightSwitch>> = _switches
 
     private val favoriteIds: LiveData<List<FavoriteSwitch>> = favoriteDao.getAllFavorites()
 
@@ -37,14 +41,24 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun updateSwitches() {
-        onlineSwitches.getAllSwitches { downloadedSwitches: List<LightSwitch> ->
+        viewModelScope.launch {
             Log.d("switches", "refreshing switches")
-            _switches.postValue(downloadedSwitches)
+            try {
+                _switches.postValue(onlineSwitches.suspendGetAllSwitches())
+            } catch (e: Exception) {
+                _error.postValue(Event(e))
+            }
         }
     }
 
     fun sendSwitchState(switch: LightSwitch) {
-        onlineSwitches.sendSwitchState(switch)
+        viewModelScope.launch {
+            try {
+                onlineSwitches.suspendSendSwitchState(switch)
+            } catch (e: Exception) {
+                _error.postValue(Event(e))
+            }
+        }
     }
 
     fun addFavorite(switch: LightSwitch) {

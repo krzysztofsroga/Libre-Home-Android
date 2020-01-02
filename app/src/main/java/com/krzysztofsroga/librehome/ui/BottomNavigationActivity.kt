@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NavUtils
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -45,6 +45,13 @@ class BottomNavigationActivity : AppCompatActivity() {
 
         switchesViewModel.switches.observe(this, Observer {
             swipe_refresh.isRefreshing = false
+        })
+
+        switchesViewModel.error.observe(this, Observer { e ->
+            val error = e.value ?: return@Observer
+            swipe_refresh.isRefreshing = false
+            Log.e("Domoticz Connection", error.toString())
+            Toast.makeText(this, "Connection error: ${error.message}", Toast.LENGTH_LONG).show()
         })
     }
 

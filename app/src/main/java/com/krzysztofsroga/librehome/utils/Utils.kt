@@ -15,3 +15,8 @@ fun RecyclerView.getCurrentOrientationLayoutManager(): RecyclerView.LayoutManage
         LinearLayoutManager(context)
     }
 }
+
+class Event<out T>(private var _value: T?) {
+    val value: T?
+        get() = _value.also { _value = null }
+}
