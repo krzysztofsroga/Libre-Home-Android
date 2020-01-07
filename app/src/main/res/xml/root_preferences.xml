@@ -33,13 +33,11 @@
         <EditTextPreference
                 app:isPreferenceVisible="false"
                 app:key="domoticz_password"
-                app:title="@string/domoticz_password"
-                app:useSimpleSummaryProvider="true" />
+                app:title="@string/domoticz_password" />
 
         <EditTextPreference
                 app:key="ssh_password"
-                app:title="@string/ssh_password"
-                app:useSimpleSummaryProvider="true" />
+                app:title="@string/ssh_password" />
 
         <ListPreference
                 app:defaultValue="domoticz"
