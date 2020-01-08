@@ -1,6 +1,7 @@
 package com.krzysztofsroga.librehome.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
@@ -20,9 +21,20 @@ class SwitchGroupViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
+    fun updateGroup(switchGroup: SwitchGroup) {
+        viewModelScope.launch {
+            switchGroupDao.update(switchGroup)
+            Log.d("group update", "updated $switchGroup")
+        }
+    }
+
     fun deleteGroup(switchGroup: SwitchGroup) {
         viewModelScope.launch {
             switchGroupDao.delete(switchGroup)
         }
+    }
+
+    suspend fun loadGroup(groupId: Int): SwitchGroup {
+        return switchGroupDao.findGroupById(groupId)
     }
 }

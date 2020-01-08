@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.signature.ObjectKey
+import com.krzysztofsroga.librehome.AppConfig
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.models.SwitchGroup
 import com.krzysztofsroga.librehome.ui.adapters.SwitchCheckBoxAdapter
@@ -29,6 +30,7 @@ import com.krzysztofsroga.librehome.viewmodels.SwitchGroupViewModel
 import com.krzysztofsroga.librehome.viewmodels.SwitchesViewModel
 import kotlinx.android.synthetic.main.activity_new_group.*
 import kotlinx.android.synthetic.main.switches_fragment.*
+import kotlinx.coroutines.*
 import java.io.File
 import java.io.FileOutputStream
 
@@ -46,7 +48,19 @@ class NewGroupActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_group)
-        title = getString(R.string.new_group)
+
+        val extras = intent.extras
+        if(extras != null) {
+            newGroupViewModel.editingExistingGroup = true
+            newGroupViewModel.groupId = extras.getInt(AppConfig.ExtrasKeys.GROUP_ID)
+            loadData()
+        }
+
+        title = if(newGroupViewModel.editingExistingGroup) {
+            getString(R.string.edit_group)
+        } else {
+            getString(R.string.new_group)
+        }
 
         new_group_photo.setOnClickListener {
             val i = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
@@ -128,17 +142,34 @@ class NewGroupActivity : AppCompatActivity() {
         return success
     }
 
+    private fun loadData() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val data = switchGroupViewModel.loadGroup(newGroupViewModel.groupId)
+            withContext(Dispatchers.Main) {
+                edit_group_name.setText(data.name)
+                edit_group_description.setText(data.description)
+                newGroupViewModel.tmpImagePath.value = File(data.imagePath)
+                newGroupViewModel.selected.addAll(data.switchesIndices)
+            }
+        }
+
+    }
+
     private fun saveData() {
         val newFile = File(filesDir, "groupimage-${System.currentTimeMillis()}.jpg")
         newGroupViewModel.tmpImagePath.value!!.renameTo(newFile) //TODO load generic image if it isn't selected? If so, change check in validateFields
         val group = SwitchGroup(
-            0,
+            newGroupViewModel.groupId,
             edit_group_name.text.toString(),
             edit_group_description.text.toString(),
             newFile.absolutePath,
             newGroupViewModel.selected.toList()
         )
-        switchGroupViewModel.addGroup(group)
+        if(newGroupViewModel.editingExistingGroup) {
+            switchGroupViewModel.updateGroup(group)
+        } else {
+            switchGroupViewModel.addGroup(group)
+        }
     }
 
     companion object {

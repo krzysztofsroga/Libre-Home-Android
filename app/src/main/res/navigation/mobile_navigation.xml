@@ -34,8 +34,8 @@
             tools:layout="@layout/selected_group_fragment">
 
         <argument
-                android:name="myArg"
-                app:argType="string" />
+                android:name="selectedGroupId"
+                app:argType="integer" />
     </fragment>
 
 </navigation>
