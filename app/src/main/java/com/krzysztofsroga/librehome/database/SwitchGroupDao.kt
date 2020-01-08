@@ -18,9 +18,6 @@ interface SwitchGroupDao {
     @Update
     suspend fun update(switchGroup: SwitchGroup)
 
-//    @Query("UPDATE switch_groups SET name = :switchGroup.")
-//    suspend fun update(switchGroup: SwitchGroup)
-
     @Delete
     suspend fun delete(switchGroup: SwitchGroup)
 }
