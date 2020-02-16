@@ -1,3 +1,6 @@
+# This is a fork to be able to generate pull requests to upstream !!!
+
+------------------------
 # LibreHome Android
 
 ### Free and Open Source Domoticz Client built with Android Jetpack
