@@ -32,4 +32,7 @@
     <string name="edit_group">Edit group</string>
     <string name="default_host">domoticz</string>
     <string name="domoticz_username">Domoticz username</string>
+    <string name="sort_sw_1">Sort alphabetically</string>
+    <string name="sort_sw_2">Use domoticz sorting</string>
+    <string name="sort_sw_3">Most recently used</string>
 </resources>
