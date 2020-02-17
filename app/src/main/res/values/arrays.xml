@@ -1,9 +1,9 @@
 <resources>
     <!-- Reply Preference -->
     <string-array name="sorting_entries">
-        <item>Sort alphabetically</item>
-        <item>Use domoticz sorting</item>
-        <item>Most recently used</item>
+        <item>@string/sort_sw_1</item>
+        <item>@string/sort_sw_2</item>
+        <item>@string/sort_sw_3</item>
     </string-array>
 
     <string-array name="sorting_values">
@@ -15,10 +15,12 @@
     <string-array name="language_entries">
         <item>Polski</item>
         <item>English</item>
+        <item>Deutsch</item>
     </string-array>
 
     <string-array name="language_values">
         <item>pl</item>
         <item>en</item>
+        <item>de</item>
     </string-array>
 </resources>
