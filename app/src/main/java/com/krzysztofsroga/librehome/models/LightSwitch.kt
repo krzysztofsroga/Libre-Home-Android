@@ -18,19 +18,23 @@ sealed class LightSwitch(
         override fun toString(): String = "DimmableSwitch(name=$name, enabled=$enabled, dim=$dim)"
     }
 
-    companion object JsonSerialization : JsonDeserializer<LightSwitch>, JsonSerializer<LightSwitch> {
-        override fun serialize(src: LightSwitch, typeOfSrc: Type, context: JsonSerializationContext): JsonElement {
-            return context.serialize(src, src.javaClass)
-        }
-
-        override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): LightSwitch {
-            val typeName = json.asJsonObject.get(LightSwitch::type.name).asString
-            val type = LightSwitch::class.sealedSubclasses.find {
-                it.simpleName == typeName
-            }
-            return context.deserialize(json, type!!.java)
-        }
+    class SelectorSwitch(name: String, enabled: Boolean = false, var dim: Int = 100, levels: List<String>, id: Int? = null) : LightSwitch(name, enabled, id) {
+        override fun toString(): String = "SelectorSwitch(name=$name, enabled=$enabled, dim=$dim)"
     }
+
+//    companion object JsonSerialization : JsonDeserializer<LightSwitch>, JsonSerializer<LightSwitch> {
+//        override fun serialize(src: LightSwitch, typeOfSrc: Type, context: JsonSerializationContext): JsonElement {
+//            return context.serialize(src, src.javaClass)
+//        }
+//
+//        override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): LightSwitch {
+//            val typeName = json.asJsonObject.get(LightSwitch::type.name).asString
+//            val type = LightSwitch::class.sealedSubclasses.find {
+//                it.simpleName == typeName
+//            }
+//            return context.deserialize(json, type!!.java)
+//        }
+//    }
 
 }
 

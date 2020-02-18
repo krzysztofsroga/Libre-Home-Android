@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.models.LightSwitch
 import kotlinx.android.synthetic.main.switch_entry.view.*
+
 //TODO pass livedata?
 class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private val callback: (LightSwitch) -> Unit, private val longCallback: (LightSwitch) -> Unit) :
     RecyclerView.Adapter<SwitchListAdapter.SwitchViewHolder>() {
@@ -25,9 +26,10 @@ class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private 
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when(lightSwitchList[position]) {
+        return when (lightSwitchList[position]) {
             is LightSwitch.SimpleSwitch -> 1
             is LightSwitch.DimmableSwitch -> 2
+            is LightSwitch.SelectorSwitch -> 3
         }
     }
 
@@ -35,7 +37,7 @@ class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private 
         return lightSwitchList[position].id!!.toLong() //TODO make id non nullable
     }
 
-    fun updateData(newLightSwitchList : List<LightSwitch>) {
+    fun updateData(newLightSwitchList: List<LightSwitch>) {
         lightSwitchList = newLightSwitchList
         notifyDataSetChanged()
     }

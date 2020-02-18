@@ -35,6 +35,7 @@ class SwitchCheckBoxAdapter(private var lightSwitchList: List<LightSwitch>, priv
         return when (lightSwitchList[position]) {
             is LightSwitch.SimpleSwitch -> 1
             is LightSwitch.DimmableSwitch -> 2
+            is LightSwitch.SelectorSwitch -> 3
         }
     }
 
