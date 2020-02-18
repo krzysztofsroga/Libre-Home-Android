@@ -7,11 +7,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.krzysztofsroga.librehome.database.SwitchesRoomDatabase
 import com.krzysztofsroga.librehome.models.SwitchGroup
+import com.krzysztofsroga.librehome.utils.switchesDb
 import kotlinx.coroutines.launch
 
 class SwitchGroupViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val switchGroupDao = SwitchesRoomDatabase.getDatabase(getApplication()).switchGroupDao
+    private val switchGroupDao = switchesDb.switchGroupDao
 
     val switchGroups: LiveData<List<SwitchGroup>> = switchGroupDao.getAllSwitchGroup()
 

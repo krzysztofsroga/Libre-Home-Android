@@ -8,6 +8,7 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.krzysztofsroga.librehome.database.SwitchesRoomDatabase
 import java.io.File
 import java.io.FileOutputStream
 import kotlin.math.min
@@ -47,3 +48,6 @@ fun Bitmap.saveAsJpeg(file: File) {
 
 val AndroidViewModel.prefs: SharedPreferences
     get() = PreferenceManager.getDefaultSharedPreferences(getApplication())
+
+val AndroidViewModel.switchesDb: SwitchesRoomDatabase
+    get() = SwitchesRoomDatabase.getDatabase(getApplication())
