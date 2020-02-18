@@ -69,9 +69,6 @@ dependencies {
     kapt 'androidx.room:room-compiler:2.2.3'
 
     // Domoticz connection:
-    implementation 'com.github.kittinunf.fuel:fuel:2.2.1'
-    implementation 'com.github.kittinunf.fuel:fuel-coroutines:2.2.1'
-    implementation 'com.github.kittinunf.fuel:fuel-gson:2.2.1'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.squareup.retrofit2:retrofit:2.7.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.1'

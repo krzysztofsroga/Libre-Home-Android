@@ -1,19 +1,35 @@
 package com.krzysztofsroga.librehome.connection
 
 import com.krzysztofsroga.librehome.models.LightSwitch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class OnlineSwitches(hostname: String) {
 
-    private val retrofitConnection: RetrofitConnection = RetrofitConnection(hostname)
+    private val service: DomoticzService
 
-    suspend fun suspendSendSwitchState(lightSwitch: LightSwitch) {
-        retrofitConnection.suspendSendSwitchState(lightSwitch)
+    init {
+        val fullPath = "http://$hostname:${InternetConfiguration.defaultDomoticzPort}" //TODO allow port config?
+        val retrofit = Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(fullPath)
+            .build()
+
+        service = retrofit.create(DomoticzService::class.java)
     }
 
     suspend fun suspendGetAllSwitches(): List<LightSwitch> {
-        return retrofitConnection.suspendGetAllSwitches()
+        return service.getSwitches().toSwitchStatesModel().items
     }
 
+    suspend fun suspendSendSwitchState(lightSwitch: LightSwitch) {
+        val cmd = when {
+            lightSwitch.enabled && lightSwitch is LightSwitch.DimmableSwitch -> "Set%20Level&level=${lightSwitch.dim}"
+            lightSwitch.enabled -> "On"
+            else -> "Off"
+        }
+        service.sendSwitchState(lightSwitch.id, cmd)
+    }
 
     data class SwitchStatesModel(val name: String, val items: List<LightSwitch>)
 }
