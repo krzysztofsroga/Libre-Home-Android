@@ -1,7 +1,10 @@
 package com.krzysztofsroga.librehome.utils
 
+import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.graphics.Bitmap
+import androidx.lifecycle.AndroidViewModel
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -41,3 +44,6 @@ fun Bitmap.saveAsJpeg(file: File) {
         compress(Bitmap.CompressFormat.JPEG, 90, ostream)
     }
 }
+
+val AndroidViewModel.prefs: SharedPreferences
+    get() = PreferenceManager.getDefaultSharedPreferences(getApplication())

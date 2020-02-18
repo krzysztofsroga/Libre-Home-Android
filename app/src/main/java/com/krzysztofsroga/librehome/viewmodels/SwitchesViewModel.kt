@@ -11,6 +11,7 @@ import com.krzysztofsroga.librehome.database.SwitchesRoomDatabase
 import com.krzysztofsroga.librehome.models.FavoriteSwitch
 import com.krzysztofsroga.librehome.models.LightSwitch
 import com.krzysztofsroga.librehome.utils.Event
+import com.krzysztofsroga.librehome.utils.prefs
 import kotlinx.coroutines.launch
 
 
@@ -19,7 +20,6 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
     private val favoriteDao = SwitchesRoomDatabase.getDatabase(getApplication()).favoriteDao
 
     private val onlineSwitches: OnlineSwitches by lazy {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(getApplication())
         val hostname = prefs.getString(AppConfig.PrefKeys.HOST, InternetConfiguration.defaultDomoticzHostname)!!
         OnlineSwitches(hostname)
     }
@@ -44,7 +44,16 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
         viewModelScope.launch {
             Log.d("switches", "refreshing switches")
             try {
-                _switches.postValue(onlineSwitches.suspendGetAllSwitches())
+                _switches.postValue(onlineSwitches.suspendGetAllSwitches().run {
+                    val sortMode = prefs.getString(AppConfig.PrefKeys.SORTING, "domoticz")
+                    when(sortMode) {
+                        "alphabetically" -> sortedBy { it.name }
+//                        "enabled" -> sortedByDescending { it.enabled }
+                        "enabled" -> sortedWith(compareBy({!it.enabled}, {it.name}))
+//                        "recent" -> sortedBy { it.enabled }
+                        else -> this
+                    }
+                })
             } catch (e: Exception) {
                 _error.postValue(Event(e))
             }

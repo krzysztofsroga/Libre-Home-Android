@@ -6,17 +6,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class OnlineSwitches(hostname: String) {
 
-    private val service: DomoticzService
-
-    init {
-        val fullPath = "http://$hostname:${InternetConfiguration.defaultDomoticzPort}" //TODO allow port config?
-        val retrofit = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(fullPath)
-            .build()
-
-        service = retrofit.create(DomoticzService::class.java)
-    }
+    private val service: DomoticzService = Retrofit.Builder()
+        .addConverterFactory(GsonConverterFactory.create())
+        .baseUrl("http://$hostname:${InternetConfiguration.defaultDomoticzPort}")
+        .build()
+        .create(DomoticzService::class.java)
 
     suspend fun suspendGetAllSwitches(): List<LightSwitch> {
         return service.getSwitches().toSwitchStatesModel().items

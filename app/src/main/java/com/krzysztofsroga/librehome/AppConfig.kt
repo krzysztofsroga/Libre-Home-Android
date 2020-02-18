@@ -13,5 +13,6 @@ object AppConfig {
         const val SSH_PASSWORD = "ssh_password"
         const val LANGUAGE = "language"
         const val MUSIC_UPDATE = "music_update"
+        const val SORTING = "sorting"
     }
 }
