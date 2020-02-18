@@ -51,7 +51,6 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
                     val sortMode = prefs.getString(AppConfig.PrefKeys.SORTING, "domoticz")
                     when (sortMode) {
                         "alphabetically" -> sortedBy { it.name }
-//                        "enabled" -> sortedByDescending { it.enabled }
                         "enabled" -> sortedWith(compareBy({ !it.enabled }, { it.name }))
                         "recent" -> {
                             val recent = recentDao.getRecentSwitches()

@@ -20,6 +20,12 @@
                 app:title="@string/domoticz_password" />
 
         <EditTextPreference
+                app:defaultValue="@string/default_ssh_username"
+                app:key="ssh_username"
+                app:title="@string/ssh_username"
+                app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
                 app:key="ssh_password"
                 app:title="@string/ssh_password" />
 
