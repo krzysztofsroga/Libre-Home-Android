@@ -39,6 +39,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/switch_padding" />
+
+            <Spinner
+                    android:id="@+id/switchSpinner"
+                    android:layout_width="match_parent"
+                    tools:text="Some options"
+                    android:spinnerMode="dropdown"
+                    tools:listheader="e"
+                    android:layout_height="wrap_content"/>
+
         </LinearLayout>
 
 

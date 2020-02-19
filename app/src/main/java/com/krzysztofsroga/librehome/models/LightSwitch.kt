@@ -18,8 +18,14 @@ sealed class LightSwitch(
         override fun toString(): String = "DimmableSwitch(name=$name, enabled=$enabled, dim=$dim)"
     }
 
-    class SelectorSwitch(name: String, enabled: Boolean = false, var dim: Int = 100, levels: List<String>, id: Int? = null) : LightSwitch(name, enabled, id) {
-        override fun toString(): String = "SelectorSwitch(name=$name, enabled=$enabled, dim=$dim)"
+    class SelectorSwitch(name: String, enabled: Boolean = false, var dim: Int = 100, var levels: List<String>, id: Int? = null) : LightSwitch(name, enabled, id) {
+        var selectedId
+            get() = dim/10
+            set(value) {
+                dim = value * 10
+            }
+
+        override fun toString(): String = "SelectorSwitch(name=$name, enabled=$enabled, dim=$dim, level=${levels[selectedId]})"
     }
 
 //    companion object JsonSerialization : JsonDeserializer<LightSwitch>, JsonSerializer<LightSwitch> {

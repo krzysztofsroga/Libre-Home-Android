@@ -3,9 +3,7 @@ package com.krzysztofsroga.librehome.ui.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.SeekBar
-import android.widget.Switch
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.models.LightSwitch
@@ -45,6 +43,7 @@ class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private 
     class SwitchViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val switch: Switch = view.switchName
         private val seekBar: SeekBar = view.switchSeekBar
+        private val spinner: Spinner = view.switchSpinner
         private val icon: ImageView = view.lightIcon
 
         fun loadSwitch(lightSwitch: LightSwitch, callback: (LightSwitch) -> Unit, longCallback: (LightSwitch) -> Unit) {
@@ -56,6 +55,25 @@ class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private 
                 }
                 seekBar.isEnabled = lightSwitch.enabled
                 seekBar.progress = lightSwitch.dim
+                icon.setImageResource(R.drawable.light_dim)
+                View.VISIBLE
+            } else View.GONE
+            spinner.visibility = if (lightSwitch is LightSwitch.SelectorSwitch) {
+                spinner.adapter = ArrayAdapter(spinner.context, R.layout.support_simple_spinner_dropdown_item, lightSwitch.levels)
+                spinner.setSelection(lightSwitch.selectedId, true)
+                switch.setOnCheckedChangeListener { _, isChecked ->
+                    if(isChecked && lightSwitch.selectedId == 0) switch.isChecked = false
+                }
+                spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+                    override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                        lightSwitch.selectedId = position
+                        switch.isChecked = (position != 0)
+                        lightSwitch.enabled = switch.isChecked
+                        callback(lightSwitch)
+                    }
+                }
                 icon.setImageResource(R.drawable.light_dim)
                 View.VISIBLE
             } else View.GONE

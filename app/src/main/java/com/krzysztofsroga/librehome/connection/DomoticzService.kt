@@ -13,5 +13,5 @@ interface DomoticzService {
 
     @Headers("Content-Type: application/json")
     @GET("json.htm?type=command&param=switchlight")
-    suspend fun sendSwitchState(@Query("idx") lightSwitchId: Int?, @Query("switchcmd") switchCmd: String) //TODO ID should not be null
+    suspend fun sendSwitchState(@Query("idx") lightSwitchId: Int?, @Query("switchcmd", encoded = true) switchCmd: String, @Query("level") level : Int?): OnlineSwitches.DomoticzResponse //TODO ID should not be null
 }
