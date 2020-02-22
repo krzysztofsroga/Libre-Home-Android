@@ -10,6 +10,7 @@
     <string name="enable_experimental">Enable experimental features</string>
     <string name="music_updates_per_second">Music switch updates per second</string>
     <string name="domoticz_password">Domoticz password</string>
+    <string name="ssh_username">SSH username</string>
     <string name="ssh_password">SSH password</string>
     <string name="restart_confirmation">Do you really want to restart RPi?</string>
     <string name="restart">Restart</string>
@@ -31,5 +32,10 @@
     <string name="delete_group">Delete group</string>
     <string name="edit_group">Edit group</string>
     <string name="default_host">domoticz</string>
+    <string name="default_ssh_username">pi</string>
     <string name="domoticz_username">Domoticz username</string>
+    <string name="sort_alpha">Sort alphabetically</string>
+    <string name="sort_domoticz">Use domoticz sorting</string>
+    <string name="sort_enabled">Enabled first</string>
+    <string name="sort_recent">Most recently used</string>
 </resources>

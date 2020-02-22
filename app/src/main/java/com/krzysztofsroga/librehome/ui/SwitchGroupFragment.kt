@@ -51,7 +51,7 @@ class SwitchGroupFragment : Fragment() {
     }
 
     private fun showSwitchGroup(group: SwitchGroup) {
-        val action = SwitchGroupFragmentDirections.actionGroupsToSelectedGroup(group.name)
+        val action = SwitchGroupFragmentDirections.actionGroupsToSelectedGroup(group.id)
         findNavController().navigate(action)
     }
 }

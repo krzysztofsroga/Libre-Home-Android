@@ -19,7 +19,7 @@ class SshConnection(prefs: SharedPreferences) {
     private val host = prefs.getString(AppConfig.PrefKeys.HOST, InternetConfiguration.defaultDomoticzHostname)
     private val sshPassword = prefs.getString(AppConfig.PrefKeys.SSH_PASSWORD, "")
     private val port = InternetConfiguration.sshPort
-    private val username = InternetConfiguration.rPiUsername
+    private val username = prefs.getString(AppConfig.PrefKeys.SSH_USERNAME,InternetConfiguration.rPiUsername)
 
     private fun initializeSession(): Session {
         return JSch().getSession(username, host, port).apply {

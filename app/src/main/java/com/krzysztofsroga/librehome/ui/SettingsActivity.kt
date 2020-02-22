@@ -32,11 +32,13 @@ class SettingsActivity : AppCompatActivity() {
     class SettingsFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
-            preferenceManager.findPreference<ListPreference>(AppConfig.PrefKeys.LANGUAGE)?.apply {
-                setOnPreferenceChangeListener { _, newValue ->
-                    Lingver.getInstance().setLocale(requireActivity().applicationContext, Locale(newValue as String))
-                    true
-                }
+            preferenceManager.findPreference<ListPreference>(AppConfig.PrefKeys.LANGUAGE)?.setOnPreferenceChangeListener { _, newValue ->
+                Lingver.getInstance().setLocale(requireActivity().applicationContext, Locale(newValue as String))
+                true
+            }
+
+            findPreference<EditTextPreference>("ssh_password")?.setOnBindEditTextListener {
+                it.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
             }
         }
     }

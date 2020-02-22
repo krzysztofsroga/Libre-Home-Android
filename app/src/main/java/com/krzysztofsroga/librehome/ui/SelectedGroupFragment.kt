@@ -1,5 +1,6 @@
 package com.krzysztofsroga.librehome.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import com.krzysztofsroga.librehome.AppConfig
 
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.ui.adapters.SwitchListAdapter
@@ -38,13 +40,17 @@ class SelectedGroupFragment : Fragment() {
 
         button_group_delete.setOnClickListener {
             groupsViewModel.switchGroups.observe(viewLifecycleOwner, Observer {
-                val toDelete = it.find { it.name == args.myArg }
+                val toDelete = it.find { it.id == args.selectedGroupId } //TODO findGroupById
                 if (toDelete != null) {
                     groupsViewModel.deleteGroup(toDelete)
                     File(toDelete.imagePath).delete()
                     requireActivity().onBackPressed()
                 }
             })
+        }
+
+        button_group_edit.setOnClickListener {
+            startActivity(Intent(activity, NewGroupActivity::class.java).apply { putExtra(AppConfig.ExtrasKeys.GROUP_ID, args.selectedGroupId) })
         }
 
         switches_list.apply {
@@ -61,7 +67,7 @@ class SelectedGroupFragment : Fragment() {
         switchesViewModel.switches.observe(viewLifecycleOwner, Observer { switches ->
             groupsViewModel.switchGroups.observe(viewLifecycleOwner, Observer { groups ->
                 //TODO think about whether nested observers is a good pattern. Maybe transformations as it is solved with favorites?
-                val group = groups.find { it.name == args.myArg }!!
+                val group = groups.find { it.id == args.selectedGroupId }!! //TODO findGroupById
                 (switches_list.adapter as SwitchListAdapter).updateData(switches.filter { it.id in group.switchesIndices })
             })
         })
