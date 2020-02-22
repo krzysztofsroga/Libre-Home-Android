@@ -60,7 +60,8 @@ class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private 
             } else View.GONE
             spinner.visibility = if (lightSwitch is LightSwitch.SelectorSwitch) {
                 spinner.adapter = ArrayAdapter(spinner.context, R.layout.support_simple_spinner_dropdown_item, lightSwitch.levels)
-                spinner.setSelection(lightSwitch.selectedId, true)
+                spinner.onItemSelectedListener = null
+                spinner.setSelection(lightSwitch.selectedId, false)
                 switch.setOnCheckedChangeListener { _, isChecked ->
                     if(isChecked && lightSwitch.selectedId == 0) switch.isChecked = false
                 }
