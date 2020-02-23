@@ -13,6 +13,7 @@ import com.krzysztofsroga.librehome.utils.Event
 import com.krzysztofsroga.librehome.utils.prefs
 import com.krzysztofsroga.librehome.utils.switchesDb
 import kotlinx.coroutines.launch
+import java.text.Collator
 import java.util.*
 
 
@@ -50,7 +51,7 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
                 _switches.postValue(onlineSwitches.suspendGetAllSwitches().run {
                     val sortMode = prefs.getString(AppConfig.PrefKeys.SORTING, "domoticz")
                     when (sortMode) {
-                        "alphabetically" -> sortedBy { it.name }
+                        "alphabetically" -> sortedWith(compareBy(Collator.getInstance()){it.name})
                         "enabled" -> sortedWith(compareBy({ !it.enabled }, { it.name }))
                         "recent" -> {
                             val recent = recentDao.getRecentSwitches()
