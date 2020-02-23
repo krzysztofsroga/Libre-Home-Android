@@ -13,8 +13,8 @@ android {
         applicationId "com.krzysztofsroga.librehome"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 3
-        versionName "0.2.2-beta"
+        versionCode 1004
+        versionName "0.3-beta"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
