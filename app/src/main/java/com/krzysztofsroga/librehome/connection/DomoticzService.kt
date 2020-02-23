@@ -13,5 +13,11 @@ interface DomoticzService {
 
     @Headers("Content-Type: application/json")
     @GET("json.htm?type=command&param=switchlight")
-    suspend fun sendSwitchState(@Query("idx") lightSwitchId: Int?, @Query("switchcmd", encoded = true) switchCmd: String, @Query("level") level : Int?): OnlineSwitches.DomoticzResponse //TODO ID should not be null
+    suspend fun sendSwitchState(@Query("idx") lightSwitchId: Int?, @Query("switchcmd", encoded = true) switchCmd: String, @Query("level") level : Int? = null): OnlineSwitches.DomoticzResponse //TODO ID should not be null
+}
+
+enum class SwitchCmd(val command: String) {
+    On("On"),
+    Off("Off"),
+    SetLevel("Set%20Level"),
 }

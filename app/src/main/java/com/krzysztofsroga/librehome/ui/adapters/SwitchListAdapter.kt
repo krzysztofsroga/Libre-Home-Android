@@ -63,16 +63,19 @@ class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private 
                 spinner.onItemSelectedListener = null
                 spinner.setSelection(lightSwitch.selectedId, false)
                 switch.setOnCheckedChangeListener { _, isChecked ->
-                    if(isChecked && lightSwitch.selectedId == 0) switch.isChecked = false
+                    if (isChecked && lightSwitch.selectedId == 0) switch.isChecked = false
                 }
-                spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+                spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                    var c = 0
                     override fun onNothingSelected(parent: AdapterView<*>?) {}
 
                     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                        lightSwitch.selectedId = position
-                        switch.isChecked = (position != 0)
-                        lightSwitch.enabled = switch.isChecked
-                        callback(lightSwitch)
+                        if (c++ >= 1) {
+                            lightSwitch.selectedId = position
+                            switch.isChecked = (position != 0)
+                            lightSwitch.enabled = switch.isChecked
+                            callback(lightSwitch)
+                        }
                     }
                 }
                 icon.setImageResource(R.drawable.light_dim)

@@ -23,7 +23,7 @@ class OnlineSwitches(hostname: String) {
     suspend fun suspendSendSwitchState(lightSwitch: LightSwitch) {
         val (cmd, dim) = when {
             lightSwitch.enabled && lightSwitch is LightSwitch.DimmableSwitch -> "Set%20Level" to lightSwitch.dim
-            lightSwitch is LightSwitch.SelectorSwitch -> if (lightSwitch.enabled) "Set%20Level" to lightSwitch.dim else "Off" to lightSwitch.dim
+            lightSwitch is LightSwitch.SelectorSwitch -> if (lightSwitch.enabled || lightSwitch.dim == 0) "Set%20Level" to lightSwitch.dim else "Off" to lightSwitch.dim
             lightSwitch.enabled -> "On" to null
             else -> "Off" to null
         }
