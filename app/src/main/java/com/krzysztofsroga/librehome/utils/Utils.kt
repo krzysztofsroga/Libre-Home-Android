@@ -1,8 +1,11 @@
 package com.krzysztofsroga.librehome.utils
 
+import android.app.Activity
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.graphics.Bitmap
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -60,3 +63,11 @@ val AndroidViewModel.prefs: SharedPreferences
 
 val AndroidViewModel.switchesDb: SwitchesRoomDatabase
     get() = SwitchesRoomDatabase.getDatabase(getApplication())
+
+fun Activity.showToast(value: String) {
+    Toast.makeText(this, value, Toast.LENGTH_SHORT).show()
+}
+
+fun Fragment.showToast(value: String) {
+    requireActivity().showToast(value)
+}

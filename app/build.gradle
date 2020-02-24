@@ -7,6 +7,15 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs'
 
+def getGitHash = { ->
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'rev-parse', '--short', 'HEAD'
+        standardOutput = stdout
+    }
+    return stdout.toString().trim()
+}
+
 android {
     compileSdkVersion 29
     defaultConfig {
@@ -22,6 +31,7 @@ android {
                                      "$projectDir/schemas".toString()]
             }
         }
+        buildConfigField "String", "GitHash", "\"${getGitHash()}\""
     }
     buildTypes {
         release {

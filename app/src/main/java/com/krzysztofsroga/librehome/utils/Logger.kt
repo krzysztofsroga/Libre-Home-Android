@@ -1,6 +1,7 @@
 package com.krzysztofsroga.librehome.utils
 
 import android.util.Log
+import com.krzysztofsroga.librehome.BuildConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -23,6 +24,8 @@ object Logger {
         val value = "\n" +
                 "${dateTimeFormat.format(Date())}\n" +
                 "Error: $tag\n" +
+                "Version name: ${BuildConfig.VERSION_NAME}\n" +
+                "Git hash: $${BuildConfig.GitHash}\n" +
                 "$text\n"
         GlobalScope.launch(Dispatchers.IO) {
             logDir.mkdirs()
