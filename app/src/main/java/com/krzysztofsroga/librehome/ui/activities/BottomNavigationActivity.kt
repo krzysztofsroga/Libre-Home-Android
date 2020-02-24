@@ -1,9 +1,8 @@
-package com.krzysztofsroga.librehome.ui
+package com.krzysztofsroga.librehome.ui.activities
 
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -15,6 +14,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.krzysztofsroga.librehome.R
+import com.krzysztofsroga.librehome.utils.Logger
+import com.krzysztofsroga.librehome.utils.stackTraceString
 import com.krzysztofsroga.librehome.viewmodels.SwitchesViewModel
 import kotlinx.android.synthetic.main.activity_bottom_navigation.*
 
@@ -50,7 +51,7 @@ class BottomNavigationActivity : AppCompatActivity() {
         switchesViewModel.error.observe(this, Observer { e ->
             val error = e.value ?: return@Observer
             swipe_refresh.isRefreshing = false
-            Log.e("Domoticz Connection", error.toString())
+            Logger.e("Domoticz Connection", error.toString() + error.stackTraceString)
             error.printStackTrace()
             Toast.makeText(this, "Connection error: ${error.message}", Toast.LENGTH_LONG).show()
         })
@@ -83,6 +84,10 @@ class BottomNavigationActivity : AppCompatActivity() {
             }
             R.id.action_refresh -> {
                 refreshSwitches()
+                true
+            }
+            R.id.action_logs -> {
+                startActivity(Intent(this, LogsActvity::class.java))
                 true
             }
             else -> super.onOptionsItemSelected(item)

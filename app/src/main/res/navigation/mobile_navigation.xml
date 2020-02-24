@@ -7,19 +7,19 @@
 
     <fragment
             android:id="@+id/navigation_home"
-            android:name="com.krzysztofsroga.librehome.ui.MainFragment"
+            android:name="com.krzysztofsroga.librehome.ui.fragments.MainFragment"
             android:label="@string/title_home"
             tools:layout="@layout/main_fragment" />
 
     <fragment
             android:id="@+id/navigation_switches"
-            android:name="com.krzysztofsroga.librehome.ui.SwitchesFragment"
+            android:name="com.krzysztofsroga.librehome.ui.fragments.SwitchesFragment"
             android:label="@string/title_switches"
             tools:layout="@layout/switches_fragment" />
 
     <fragment
             android:id="@+id/navigation_groups"
-            android:name="com.krzysztofsroga.librehome.ui.SwitchGroupFragment"
+            android:name="com.krzysztofsroga.librehome.ui.fragments.SwitchGroupFragment"
             android:label="@string/title_groups"
             tools:layout="@layout/switch_group_fragment">
         <action
@@ -29,7 +29,7 @@
 
     <fragment
             android:id="@+id/navigation_selected_group"
-            android:name="com.krzysztofsroga.librehome.ui.SelectedGroupFragment"
+            android:name="com.krzysztofsroga.librehome.ui.fragments.SelectedGroupFragment"
             android:label="Selected Group"
             tools:layout="@layout/selected_group_fragment">
 

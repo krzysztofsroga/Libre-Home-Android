@@ -1,4 +1,4 @@
-package com.krzysztofsroga.librehome.ui
+package com.krzysztofsroga.librehome.ui.activities
 
 import android.os.Bundle
 import android.text.InputType

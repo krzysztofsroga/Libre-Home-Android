@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.krzysztofsroga.librehome.database.SwitchesRoomDatabase
 import java.io.File
 import java.io.FileOutputStream
+import java.io.PrintWriter
+import java.io.StringWriter
 import kotlin.math.min
 
 fun Int.isEven() = (this and 1) == 0
@@ -45,6 +47,13 @@ fun Bitmap.saveAsJpeg(file: File) {
         compress(Bitmap.CompressFormat.JPEG, 90, ostream)
     }
 }
+
+val Exception.stackTraceString: String
+    get() {
+        val sw = StringWriter()
+        printStackTrace(PrintWriter(sw))
+        return sw.toString()
+    }
 
 val AndroidViewModel.prefs: SharedPreferences
     get() = PreferenceManager.getDefaultSharedPreferences(getApplication())

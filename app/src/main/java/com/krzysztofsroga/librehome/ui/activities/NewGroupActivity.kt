@@ -1,4 +1,4 @@
-package com.krzysztofsroga.librehome.ui
+package com.krzysztofsroga.librehome.ui.activities
 
 import android.app.Activity
 import android.content.Intent

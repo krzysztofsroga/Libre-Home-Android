@@ -1,6 +1,5 @@
-package com.krzysztofsroga.librehome.ui
+package com.krzysztofsroga.librehome.ui.fragments
 
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +8,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.ui.adapters.SwitchListAdapter
 import com.krzysztofsroga.librehome.utils.getCurrentOrientationLayoutManager
