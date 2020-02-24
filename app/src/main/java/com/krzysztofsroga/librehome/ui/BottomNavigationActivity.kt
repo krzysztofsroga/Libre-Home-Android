@@ -51,6 +51,7 @@ class BottomNavigationActivity : AppCompatActivity() {
             val error = e.value ?: return@Observer
             swipe_refresh.isRefreshing = false
             Log.e("Domoticz Connection", error.toString())
+            error.printStackTrace()
             Toast.makeText(this, "Connection error: ${error.message}", Toast.LENGTH_LONG).show()
         })
     }
