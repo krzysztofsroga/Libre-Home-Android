@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.models.LightSwitch
 import kotlinx.android.synthetic.main.switch_entry.view.*
+import kotlin.math.max
+import kotlin.math.min
 
 //TODO pass livedata?
 class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private val callback: (LightSwitch) -> Unit, private val longCallback: (LightSwitch) -> Unit) :
@@ -61,7 +63,7 @@ class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private 
             spinner.visibility = if (lightSwitch is LightSwitch.SelectorSwitch) {
                 spinner.adapter = ArrayAdapter(spinner.context, R.layout.support_simple_spinner_dropdown_item, lightSwitch.levels)
                 spinner.onItemSelectedListener = null
-                spinner.setSelection(lightSwitch.selectedId, false)
+                spinner.setSelection(min(lightSwitch.selectedId, lightSwitch.levels.lastIndex), false)
                 switch.setOnCheckedChangeListener { _, isChecked ->
                     if (isChecked && lightSwitch.selectedId == 0) switch.isChecked = false
                 }
