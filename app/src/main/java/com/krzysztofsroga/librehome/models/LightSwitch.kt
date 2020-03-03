@@ -13,6 +13,14 @@ sealed class LightSwitch(
 
     abstract suspend fun sendState(service: DomoticzService)
 
+    class UnsupportedSwitch(name: String?, enabled: Boolean?, id: Int?, val typeName: String?) : LightSwitch(name?: "Unnamed", false, id){
+        override suspend fun sendState(service: DomoticzService) {
+            service.sendSwitchState(id, if(enabled) "On" else "Off")
+        }
+
+        override fun toString(): String = "UnsupportedSwitch(name=$name, enabled=$enabled)"
+    }
+
     class SimpleSwitch(name: String, enabled: Boolean = false, id: Int? = null) : LightSwitch(name, enabled, id) {
         override suspend fun sendState(service: DomoticzService) {
             service.sendSwitchState(id, if(enabled) "On" else "Off")

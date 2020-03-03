@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.models.LightSwitch
 import kotlinx.android.synthetic.main.switch_check_entry.view.*
+import kotlinx.android.synthetic.main.switch_entry.view.*
 import kotlinx.android.synthetic.main.switch_entry.view.lightIcon
 
 //TODO pass livedata?
@@ -36,6 +37,7 @@ class SwitchCheckBoxAdapter(private var lightSwitchList: List<LightSwitch>, priv
             is LightSwitch.SimpleSwitch -> 1
             is LightSwitch.DimmableSwitch -> 2
             is LightSwitch.SelectorSwitch -> 3
+            is LightSwitch.UnsupportedSwitch -> 4
         }
     }
 
@@ -51,13 +53,19 @@ class SwitchCheckBoxAdapter(private var lightSwitchList: List<LightSwitch>, priv
     class SwitchViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val switch: CheckBox = view.switchCheckBox
         private val icon: ImageView = view.lightIcon
+        private val unsupportedLayout = view.unsupported_layout
+        private val unsupportedName = view.unsupported_name
 
         fun loadSwitch(lightSwitch: LightSwitch, checked: Boolean, onCheckedChange: (Boolean) -> Unit) {
             switch.text = lightSwitch.name
             switch.isChecked = checked
 
-            if (lightSwitch is LightSwitch.DimmableSwitch) {
+            if (lightSwitch is LightSwitch.DimmableSwitch || lightSwitch is LightSwitch.SelectorSwitch) {
                 icon.setImageResource(R.drawable.light_dim)
+            }
+            if(lightSwitch is LightSwitch.UnsupportedSwitch) {
+                unsupportedLayout.visibility = View.VISIBLE
+                unsupportedName.text = lightSwitch.typeName ?: "null"
             }
 
             switch.setOnClickListener {

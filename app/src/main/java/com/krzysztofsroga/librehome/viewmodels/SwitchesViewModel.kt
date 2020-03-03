@@ -62,6 +62,13 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
                             )
                         }
                         else -> this
+                    }.run {
+                        val showUnsupported = prefs.getBoolean(AppConfig.PrefKeys.SHOW_UNSUPPORTED, true)
+                        if (showUnsupported) {
+                            this
+                        } else {
+                            filter { it !is LightSwitch.UnsupportedSwitch }
+                        }
                     }
                 })
             } catch (e: Exception) {

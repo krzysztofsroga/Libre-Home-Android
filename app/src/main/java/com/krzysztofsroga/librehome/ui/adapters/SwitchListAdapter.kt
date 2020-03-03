@@ -30,6 +30,7 @@ class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private 
             is LightSwitch.SimpleSwitch -> 1
             is LightSwitch.DimmableSwitch -> 2
             is LightSwitch.SelectorSwitch -> 3
+            is LightSwitch.UnsupportedSwitch -> 4
         }
     }
 
@@ -47,6 +48,8 @@ class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private 
         private val seekBar: SeekBar = view.switchSeekBar
         private val spinner: Spinner = view.switchSpinner
         private val icon: ImageView = view.lightIcon
+        private val unsupportedLayout = view.unsupported_layout
+        private val unsupportedName = view.unsupported_name
 
         fun loadSwitch(lightSwitch: LightSwitch, callback: (LightSwitch) -> Unit, longCallback: (LightSwitch) -> Unit) {
             switch.text = lightSwitch.name
@@ -83,6 +86,10 @@ class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private 
                 icon.setImageResource(R.drawable.light_dim)
                 View.VISIBLE
             } else View.GONE
+            if(lightSwitch is LightSwitch.UnsupportedSwitch) {
+                unsupportedLayout.visibility = View.VISIBLE
+                unsupportedName.text = lightSwitch.typeName ?: "null"
+            }
             switch.setOnClickListener {
                 lightSwitch.enabled = switch.isChecked //TODO setOnCheckedChangeListener
                 callback(lightSwitch)

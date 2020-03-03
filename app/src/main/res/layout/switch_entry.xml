@@ -43,10 +43,32 @@
             <Spinner
                     android:id="@+id/switchSpinner"
                     android:layout_width="match_parent"
-                    tools:text="Some options"
+                    android:layout_height="wrap_content"
                     android:spinnerMode="dropdown"
                     tools:listheader="e"
-                    android:layout_height="wrap_content"/>
+                    tools:text="Some options" />
+
+            <LinearLayout
+                    android:id="@+id/unsupported_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Unsupported switch. Type: "
+                        android:textColor="#f00" />
+
+                <TextView
+                        android:id="@+id/unsupported_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#f00"
+                        tools:text="Unsupported" />
+            </LinearLayout>
 
         </LinearLayout>
 

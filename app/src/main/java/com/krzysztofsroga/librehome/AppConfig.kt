@@ -13,5 +13,6 @@ object AppConfig {
         const val LANGUAGE = "language"
         const val MUSIC_UPDATE = "music_update"
         const val SORTING = "sorting"
+        const val SHOW_UNSUPPORTED = "show_unsupported"
     }
 }
