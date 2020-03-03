@@ -38,15 +38,19 @@
                     android:id="@+id/switchSeekBar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/switch_padding" />
+                    android:padding="@dimen/switch_padding"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
 
             <Spinner
                     android:id="@+id/switchSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:spinnerMode="dropdown"
+                    android:visibility="gone"
                     tools:listheader="e"
-                    tools:text="Some options" />
+                    tools:text="Some options"
+                    tools:visibility="visible" />
 
             <LinearLayout
                     android:id="@+id/unsupported_layout"
@@ -59,7 +63,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Unsupported switch. Type: "
+                        android:text="@string/unsupported_device"
                         android:textColor="#f00" />
 
                 <TextView

@@ -54,13 +54,13 @@ class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private 
         fun loadSwitch(lightSwitch: LightSwitch, callback: (LightSwitch) -> Unit, longCallback: (LightSwitch) -> Unit) {
             switch.text = lightSwitch.name
             switch.isChecked = lightSwitch.enabled
+            icon.setImageResource(lightSwitch.icon)
             seekBar.visibility = if (lightSwitch is LightSwitch.DimmableSwitch) {
                 switch.setOnCheckedChangeListener { _, isChecked ->
                     seekBar.isEnabled = isChecked
                 }
                 seekBar.isEnabled = lightSwitch.enabled
                 seekBar.progress = lightSwitch.dim
-                icon.setImageResource(R.drawable.light_dim)
                 View.VISIBLE
             } else View.GONE
             spinner.visibility = if (lightSwitch is LightSwitch.SelectorSwitch) {
@@ -83,7 +83,6 @@ class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private 
                         }
                     }
                 }
-                icon.setImageResource(R.drawable.light_dim)
                 View.VISIBLE
             } else View.GONE
             if(lightSwitch is LightSwitch.UnsupportedSwitch) {

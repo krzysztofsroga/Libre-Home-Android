@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.krzysztofsroga.librehome.R
+import com.krzysztofsroga.librehome.ui.adapters.GroupSceneAdapter
 import com.krzysztofsroga.librehome.ui.adapters.SwitchListAdapter
 import com.krzysztofsroga.librehome.utils.getCurrentOrientationLayoutManager
 import com.krzysztofsroga.librehome.viewmodels.SshViewModel
@@ -46,8 +47,19 @@ class MainFragment : Fragment() {
             }).apply { setHasStableIds(true) }
         }
 
+        scene_list.apply {
+            layoutManager = getCurrentOrientationLayoutManager()
+            adapter = GroupSceneAdapter(listOf(), {
+                switchesViewModel.sendGroupState(it)
+            }, {}).apply { setHasStableIds(true) }
+        }
+
         switchesViewModel.favoriteSwitches.observe(viewLifecycleOwner, Observer { favs ->
             (switches_favorite_list.adapter as SwitchListAdapter).updateData(favs)
+        })
+
+        switchesViewModel.groupScenes.observe(viewLifecycleOwner, Observer { groupScenes ->
+            (scene_list.adapter as GroupSceneAdapter).updateData(groupScenes)
         })
 
         sshViewModel.out.observe(viewLifecycleOwner, Observer { out ->

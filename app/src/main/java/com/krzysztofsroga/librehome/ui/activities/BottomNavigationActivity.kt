@@ -45,7 +45,7 @@ class BottomNavigationActivity : AppCompatActivity() {
         }
 
         switchesViewModel.switches.observe(this, Observer {
-            swipe_refresh.isRefreshing = false
+            swipe_refresh.isRefreshing = false //TODO refreshing scenes also should end refreshing
         })
 
         switchesViewModel.error.observe(this, Observer { e ->
@@ -60,6 +60,7 @@ class BottomNavigationActivity : AppCompatActivity() {
     private fun refreshSwitches() {
         swipe_refresh.isRefreshing = true
         switchesViewModel.updateSwitches()
+        switchesViewModel.updateScenes()
     }
 
     override fun onStart() {

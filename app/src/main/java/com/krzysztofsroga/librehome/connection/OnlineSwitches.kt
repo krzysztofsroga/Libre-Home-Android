@@ -1,6 +1,7 @@
 package com.krzysztofsroga.librehome.connection
 
 import android.util.Log
+import com.krzysztofsroga.librehome.models.LhGroupScene
 import com.krzysztofsroga.librehome.models.LightSwitch
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -20,6 +21,10 @@ class OnlineSwitches(hostname: String) {
         return service.getSwitches().toSwitchStatesModel().items
     }
 
+    suspend fun getAllGroupScenes(): List<LhGroupScene> {
+        return service.getGroups().toGroupStatesModel().items
+    }
+
     suspend fun suspendSendSwitchState(lightSwitch: LightSwitch) {
         val (cmd, dim) = when {
             lightSwitch.enabled && lightSwitch is LightSwitch.DimmableSwitch -> "Set%20Level" to lightSwitch.dim
@@ -31,7 +36,15 @@ class OnlineSwitches(hostname: String) {
         Log.d("Send", response.toString())
     }
 
+    suspend fun sendGroupState(lhGroupScene: LhGroupScene) {
+        val cmd = if (lhGroupScene is LhGroupScene.LhGroup && !lhGroupScene.enabled) "Off" else "On"
+        val response = service.sendGroupState(lhGroupScene.id, cmd)
+        Log.d("Send", response.toString())
+    }
+
     data class SwitchStatesModel(val name: String, val items: List<LightSwitch>)
+
+    data class GroupStatesModel(val name: String, val items: List<LhGroupScene>)
 
     data class DomoticzResponse(val status: String, val title: String)
 }

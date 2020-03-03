@@ -1,6 +1,7 @@
 package com.krzysztofsroga.librehome.models
 
 import com.google.gson.*
+import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.connection.DomoticzService
 import java.lang.reflect.Type
 
@@ -10,10 +11,14 @@ sealed class LightSwitch(
     var id: Int? = null
 ) {
     val type: String? = this::class.simpleName
+    abstract val icon: Int
 
     abstract suspend fun sendState(service: DomoticzService)
 
-    class UnsupportedSwitch(name: String?, enabled: Boolean?, id: Int?, val typeName: String?) : LightSwitch(name?: "Unnamed", false, id){
+    class UnsupportedSwitch(name: String?, enabled: Boolean?, id: Int?, val typeName: String?) : LightSwitch(name?: "Unnamed", enabled ?: false, id){
+        override val icon: Int
+            get() =  R.drawable.ic_report_problem_black_24dp
+
         override suspend fun sendState(service: DomoticzService) {
             service.sendSwitchState(id, if(enabled) "On" else "Off")
         }
@@ -22,6 +27,9 @@ sealed class LightSwitch(
     }
 
     class SimpleSwitch(name: String, enabled: Boolean = false, id: Int? = null) : LightSwitch(name, enabled, id) {
+        override val icon: Int
+            get() =  R.drawable.light
+
         override suspend fun sendState(service: DomoticzService) {
             service.sendSwitchState(id, if(enabled) "On" else "Off")
         }
@@ -30,6 +38,9 @@ sealed class LightSwitch(
     }
 
     class DimmableSwitch(name: String, enabled: Boolean = false, var dim: Int = 100, id: Int? = null) : LightSwitch(name, enabled, id) {
+        override val icon: Int
+            get() =  R.drawable.light_dim
+
         override suspend fun sendState(service: DomoticzService) {
             service.sendSwitchState(id, if (enabled) "Set%20Level" else "Off", dim)
         }
@@ -38,6 +49,9 @@ sealed class LightSwitch(
     }
 
     class SelectorSwitch(name: String, enabled: Boolean = false, var dim: Int = 100, var levels: List<String>, id: Int? = null) : LightSwitch(name, enabled, id) {
+        override val icon: Int
+            get() =  R.drawable.ic_format_list_bulleted_black_24dp
+
         var selectedId
             get() = dim/10
             set(value) {

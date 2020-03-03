@@ -61,6 +61,26 @@
                         tools:listitem="@layout/switch_entry" />
             </RelativeLayout>
 
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/switch_padding"
+                    android:text="@string/scenes" />
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/scene_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:padding="4dp"
+                        tools:itemCount="4"
+                        tools:listitem="@layout/switch_entry" />
+            </RelativeLayout>
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>
