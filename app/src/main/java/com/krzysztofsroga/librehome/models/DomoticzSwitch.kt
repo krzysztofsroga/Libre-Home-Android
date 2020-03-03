@@ -17,6 +17,7 @@ class DomoticzSwitch(
             "Dimmer" -> LightSwitch.DimmableSwitch(Name, Status != "Off", Level, idx)
             "Selector" -> LightSwitch.SelectorSwitch(Name, Status != "Off", Level, Base64.decode(LevelNames, Base64.DEFAULT).toString(Charset.forName("UTF-8")).split("|"), idx)
             "On/Off" -> LightSwitch.SimpleSwitch(Name, Status != "Off", idx)
+            "Push Off Button", "Push On Button" -> LightSwitch.PushButtonSwitch(Name, idx)
 //            null -> LightSwitch.SimpleSwitch(Name, Status != "Off", idx)
             else -> LightSwitch.UnsupportedSwitch(Name, Status != "Off", idx, SwitchType)
         }

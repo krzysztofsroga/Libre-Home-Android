@@ -30,7 +30,8 @@ class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private 
             is LightSwitch.SimpleSwitch -> 1
             is LightSwitch.DimmableSwitch -> 2
             is LightSwitch.SelectorSwitch -> 3
-            is LightSwitch.UnsupportedSwitch -> 4
+            is LightSwitch.PushButtonSwitch -> 4
+            is LightSwitch.UnsupportedSwitch -> 5
         }
     }
 
@@ -50,10 +51,17 @@ class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private 
         private val icon: ImageView = view.lightIcon
         private val unsupportedLayout = view.unsupported_layout
         private val unsupportedName = view.unsupported_name
+        private val button = view.push_button
 
         fun loadSwitch(lightSwitch: LightSwitch, callback: (LightSwitch) -> Unit, longCallback: (LightSwitch) -> Unit) {
-            switch.text = lightSwitch.name
-            switch.isChecked = lightSwitch.enabled
+            if(lightSwitch is LightSwitch.PushButtonSwitch) {
+                switch.visibility = View.GONE
+                button.visibility = View.VISIBLE
+                button.text = lightSwitch.name
+            } else {
+                switch.text = lightSwitch.name
+                switch.isChecked = lightSwitch.enabled
+            }
             icon.setImageResource(lightSwitch.icon)
             seekBar.visibility = if (lightSwitch is LightSwitch.DimmableSwitch) {
                 switch.setOnCheckedChangeListener { _, isChecked ->

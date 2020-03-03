@@ -37,6 +37,17 @@ sealed class LightSwitch(
         override fun toString(): String = "SimpleSwitch(name=$name, enabled=$enabled)"
     }
 
+    class PushButtonSwitch(name: String, id: Int? = null) : LightSwitch(name, false, id) {
+        override val icon: Int
+            get() = R.drawable.icons8_push_button
+
+        override suspend fun sendState(service: DomoticzService) {
+            service.sendSwitchState(id, "On")
+        }
+
+        override fun toString(): String = "PushButton(name=$name)"
+    }
+
     class DimmableSwitch(name: String, enabled: Boolean = false, var dim: Int = 100, id: Int? = null) : LightSwitch(name, enabled, id) {
         override val icon: Int
             get() =  R.drawable.light_dim

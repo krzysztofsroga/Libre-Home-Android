@@ -47,9 +47,14 @@ class GroupSceneAdapter(private var groupSceneList: List<LhGroupScene>, private 
         private val icon: ImageView = view.lightIcon
         private val unsupportedLayout = view.unsupported_layout
         private val unsupportedName = view.unsupported_name
+        private val button = view.push_button
 
         fun loadSwitch(groupScene: LhGroupScene, callback: (LhGroupScene) -> Unit, longCallback: (LhGroupScene) -> Unit) {
-            switch.text = groupScene.name
+            if (groupScene is LhGroupScene.LhScene) {
+                switch.visibility = View.GONE
+                button.visibility = View.VISIBLE
+                button.text = groupScene.name
+            } else switch.text = groupScene.name
             if (groupScene is LhGroupScene.LhGroup)
                 switch.isChecked = groupScene.enabled
             icon.setImageResource(groupScene.icon)

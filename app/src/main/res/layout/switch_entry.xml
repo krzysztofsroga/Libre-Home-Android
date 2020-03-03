@@ -34,6 +34,14 @@
                     android:padding="@dimen/switch_padding"
                     tools:text="Light in some place" />
 
+            <Button
+                    android:id="@+id/push_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    tools:text="Push button"
+                    tools:visibility="visible" />
+
             <SeekBar
                     android:id="@+id/switchSeekBar"
                     android:layout_width="match_parent"
