@@ -22,8 +22,8 @@ android {
         applicationId "com.krzysztofsroga.librehome"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 1006
-        versionName "0.3.2-beta"
+        versionCode 1007
+        versionName "0.4-beta"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -75,14 +75,14 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0'
 
     // Ktx
-    implementation "androidx.fragment:fragment-ktx:1.2.1"
+    implementation "androidx.fragment:fragment-ktx:1.2.2"
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
 
     // Persistance
-    implementation 'androidx.room:room-runtime:2.2.3'
-    implementation 'androidx.room:room-ktx:2.2.3'
-    kapt 'androidx.room:room-compiler:2.2.3'
+    implementation 'androidx.room:room-runtime:2.2.4'
+    implementation 'androidx.room:room-ktx:2.2.4'
+    kapt 'androidx.room:room-compiler:2.2.4'
 
     // Domoticz connection:
     implementation 'com.google.code.gson:gson:2.8.6'

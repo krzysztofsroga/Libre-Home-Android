@@ -50,11 +50,6 @@ class GroupSceneAdapter(private var groupSceneList: List<LhGroupScene>, private 
         private val button = view.push_button
 
         fun loadSwitch(groupScene: LhGroupScene, callback: (LhGroupScene) -> Unit, longCallback: (LhGroupScene) -> Unit) {
-            if (groupScene is LhGroupScene.LhScene) {
-                switch.visibility = View.GONE
-                button.visibility = View.VISIBLE
-                button.text = groupScene.name
-            } else switch.text = groupScene.name
             if (groupScene is LhGroupScene.LhGroup)
                 switch.isChecked = groupScene.enabled
             icon.setImageResource(groupScene.icon)
@@ -62,17 +57,29 @@ class GroupSceneAdapter(private var groupSceneList: List<LhGroupScene>, private 
                 unsupportedLayout.visibility = View.VISIBLE
                 unsupportedName.text = groupScene.typeName ?: "null"
             }
-
-            switch.setOnClickListener {
-                if (groupScene is LhGroupScene.LhGroup)
-                    groupScene.enabled = switch.isChecked
-                callback(groupScene)
+            if (groupScene is LhGroupScene.LhScene) {
+                switch.visibility = View.GONE
+                button.visibility = View.VISIBLE
+                button.text = groupScene.name
+                button.setOnClickListener {
+                    callback(groupScene)
+                }
+                button.setOnLongClickListener {
+                    longCallback(groupScene)
+                    true
+                }
+            } else {
+                switch.text = groupScene.name
+                switch.setOnClickListener {
+                    if (groupScene is LhGroupScene.LhGroup)
+                        groupScene.enabled = switch.isChecked
+                    callback(groupScene)
+                }
+                switch.setOnLongClickListener {
+                    longCallback(groupScene)
+                    true
+                }
             }
-            switch.setOnLongClickListener {
-                longCallback(groupScene)
-                true
-            }
-
         }
     }
 }

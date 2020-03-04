@@ -58,14 +58,6 @@ class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private 
             if(lightSwitch is LightSwitch.PercentageSwitch) {
                 switch.isEnabled = false //TODO fully support Percentage Switches
             }
-            if(lightSwitch is LightSwitch.PushButtonSwitch) {
-                switch.visibility = View.GONE
-                button.visibility = View.VISIBLE
-                button.text = lightSwitch.name
-            } else {
-                switch.text = lightSwitch.name
-                switch.isChecked = lightSwitch.enabled
-            }
             icon.setImageResource(lightSwitch.icon)
             seekBar.visibility = if (lightSwitch is LightSwitch.DimmableSwitch) {
                 switch.setOnCheckedChangeListener { _, isChecked ->
@@ -101,13 +93,28 @@ class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private 
                 unsupportedLayout.visibility = View.VISIBLE
                 unsupportedName.text = lightSwitch.typeName ?: "null"
             }
-            switch.setOnClickListener {
-                lightSwitch.enabled = switch.isChecked //TODO setOnCheckedChangeListener
-                callback(lightSwitch)
-            }
-            switch.setOnLongClickListener {
-                longCallback(lightSwitch)
-                true
+            if(lightSwitch is LightSwitch.PushButtonSwitch) {
+                switch.visibility = View.GONE
+                button.visibility = View.VISIBLE
+                button.text = lightSwitch.name
+                button.setOnClickListener {
+                    callback(lightSwitch)
+                }
+                button.setOnLongClickListener {
+                    longCallback(lightSwitch)
+                    true
+                }
+            } else {
+                switch.text = lightSwitch.name
+                switch.isChecked = lightSwitch.enabled
+                switch.setOnClickListener {
+                    lightSwitch.enabled = switch.isChecked
+                    callback(lightSwitch)
+                }
+                switch.setOnLongClickListener {
+                    longCallback(lightSwitch)
+                    true
+                }
             }
             seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {

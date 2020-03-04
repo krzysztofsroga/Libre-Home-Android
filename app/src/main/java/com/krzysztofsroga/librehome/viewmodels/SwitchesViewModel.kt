@@ -129,7 +129,7 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
 
     fun sendGroupState(group: LhGroupScene) {
         viewModelScope.launch {
-            recentDao.insert(RecentSwitch(group.id!!, Calendar.getInstance().time))
+//            recentDao.insert(RecentSwitch(group.id!!, Calendar.getInstance().time)) TODO This is for groups!
             try {
                 onlineSwitches.sendGroupState(group)
             } catch (e: Exception) {
