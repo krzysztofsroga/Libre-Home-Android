@@ -12,14 +12,14 @@ import kotlinx.android.synthetic.main.switch_entry.view.*
 import kotlin.math.min
 
 //TODO pass livedata?
-class SwitchListAdapter(private var componentList: List<LhComponent>, private val callback: (LhComponent) -> Unit, private val longCallback: (LhComponent) -> Unit) :
-    RecyclerView.Adapter<SwitchListAdapter.SwitchViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SwitchViewHolder {
+class ComponentListAdapter(private var componentList: List<LhComponent>, private val callback: (LhComponent) -> Unit, private val longCallback: (LhComponent) -> Unit) :
+    RecyclerView.Adapter<ComponentListAdapter.ComponentViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ComponentViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.switch_entry, parent, false)
-        return SwitchViewHolder(itemView)
+        return ComponentViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: SwitchViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ComponentViewHolder, position: Int) {
         holder.loadSwitch(componentList[position], callback, longCallback)
     }
 
@@ -34,7 +34,7 @@ class SwitchListAdapter(private var componentList: List<LhComponent>, private va
         notifyDataSetChanged()
     }
 
-    class SwitchViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ComponentViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val switch: Switch = view.switchName
         private val seekBar: SeekBar = view.switchSeekBar
         private val spinner: Spinner = view.switchSpinner

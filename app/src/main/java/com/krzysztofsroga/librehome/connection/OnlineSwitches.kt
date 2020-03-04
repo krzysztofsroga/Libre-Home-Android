@@ -1,6 +1,5 @@
 package com.krzysztofsroga.librehome.connection
 
-import android.util.Log
 import com.krzysztofsroga.librehome.models.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -16,8 +15,8 @@ class OnlineSwitches(hostname: String) {
         .build()
         .create(DomoticzService::class.java)
 
-    suspend fun suspendGetAllSwitches(): List<LhDevice> {
-        return service.getSwitches().result.map { LhDevice.fromDomoticzComponent(it) }
+    suspend fun getAllDevices(): List<LhDevice> {
+        return service.getDevices().result.map { LhDevice.fromDomoticzComponent(it) }
     }
 
     suspend fun getAllGroupScenes(): List<LhGroupScene> {

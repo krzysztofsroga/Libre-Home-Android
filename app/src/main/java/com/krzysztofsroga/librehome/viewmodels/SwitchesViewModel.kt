@@ -50,7 +50,7 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
         viewModelScope.launch {
             Log.d("switches", "refreshing switches")
             try {
-                _switches.postValue(onlineSwitches.suspendGetAllSwitches().sorted().filtered())
+                _switches.postValue(onlineSwitches.getAllDevices().sorted().filtered())
             } catch (e: Exception) {
                 _error.postValue(Event(e))
             }
@@ -93,22 +93,11 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
     }
 
 
-    fun sendSwitchState(switch: LhComponent) {
+    fun sendComponentState(component: LhComponent) {
         viewModelScope.launch {
-            recentDao.insert(RecentSwitch(switch.id, Calendar.getInstance().time))
+            recentDao.insert(RecentSwitch(component.id, Calendar.getInstance().time))
             try {
-                onlineSwitches.sendComponentState(switch)
-            } catch (e: Exception) {
-                _error.postValue(Event(e))
-            }
-        }
-    }
-
-    fun sendGroupState(group: LhGroupScene) {
-        viewModelScope.launch {
-//            recentDao.insert(RecentSwitch(group.id!!, Calendar.getInstance().time)) TODO This is for groups!
-            try {
-                onlineSwitches.sendComponentState(group)
+                onlineSwitches.sendComponentState(component)
             } catch (e: Exception) {
                 _error.postValue(Event(e))
             }

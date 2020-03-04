@@ -8,7 +8,7 @@ import retrofit2.http.Query
 interface DomoticzService {
     @Headers("Content-Type: application/json")
     @GET("json.htm?type=devices&filter=lights&used=true&order=Name")
-    suspend fun getSwitches(): OnlineSwitches.DomoticzResponseComponents
+    suspend fun getDevices(): OnlineSwitches.DomoticzResponseComponents
 
     @Headers("Content-Type: application/json")
     @GET("json.htm?type=scenes")
@@ -16,7 +16,7 @@ interface DomoticzService {
 
     @Headers("Content-Type: application/json")
     @GET("json.htm?type=command&param=switchlight")
-    suspend fun sendSwitchState(@Query("idx") lightSwitchId: Int?, @Query("switchcmd", encoded = true) switchCmd: String, @Query("level") level : Int? = null): OnlineSwitches.DomoticzResponse //TODO ID should not be null
+    suspend fun sendDeviceState(@Query("idx") lightSwitchId: Int?, @Query("switchcmd", encoded = true) switchCmd: String, @Query("level") level : Int? = null): OnlineSwitches.DomoticzResponse //TODO ID should not be null
 
     @Headers("Content-Type: application/json")
     @GET("json.htm?type=command&param=switchscene")

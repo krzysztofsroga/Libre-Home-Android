@@ -26,7 +26,7 @@ sealed class LhDevice(id: Int, name: String) : LhComponent(id, name) {
         override val icon: Int = R.drawable.light
 
         override suspend fun sendState(service: DomoticzService) {
-            service.sendSwitchState(id, if (enabled) "On" else "Off")
+            service.sendDeviceState(id, if (enabled) "On" else "Off")
         }
     }
 
@@ -34,7 +34,7 @@ sealed class LhDevice(id: Int, name: String) : LhComponent(id, name) {
         override val icon: Int = R.drawable.icons8_push_button
 
         override suspend fun sendState(service: DomoticzService) {
-            service.sendSwitchState(id, "On")
+            service.sendDeviceState(id, "On")
         }
     }
 
@@ -42,7 +42,7 @@ sealed class LhDevice(id: Int, name: String) : LhComponent(id, name) {
         override val icon: Int = R.drawable.light_dim
 
         override suspend fun sendState(service: DomoticzService) {
-            service.sendSwitchState(id, if (enabled) "Set%20Level" else "Off", dim)
+            service.sendDeviceState(id, if (enabled) "Set%20Level" else "Off", dim)
         }
     }
 
@@ -56,7 +56,7 @@ sealed class LhDevice(id: Int, name: String) : LhComponent(id, name) {
             }
 
         override suspend fun sendState(service: DomoticzService) {
-            service.sendSwitchState(id, if (enabled) "Set%20Level" else "Off", dim)
+            service.sendDeviceState(id, if (enabled) "Set%20Level" else "Off", dim)
         }
     }
 
