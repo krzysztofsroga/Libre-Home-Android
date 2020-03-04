@@ -31,7 +31,8 @@ class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private 
             is LightSwitch.DimmableSwitch -> 2
             is LightSwitch.SelectorSwitch -> 3
             is LightSwitch.PushButtonSwitch -> 4
-            is LightSwitch.UnsupportedSwitch -> 5
+            is LightSwitch.PercentageSwitch -> 5
+            is LightSwitch.UnsupportedSwitch -> 6
         }
     }
 
@@ -54,6 +55,9 @@ class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private 
         private val button = view.push_button
 
         fun loadSwitch(lightSwitch: LightSwitch, callback: (LightSwitch) -> Unit, longCallback: (LightSwitch) -> Unit) {
+            if(lightSwitch is LightSwitch.PercentageSwitch) {
+                switch.isEnabled = false //TODO fully support Percentage Switches
+            }
             if(lightSwitch is LightSwitch.PushButtonSwitch) {
                 switch.visibility = View.GONE
                 button.visibility = View.VISIBLE

@@ -38,7 +38,8 @@ class SwitchCheckBoxAdapter(private var lightSwitchList: List<LightSwitch>, priv
             is LightSwitch.DimmableSwitch -> 2
             is LightSwitch.SelectorSwitch -> 3
             is LightSwitch.PushButtonSwitch -> 4
-            is LightSwitch.UnsupportedSwitch -> 5
+            is LightSwitch.PercentageSwitch -> 5
+            is LightSwitch.UnsupportedSwitch -> 6
         }
     }
 

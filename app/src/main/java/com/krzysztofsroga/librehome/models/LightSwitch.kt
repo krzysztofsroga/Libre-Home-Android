@@ -75,19 +75,11 @@ sealed class LightSwitch(
         override fun toString(): String = "SelectorSwitch(name=$name, enabled=$enabled, dim=$dim, level=${levels[selectedId]})"
     }
 
-//    companion object JsonSerialization : JsonDeserializer<LightSwitch>, JsonSerializer<LightSwitch> {
-//        override fun serialize(src: LightSwitch, typeOfSrc: Type, context: JsonSerializationContext): JsonElement {
-//            return context.serialize(src, src.javaClass)
-//        }
-//
-//        override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): LightSwitch {
-//            val typeName = json.asJsonObject.get(LightSwitch::type.name).asString
-//            val type = LightSwitch::class.sealedSubclasses.find {
-//                it.simpleName == typeName
-//            }
-//            return context.deserialize(json, type!!.java)
-//        }
-//    }
+    class PercentageSwitch(name: String, var dim: Int = 0, id: Int? = null) : LightSwitch(name, false, id) {
+        override val icon: Int
+            get() = R.drawable.icons8_jalousie
 
+        override suspend fun sendState(service: DomoticzService) {}
+    }
 }
 
