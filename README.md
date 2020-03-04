@@ -28,3 +28,5 @@ Screenshots:
 <img src=docs/Screenshot_20191217-221904.webp height=200/>
 <img src=docs/Screenshot_20191217-230423.webp height=200/>
 
+### Credits
+Some of the icons (prefixed `icons8_`) were downloaded from https://icons8.com/
