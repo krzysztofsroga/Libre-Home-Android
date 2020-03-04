@@ -26,20 +26,22 @@ class OnlineSwitches(hostname: String) {
     }
 
     suspend fun suspendSendSwitchState(lightSwitch: LightSwitch) {
-        val (cmd, dim) = when {
-            lightSwitch.enabled && lightSwitch is LightSwitch.DimmableSwitch -> "Set%20Level" to lightSwitch.dim
-            lightSwitch is LightSwitch.SelectorSwitch -> if (lightSwitch.enabled || lightSwitch.dim == 0) "Set%20Level" to lightSwitch.dim else "Off" to lightSwitch.dim
-            lightSwitch.enabled -> "On" to null
-            else -> "Off" to null
-        }
-        val response = service.sendSwitchState(lightSwitch.id, cmd, dim)
-        Log.d("Send", response.toString())
+        lightSwitch.sendState(service)
+//        val (cmd, dim) = when {
+//            lightSwitch.enabled && lightSwitch is LightSwitch.DimmableSwitch -> "Set%20Level" to lightSwitch.dim
+//            lightSwitch is LightSwitch.SelectorSwitch -> if (lightSwitch.enabled || lightSwitch.dim == 0) "Set%20Level" to lightSwitch.dim else "Off" to lightSwitch.dim
+//            lightSwitch.enabled -> "On" to null
+//            else -> "Off" to null
+//        }
+//        val response = service.sendSwitchState(lightSwitch.id, cmd, dim)
+//        Log.d("Send", response.toString())
     }
 
     suspend fun sendGroupState(lhGroupScene: LhGroupScene) {
-        val cmd = if (lhGroupScene is LhGroupScene.LhGroup && !lhGroupScene.enabled) "Off" else "On"
-        val response = service.sendGroupState(lhGroupScene.id, cmd)
-        Log.d("Send", response.toString())
+        lhGroupScene.sendState(service)
+//        val cmd = if (lhGroupScene is LhGroupScene.LhGroup && !lhGroupScene.enabled) "Off" else "On"
+//        val response = service.sendGroupState(lhGroupScene.id, cmd)
+//        Log.d("Send", response.toString())
     }
 
     data class SwitchStatesModel(val name: String, val items: List<LightSwitch>)
