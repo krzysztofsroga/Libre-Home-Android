@@ -12,27 +12,25 @@ import kotlinx.android.synthetic.main.switch_entry.view.*
 import kotlin.math.min
 
 //TODO pass livedata?
-class SwitchListAdapter(private var lightSwitchList: List<LhComponent>, private val callback: (LhComponent) -> Unit, private val longCallback: (LhComponent) -> Unit) :
+class SwitchListAdapter(private var componentList: List<LhComponent>, private val callback: (LhComponent) -> Unit, private val longCallback: (LhComponent) -> Unit) :
     RecyclerView.Adapter<SwitchListAdapter.SwitchViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SwitchViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.switch_entry, parent, false)
         return SwitchViewHolder(itemView)
     }
 
-    override fun getItemCount(): Int = lightSwitchList.size
-
     override fun onBindViewHolder(holder: SwitchViewHolder, position: Int) {
-        holder.loadSwitch(lightSwitchList[position], callback, longCallback)
+        holder.loadSwitch(componentList[position], callback, longCallback)
     }
 
-    override fun getItemViewType(position: Int): Int=lightSwitchList[position]::class.simpleName.hashCode()
+    override fun getItemCount(): Int = componentList.size
 
-    override fun getItemId(position: Int): Long {
-        return lightSwitchList[position].id.toLong()
-    }
+    override fun getItemViewType(position: Int): Int = componentList[position]::class.simpleName.hashCode()
 
-    fun updateData(newLightSwitchList: List<LhComponent>) {
-        lightSwitchList = newLightSwitchList
+    override fun getItemId(position: Int): Long = componentList[position].id.toLong()
+
+    fun updateData(newList: List<LhComponent>) {
+        componentList = newList
         notifyDataSetChanged()
     }
 
@@ -45,25 +43,36 @@ class SwitchListAdapter(private var lightSwitchList: List<LhComponent>, private 
         private val unsupportedName = view.unsupported_name
         private val button = view.push_button
 
-        fun loadSwitch(lightSwitch: LhComponent, callback: (LhComponent) -> Unit, longCallback: (LhComponent) -> Unit) {
-            if(lightSwitch is LhDevice.LhBlindsPercentage) {
-                switch.isEnabled = false //TODO fully support Percentage Switches
-            }
-            icon.setImageResource(lightSwitch.icon)
-            seekBar.visibility = if (lightSwitch is LhDevice.LhDimmableSwitch) {
+        fun loadSwitch(component: LhComponent, callback: (LhComponent) -> Unit, longCallback: (LhComponent) -> Unit) {
+            icon.setImageResource(component.icon)
+
+            if (component is LhComponent.Dimmable) {
+                seekBar.visibility = View.VISIBLE
                 switch.setOnCheckedChangeListener { _, isChecked ->
                     seekBar.isEnabled = isChecked
                 }
-                seekBar.isEnabled = lightSwitch.enabled
-                seekBar.progress = lightSwitch.dim
-                View.VISIBLE
-            } else View.GONE
-            spinner.visibility = if (lightSwitch is LhDevice.LhSelectorSwitch) {
-                spinner.adapter = ArrayAdapter(spinner.context, R.layout.support_simple_spinner_dropdown_item, lightSwitch.levels)
+                seekBar.isEnabled = component !is LhComponent.Switchable || component.enabled //TODO move logic to isSwitchable
+                seekBar.progress = component.dim
+                seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+                    override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                        callback(component)
+                    }
+
+                    override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                        component.dim = progress
+                    }
+                })
+            }
+
+            if (component is LhDevice.LhSelectorSwitch) { //TODO check for interface, not specific type
+                spinner.visibility = View.VISIBLE
+                spinner.adapter = ArrayAdapter(spinner.context, R.layout.support_simple_spinner_dropdown_item, component.levels)
                 spinner.onItemSelectedListener = null
-                spinner.setSelection(min(lightSwitch.selectedId, lightSwitch.levels.lastIndex), false)
+                spinner.setSelection(min(component.selectedId, component.levels.lastIndex), false)
                 switch.setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked && lightSwitch.selectedId == 0) switch.isChecked = false
+                    if (isChecked && component.selectedId == 0) switch.isChecked = false
                 }
                 spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     var c = 0
@@ -71,56 +80,45 @@ class SwitchListAdapter(private var lightSwitchList: List<LhComponent>, private 
 
                     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                         if (c++ >= 1) {
-                            lightSwitch.selectedId = position
+                            component.selectedId = position
                             switch.isChecked = (position != 0)
-                            lightSwitch.enabled = switch.isChecked
-                            callback(lightSwitch)
+                            component.enabled = switch.isChecked
+                            callback(component)
                         }
                     }
                 }
-                View.VISIBLE
-            } else View.GONE
-            if(lightSwitch is LhDevice.LhUnsupported) {
-                unsupportedLayout.visibility = View.VISIBLE
-                unsupportedName.text = lightSwitch.typeName ?: "null"
             }
-            if(lightSwitch is LhDevice.LhPushButton) {
-                switch.visibility = View.GONE
-                button.visibility = View.VISIBLE
-                button.text = lightSwitch.name
-                button.setOnClickListener {
-                    callback(lightSwitch)
-                }
-                button.setOnLongClickListener {
-                    longCallback(lightSwitch)
-                    true
-                }
-            } else if (lightSwitch is LhComponent.Switchable){
-                switch.text = lightSwitch.name
-                switch.isChecked = lightSwitch.enabled
+
+            if (component is LhComponent.Unsupported) {
+                unsupportedLayout.visibility = View.VISIBLE
+                unsupportedName.text = component.typeName ?: "null"
+            }
+
+            if (component is LhComponent.Switchable) {
+                switch.visibility = View.VISIBLE
+                switch.text = component.name
+                switch.isChecked = component.enabled
                 switch.setOnClickListener {
-                    lightSwitch.enabled = switch.isChecked
-                    callback(lightSwitch)
+                    component.enabled = switch.isChecked //TODO maybe move this logic to callback?
+                    callback(component)
                 }
                 switch.setOnLongClickListener {
-                    longCallback(lightSwitch)
+                    longCallback(component)
                     true
                 }
             }
-            seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-                override fun onStartTrackingTouch(seekBar: SeekBar?) {
 
+            if (component is LhComponent.HasButton) {
+                button.visibility = View.VISIBLE
+                button.text = component.name
+                button.setOnClickListener {
+                    callback(component)
                 }
-
-                override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                    callback(lightSwitch)
+                button.setOnLongClickListener {
+                    longCallback(component)
+                    true
                 }
-
-                override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                    (lightSwitch as LhComponent.Dimmable).dim = progress
-                }
-
-            })
+            }
         }
     }
 }

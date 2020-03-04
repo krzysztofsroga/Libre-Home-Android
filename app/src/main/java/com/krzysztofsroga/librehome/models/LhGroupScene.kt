@@ -33,7 +33,7 @@ sealed class LhGroupScene(id: Int, name: String) : LhComponent(id, name) {
         }
     }
 
-    class LhUnsupportedGroupScene(id: Int, name: String?, val typeName: String?) : LhGroupScene(id, name ?: "Unnamed") {
+    class LhUnsupportedGroupScene(id: Int, name: String?, override val typeName: String?) : LhGroupScene(id, name ?: "Unnamed"), Unsupported {
         override val icon: Int = R.drawable.ic_report_problem_black_24dp
 
         override suspend fun sendState(service: DomoticzService) {}

@@ -46,7 +46,7 @@ sealed class LhDevice(id: Int, name: String) : LhComponent(id, name) {
         }
     }
 
-    class LhSelectorSwitch(id: Int, name: String, override var enabled: Boolean, override var dim: Int, var levels: List<String>) : LhDevice(id, name), Switchable, Dimmable {
+    class LhSelectorSwitch(id: Int, name: String, override var enabled: Boolean, var dim: Int, var levels: List<String>) : LhDevice(id, name), Switchable {
         override val icon: Int = R.drawable.ic_format_list_bulleted_black_24dp
 
         var selectedId
@@ -68,7 +68,7 @@ sealed class LhDevice(id: Int, name: String) : LhComponent(id, name) {
     }
 
 
-    class LhUnsupported(id: Int, name: String?, val typeName: String?) : LhDevice(id, name ?: "Unnamed"), Unsupported {
+    class LhUnsupported(id: Int, name: String?, override val typeName: String?) : LhDevice(id, name ?: "Unnamed"), Unsupported {
         override val icon: Int = R.drawable.ic_report_problem_black_24dp
 
         override suspend fun sendState(service: DomoticzService) {}

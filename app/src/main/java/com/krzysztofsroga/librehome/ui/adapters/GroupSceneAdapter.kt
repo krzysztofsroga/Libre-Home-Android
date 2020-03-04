@@ -32,7 +32,7 @@ class GroupSceneAdapter(private var groupSceneList: List<LhGroupScene>, private 
     }
 
     override fun getItemId(position: Int): Long {
-        return groupSceneList[position].id!!.toLong() //TODO make id non nullable
+        return groupSceneList[position].id.toLong() //TODO make id non nullable
     }
 
     fun updateData(newGroupSceneList: List<LhGroupScene>) {
