@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.models.LhComponent
-import com.krzysztofsroga.librehome.models.LightSwitch
 import com.krzysztofsroga.librehome.models.SwitchGroup
 import com.krzysztofsroga.librehome.utils.isEven
 import kotlinx.android.synthetic.main.switch_group_entry.view.*

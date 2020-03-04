@@ -14,5 +14,7 @@ abstract class LhComponent(val id: Int, val name: String) {
         var dim: Int
     }
 
+    interface HasButton
+
     interface Unsupported
 }

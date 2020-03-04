@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.models.LhComponent
 import com.krzysztofsroga.librehome.models.LhDevice
-import com.krzysztofsroga.librehome.models.LightSwitch
 import kotlinx.android.synthetic.main.switch_entry.view.*
 import kotlin.math.min
 

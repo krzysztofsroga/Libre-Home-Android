@@ -1,7 +1,5 @@
 package com.krzysztofsroga.librehome.connection
 
-import com.krzysztofsroga.librehome.models.DomoticzGroupScene
-import com.krzysztofsroga.librehome.models.DomoticzGroups
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
@@ -14,7 +12,7 @@ interface DomoticzService {
 
     @Headers("Content-Type: application/json")
     @GET("json.htm?type=scenes")
-    suspend fun getGroups(): DomoticzGroups
+    suspend fun getGroups(): OnlineSwitches.DomoticzResponseComponents
 
     @Headers("Content-Type: application/json")
     @GET("json.htm?type=command&param=switchlight")

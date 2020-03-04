@@ -57,6 +57,17 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
+    fun updateScenes() {
+        viewModelScope.launch {
+            Log.d("scenes", "refreshing scenes")
+            try {
+                _groupScenes.postValue(onlineSwitches.getAllGroupScenes().sorted().filtered())
+            } catch (e: Exception) {
+                _error.postValue(Event(e))
+            }
+        }
+    }
+
     private suspend fun <T> List<T>.sorted(): List<T> where T : LhComponent {
         return when (prefs.getString(AppConfig.PrefKeys.SORTING, "domoticz")) {
             "alphabetically" -> sortedWith(compareBy(Collator.getInstance()) { it.name })
@@ -86,40 +97,7 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
         viewModelScope.launch {
             recentDao.insert(RecentSwitch(switch.id, Calendar.getInstance().time))
             try {
-                onlineSwitches.suspendSendSwitchState(switch)
-            } catch (e: Exception) {
-                _error.postValue(Event(e))
-            }
-        }
-    }
-
-    fun updateScenes() {
-        viewModelScope.launch {
-            Log.d("scenes", "refreshing scenes")
-            try {
-                _groupScenes.postValue(onlineSwitches.getAllGroupScenes().run {
-                    val sortMode = prefs.getString(AppConfig.PrefKeys.SORTING, "domoticz")
-                    when (sortMode) {
-                        "alphabetically" -> sortedWith(compareBy(Collator.getInstance()) { it.name })
-                        "enabled" -> sortedWith(compareBy({ it is LhGroupScene.LhGroup && it.enabled }, { it.name }))
-                        "recent" -> {
-                            val recent = recentDao.getRecentSwitches()
-                            sortedWith(
-                                compareByDescending<LhGroupScene> { sw ->
-                                    recent.find { it.id == sw.id }?.lastAccessDate?.time
-                                }.thenBy { it.name }
-                            )
-                        }
-                        else -> this
-                    }.run {
-                        val showUnsupported = prefs.getBoolean(AppConfig.PrefKeys.SHOW_UNSUPPORTED, true)
-                        if (showUnsupported) {
-                            this
-                        } else {
-                            filter { it !is LhGroupScene.LhUnsupportedGroupScene }
-                        }
-                    }
-                })
+                onlineSwitches.sendComponentState(switch)
             } catch (e: Exception) {
                 _error.postValue(Event(e))
             }
@@ -130,7 +108,7 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
         viewModelScope.launch {
 //            recentDao.insert(RecentSwitch(group.id!!, Calendar.getInstance().time)) TODO This is for groups!
             try {
-                onlineSwitches.sendGroupState(group)
+                onlineSwitches.sendComponentState(group)
             } catch (e: Exception) {
                 _error.postValue(Event(e))
             }
