@@ -6,13 +6,14 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.krzysztofsroga.librehome.R
+import com.krzysztofsroga.librehome.models.LhComponent
+import com.krzysztofsroga.librehome.models.LhDevice
 import com.krzysztofsroga.librehome.models.LightSwitch
 import kotlinx.android.synthetic.main.switch_entry.view.*
-import kotlin.math.max
 import kotlin.math.min
 
 //TODO pass livedata?
-class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private val callback: (LightSwitch) -> Unit, private val longCallback: (LightSwitch) -> Unit) :
+class SwitchListAdapter(private var lightSwitchList: List<LhComponent>, private val callback: (LhComponent) -> Unit, private val longCallback: (LhComponent) -> Unit) :
     RecyclerView.Adapter<SwitchListAdapter.SwitchViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SwitchViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.switch_entry, parent, false)
@@ -25,22 +26,13 @@ class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private 
         holder.loadSwitch(lightSwitchList[position], callback, longCallback)
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return when (lightSwitchList[position]) {
-            is LightSwitch.SimpleSwitch -> 1
-            is LightSwitch.DimmableSwitch -> 2
-            is LightSwitch.SelectorSwitch -> 3
-            is LightSwitch.PushButtonSwitch -> 4
-            is LightSwitch.PercentageSwitch -> 5
-            is LightSwitch.UnsupportedSwitch -> 6
-        }
-    }
+    override fun getItemViewType(position: Int): Int=lightSwitchList[position]::class.simpleName.hashCode()
 
     override fun getItemId(position: Int): Long {
-        return lightSwitchList[position].id!!.toLong() //TODO make id non nullable
+        return lightSwitchList[position].id.toLong()
     }
 
-    fun updateData(newLightSwitchList: List<LightSwitch>) {
+    fun updateData(newLightSwitchList: List<LhComponent>) {
         lightSwitchList = newLightSwitchList
         notifyDataSetChanged()
     }
@@ -54,12 +46,12 @@ class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private 
         private val unsupportedName = view.unsupported_name
         private val button = view.push_button
 
-        fun loadSwitch(lightSwitch: LightSwitch, callback: (LightSwitch) -> Unit, longCallback: (LightSwitch) -> Unit) {
-            if(lightSwitch is LightSwitch.PercentageSwitch) {
+        fun loadSwitch(lightSwitch: LhComponent, callback: (LhComponent) -> Unit, longCallback: (LhComponent) -> Unit) {
+            if(lightSwitch is LhDevice.LhBlindsPercentage) {
                 switch.isEnabled = false //TODO fully support Percentage Switches
             }
             icon.setImageResource(lightSwitch.icon)
-            seekBar.visibility = if (lightSwitch is LightSwitch.DimmableSwitch) {
+            seekBar.visibility = if (lightSwitch is LhDevice.LhDimmableSwitch) {
                 switch.setOnCheckedChangeListener { _, isChecked ->
                     seekBar.isEnabled = isChecked
                 }
@@ -67,7 +59,7 @@ class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private 
                 seekBar.progress = lightSwitch.dim
                 View.VISIBLE
             } else View.GONE
-            spinner.visibility = if (lightSwitch is LightSwitch.SelectorSwitch) {
+            spinner.visibility = if (lightSwitch is LhDevice.LhSelectorSwitch) {
                 spinner.adapter = ArrayAdapter(spinner.context, R.layout.support_simple_spinner_dropdown_item, lightSwitch.levels)
                 spinner.onItemSelectedListener = null
                 spinner.setSelection(min(lightSwitch.selectedId, lightSwitch.levels.lastIndex), false)
@@ -89,11 +81,11 @@ class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private 
                 }
                 View.VISIBLE
             } else View.GONE
-            if(lightSwitch is LightSwitch.UnsupportedSwitch) {
+            if(lightSwitch is LhDevice.LhUnsupported) {
                 unsupportedLayout.visibility = View.VISIBLE
                 unsupportedName.text = lightSwitch.typeName ?: "null"
             }
-            if(lightSwitch is LightSwitch.PushButtonSwitch) {
+            if(lightSwitch is LhDevice.LhPushButton) {
                 switch.visibility = View.GONE
                 button.visibility = View.VISIBLE
                 button.text = lightSwitch.name
@@ -104,7 +96,7 @@ class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private 
                     longCallback(lightSwitch)
                     true
                 }
-            } else {
+            } else if (lightSwitch is LhComponent.Switchable){
                 switch.text = lightSwitch.name
                 switch.isChecked = lightSwitch.enabled
                 switch.setOnClickListener {
@@ -126,7 +118,7 @@ class SwitchListAdapter(private var lightSwitchList: List<LightSwitch>, private 
                 }
 
                 override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                    (lightSwitch as LightSwitch.DimmableSwitch).dim = progress
+                    (lightSwitch as LhComponent.Dimmable).dim = progress
                 }
 
             })

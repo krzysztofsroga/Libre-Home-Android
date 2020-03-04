@@ -10,6 +10,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.krzysztofsroga.librehome.R
+import com.krzysztofsroga.librehome.models.LhComponent
 import com.krzysztofsroga.librehome.models.LightSwitch
 import com.krzysztofsroga.librehome.models.SwitchGroup
 import com.krzysztofsroga.librehome.utils.isEven
@@ -18,7 +19,7 @@ import java.io.File
 
 class SwitchGroupAdapter(
     private val switchGroupList: List<SwitchGroup>,
-    private val switches: List<LightSwitch>,
+    private val switches: List<LhComponent>,
     private val onItemClick: (SwitchGroup) -> Unit = { _ -> },
     private val onAddGroupClick: () -> Unit = {}
 ) : RecyclerView.Adapter<SwitchGroupAdapter.GroupViewHolder>() {

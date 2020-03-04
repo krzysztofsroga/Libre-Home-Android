@@ -1,8 +1,7 @@
 package com.krzysztofsroga.librehome.connection
 
 import android.util.Log
-import com.krzysztofsroga.librehome.models.LhGroupScene
-import com.krzysztofsroga.librehome.models.LightSwitch
+import com.krzysztofsroga.librehome.models.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -17,15 +16,15 @@ class OnlineSwitches(hostname: String) {
         .build()
         .create(DomoticzService::class.java)
 
-    suspend fun suspendGetAllSwitches(): List<LightSwitch> {
-        return service.getSwitches().toSwitchStatesModel().items
+    suspend fun suspendGetAllSwitches(): List<LhDevice> {
+        return service.getSwitches().result.map { LhDevice.fromDomoticzComponent(it) }
     }
 
     suspend fun getAllGroupScenes(): List<LhGroupScene> {
         return service.getGroups().toGroupStatesModel().items
     }
 
-    suspend fun suspendSendSwitchState(lightSwitch: LightSwitch) {
+    suspend fun suspendSendSwitchState(lightSwitch: LhComponent) {
         lightSwitch.sendState(service)
 //        val (cmd, dim) = when {
 //            lightSwitch.enabled && lightSwitch is LightSwitch.DimmableSwitch -> "Set%20Level" to lightSwitch.dim
@@ -49,5 +48,7 @@ class OnlineSwitches(hostname: String) {
     data class GroupStatesModel(val name: String, val items: List<LhGroupScene>)
 
     data class DomoticzResponse(val status: String, val title: String)
+
+    data class DomoticzResponseComponents(val result: List<DomoticzComponent>)
 }
 
