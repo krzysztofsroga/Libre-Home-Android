@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.activities.LogsActvity">
+
+
+    <LinearLayout
+            android:id="@+id/log_content_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:id="@+id/log_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/nothing_selected"
+                tools:text="Log_2020-02-23.txt" />
+
+        <Button
+                android:id="@+id/button_copy_log"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="@string/copy_log" />
+
+        <Button
+                android:id="@+id/button_send_log"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="@string/send_log" />
+
+    </LinearLayout>
+
+    <EditText
+            android:id="@+id/log_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:editable="false"
+            android:gravity="top"
+            android:inputType="none"
+            android:selectAllOnFocus="true"
+            android:textIsSelectable="true"
+            android:visibility="gone"
+            tools:text="Some log"
+            tools:visibility="visible" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/logs_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:clipToPadding="false"
+            android:padding="4dp"
+            tools:itemCount="5"
+            tools:listitem="@layout/entry_log_name" />
+
+    <TextView
+            android:id="@+id/no_logs_yet_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/no_logs_yet"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+</LinearLayout>

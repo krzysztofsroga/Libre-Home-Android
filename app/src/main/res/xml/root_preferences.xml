@@ -1,0 +1,87 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/domoticz">
+
+        <EditTextPreference
+                app:defaultValue="@string/default_host"
+                app:key="host"
+                app:title="@string/host"
+                app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+                app:isPreferenceVisible="false"
+                app:key="domoticz_username"
+                app:title="@string/domoticz_username"
+                app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+                app:isPreferenceVisible="false"
+                app:key="domoticz_password"
+                app:title="@string/domoticz_password" />
+
+        <EditTextPreference
+                app:defaultValue="@string/default_ssh_username"
+                app:key="ssh_username"
+                app:title="@string/ssh_username"
+                app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+                app:key="ssh_password"
+                app:title="@string/ssh_password" />
+
+        <ListPreference
+                app:defaultValue="domoticz"
+                app:entries="@array/sorting_entries"
+                app:entryValues="@array/sorting_values"
+                app:key="sorting"
+                app:title="@string/sorting_switches"
+                app:useSimpleSummaryProvider="true" />
+
+        <CheckBoxPreference
+                app:defaultValue="true"
+                app:key="show_unsupported"
+                app:title="@string/show_unsupported" />
+
+        <ListPreference
+                app:defaultValue="en"
+                app:entries="@array/language_entries"
+                app:entryValues="@array/language_values"
+                app:key="language"
+                app:title="@string/language"
+                app:useSimpleSummaryProvider="true" /> <!--TODO load default value from system-->
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            app:isPreferenceVisible="false"
+            app:title="@string/experimental">
+
+        <SwitchPreferenceCompat
+                app:key="experimental"
+                app:title="@string/enable_experimental" />
+
+        <!--        <SeekBarPreference-->
+        <!--                app:min="1"-->
+        <!--                app:max="60"-->
+        <!--                app:dependency="experimental"-->
+        <!--                app:key="music_update"-->
+        <!--                android:title="Music switch update"-->
+        <!--            />-->
+        <EditTextPreference
+                app:defaultValue="5"
+                app:dependency="experimental"
+                app:key="music_update"
+                app:title="@string/music_updates_per_second"
+                app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+                app:dependency="experimental"
+                app:key="realtime_seekbar"
+                app:summaryOff="LED power will be updated after releasing"
+                app:summaryOn="LED power will be updated in real time"
+                app:title="Update LED power while using seekbar" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

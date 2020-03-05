@@ -1,0 +1,28 @@
+<resources>
+    <!-- Reply Preference -->
+    <string-array name="sorting_entries">
+        <item>@string/sort_alpha</item>
+        <item>@string/sort_domoticz</item>
+        <item>@string/sort_enabled</item>
+        <item>@string/sort_recent</item>
+    </string-array>
+
+    <string-array name="sorting_values">
+        <item>alphabetically</item>
+        <item>domoticz</item>
+        <item>enabled</item>
+        <item>recent</item>
+    </string-array>
+
+    <string-array name="language_entries">
+        <item>Polski</item>
+        <item>English</item>
+        <item>Deutsch</item>
+    </string-array>
+
+    <string-array name="language_values">
+        <item>pl</item>
+        <item>en</item>
+        <item>de</item>
+    </string-array>
+</resources>
