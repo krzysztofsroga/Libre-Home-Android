@@ -15,7 +15,7 @@ import com.krzysztofsroga.librehome.AppConfig
 
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.ui.activities.NewGroupActivity
-import com.krzysztofsroga.librehome.ui.adapters.SwitchListAdapter
+import com.krzysztofsroga.librehome.ui.adapters.ComponentListAdapter
 import com.krzysztofsroga.librehome.utils.getCurrentOrientationLayoutManager
 import com.krzysztofsroga.librehome.viewmodels.SwitchGroupViewModel
 import com.krzysztofsroga.librehome.viewmodels.SwitchesViewModel
@@ -54,8 +54,8 @@ class SelectedGroupFragment : Fragment() {
         switches_list.apply {
             layoutManager = getCurrentOrientationLayoutManager()
             setHasFixedSize(true)
-            adapter = SwitchListAdapter(listOf(), {
-                switchesViewModel.sendSwitchState(it)
+            adapter = ComponentListAdapter(listOf(), {
+                switchesViewModel.sendComponentState(it)
             }, {
                 Toast.makeText(context, "Switch '${it.name}' is added to favorites!", Toast.LENGTH_SHORT).show() //TODO string template
                 switchesViewModel.addFavorite(it)
@@ -66,7 +66,7 @@ class SelectedGroupFragment : Fragment() {
             groupsViewModel.switchGroups.observe(viewLifecycleOwner, Observer { groups ->
                 //TODO think about whether nested observers is a good pattern. Maybe transformations as it is solved with favorites?
                 val group = groups.find { it.id == args.selectedGroupId }!! //TODO findGroupById
-                (switches_list.adapter as SwitchListAdapter).updateData(switches.filter { it.id in group.switchesIndices })
+                (switches_list.adapter as ComponentListAdapter).updateData(switches.filter { it.id in group.switchesIndices })
             })
         })
     }

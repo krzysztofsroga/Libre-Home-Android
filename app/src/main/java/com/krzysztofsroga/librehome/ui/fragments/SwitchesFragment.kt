@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.krzysztofsroga.librehome.R
-import com.krzysztofsroga.librehome.ui.adapters.SwitchListAdapter
+import com.krzysztofsroga.librehome.ui.adapters.ComponentListAdapter
 import com.krzysztofsroga.librehome.utils.getCurrentOrientationLayoutManager
 import com.krzysztofsroga.librehome.viewmodels.SwitchesViewModel
 import kotlinx.android.synthetic.main.switches_fragment.*
@@ -28,8 +28,8 @@ class SwitchesFragment : Fragment() {
         switches_list.apply {
             layoutManager = getCurrentOrientationLayoutManager()
             setHasFixedSize(true)
-            adapter = SwitchListAdapter(listOf(), {
-                switchesViewModel.sendSwitchState(it)
+            adapter = ComponentListAdapter(listOf(), {
+                switchesViewModel.sendComponentState(it)
             }, {
                 Toast.makeText(context, "Switch '${it.name}' is added to favorites!", Toast.LENGTH_SHORT).show()
                 switchesViewModel.addFavorite(it)
@@ -37,7 +37,7 @@ class SwitchesFragment : Fragment() {
         }
 
         switchesViewModel.switches.observe(viewLifecycleOwner, Observer { switches ->
-            (switches_list.adapter as SwitchListAdapter).updateData(switches)
+            (switches_list.adapter as ComponentListAdapter).updateData(switches)
         })
 
     }

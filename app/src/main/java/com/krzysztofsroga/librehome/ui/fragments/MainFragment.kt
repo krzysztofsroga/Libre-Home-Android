@@ -9,8 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.krzysztofsroga.librehome.R
-import com.krzysztofsroga.librehome.ui.adapters.GroupSceneAdapter
-import com.krzysztofsroga.librehome.ui.adapters.SwitchListAdapter
+import com.krzysztofsroga.librehome.ui.adapters.ComponentListAdapter
 import com.krzysztofsroga.librehome.utils.getCurrentOrientationLayoutManager
 import com.krzysztofsroga.librehome.viewmodels.SshViewModel
 import com.krzysztofsroga.librehome.viewmodels.SwitchesViewModel
@@ -40,8 +39,8 @@ class MainFragment : Fragment() {
 
         switches_favorite_list.apply {
             layoutManager = getCurrentOrientationLayoutManager()
-            adapter = SwitchListAdapter(listOf(), {
-                switchesViewModel.sendSwitchState(it)
+            adapter = ComponentListAdapter(listOf(), {
+                switchesViewModel.sendComponentState(it)
             }, {
                 switchesViewModel.removeFavorite(it)
             }).apply { setHasStableIds(true) }
@@ -49,17 +48,17 @@ class MainFragment : Fragment() {
 
         scene_list.apply {
             layoutManager = getCurrentOrientationLayoutManager()
-            adapter = GroupSceneAdapter(listOf(), {
-                switchesViewModel.sendGroupState(it)
+            adapter = ComponentListAdapter(listOf(), {
+                switchesViewModel.sendComponentState(it)
             }, {}).apply { setHasStableIds(true) }
         }
 
         switchesViewModel.favoriteSwitches.observe(viewLifecycleOwner, Observer { favs ->
-            (switches_favorite_list.adapter as SwitchListAdapter).updateData(favs)
+            (switches_favorite_list.adapter as ComponentListAdapter).updateData(favs)
         })
 
         switchesViewModel.groupScenes.observe(viewLifecycleOwner, Observer { groupScenes ->
-            (scene_list.adapter as GroupSceneAdapter).updateData(groupScenes)
+            (scene_list.adapter as ComponentListAdapter).updateData(groupScenes)
         })
 
         sshViewModel.out.observe(viewLifecycleOwner, Observer { out ->

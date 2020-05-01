@@ -3,36 +3,38 @@ package com.krzysztofsroga.librehome.models
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.connection.DomoticzService
 
-sealed class LhGroupScene( //TODO create abstract class that connects LhGroupScene and LightSwitch
-    var name: String,
-    var id: Int? = null
-) {
-    val type: String? = this::class.simpleName
-    abstract val icon: Int
+sealed class LhGroupScene(id: Int, name: String) : LhComponent(id, name) {
 
-    abstract suspend fun sendState(service: DomoticzService)
+    companion object {
+        fun fromDomoticzComponent(dComp: DomoticzComponent): LhGroupScene {
+            return dComp.run {
+                when (Type) {
+                    "Group" -> LhGroup(idx, Name, Status != "Off")
+                    "Scene" -> LhScene(idx, Name)
+                    else -> LhUnsupportedGroupScene(idx, Name, Type)
+                }
+            }
+        }
+    }
 
-    class LhScene(name: String, id: Int) : LhGroupScene(name, id) {
-        override val icon: Int
-            get() = R.drawable.ic_landscape_black_24dp
+    class LhScene(id: Int, name: String) : LhGroupScene(id, name), HasButton {
+        override val icon: Int = R.drawable.ic_landscape_black_24dp
 
         override suspend fun sendState(service: DomoticzService) {
             service.sendGroupState(id, "On")
         }
     }
 
-    class LhGroup(name: String, id: Int, var enabled: Boolean) : LhGroupScene(name, id) {
-        override val icon: Int
-            get() =  R.drawable.ic_dashboard_black_24dp
+    class LhGroup(id: Int, name: String, override var enabled: Boolean) : LhGroupScene(id, name), Switchable {
+        override val icon: Int = R.drawable.ic_dashboard_black_24dp
 
         override suspend fun sendState(service: DomoticzService) {
             service.sendGroupState(id, if (enabled) "On" else "Off")
         }
     }
 
-    class LhUnsupportedGroupScene(name: String?, id: Int?, val typeName: String?) : LhGroupScene(name ?: "Unnamed", id) {
-        override val icon: Int
-            get() =  R.drawable.ic_report_problem_black_24dp
+    class LhUnsupportedGroupScene(id: Int, name: String?, override val typeName: String?) : LhGroupScene(id, name ?: "Unnamed"), Unsupported {
+        override val icon: Int = R.drawable.ic_report_problem_black_24dp
 
         override suspend fun sendState(service: DomoticzService) {}
     }
