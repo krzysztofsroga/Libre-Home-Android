@@ -49,4 +49,10 @@
     <string name="show_unsupported">Show unsupported switches</string>
     <string name="unsupported_device">Unsupported device. Type: </string>
     <string name="scenes">Scenes:</string>
+    <string name="connecting">Connecting…</string>
+    <string name="connected">Connected!</string>
+    <string name="connection_failed">Connection failed</string>
+    <string name="reboot_success">Reboot successful</string>
+    <string name="sending_command">Sending command…</string>
+    <string name="awaiting_response">Awaiting response…</string>
 </resources>

@@ -11,4 +11,10 @@
     <string name="action_settings">Ustawienia</string>
     <string name="action_about">O aplikacji</string>
     <string name="language">Język</string>
+    <string name="connecting">Łączenie…</string>
+    <string name="connected">Połączono!</string>
+    <string name="connection_failed">Błąd połączenia</string>
+    <string name="reboot_success">Uruchomiono ponownie</string>
+    <string name="sending_command">Wysyłanie komendy…</string>
+    <string name="awaiting_response">Oczekiwanie na odpowiedź…</string>
 </resources>

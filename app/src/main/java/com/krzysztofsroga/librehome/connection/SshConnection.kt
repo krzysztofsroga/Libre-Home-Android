@@ -6,6 +6,10 @@ import com.jcraft.jsch.ChannelExec
 import com.jcraft.jsch.JSch
 import com.jcraft.jsch.Session
 import com.krzysztofsroga.librehome.AppConfig
+import com.krzysztofsroga.librehome.R
+import com.krzysztofsroga.librehome.utils.EventMessage
+import com.krzysztofsroga.librehome.utils.EventMessage.RawMessage
+import com.krzysztofsroga.librehome.utils.EventMessage.ResourceMessage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -28,28 +32,28 @@ class SshConnection(prefs: SharedPreferences) {
         }
     }
 
-    suspend fun checkConnection(): Flow<String> = channelFlow {
+    suspend fun checkConnection(): Flow<EventMessage> = channelFlow {
         withContext(Dispatchers.IO) {
             try {
                 val session = initializeSession()
-                send("Connecting...")
+                send(ResourceMessage(R.string.connecting))
                 session.connect()
                 session.disconnect()
-                send("Connected!")
+                send(ResourceMessage(R.string.connected))
             } catch (e: Exception) {
                 Log.d("SSH", e.toString())
-                send("Connection failed")
+                send(ResourceMessage(R.string.connection_failed))
             }
         }
     }
 
-    suspend fun restartRpi(): Flow<String> = channelFlow {
+    suspend fun restartRpi(): Flow<EventMessage> = channelFlow {
         withContext(Dispatchers.IO) {
             try {
                 val session = initializeSession()
-                send("Connecting...")
+                send(ResourceMessage(R.string.connecting))
                 session.connect()
-                send("Connected!")
+                send(ResourceMessage(R.string.connected))
 
                 val channel = session.openChannel("exec") as ChannelExec
                 val output = ByteArrayOutputStream()
@@ -57,22 +61,22 @@ class SshConnection(prefs: SharedPreferences) {
 
                 // Execute command
                 channel.setCommand("sudo shutdown -r now")
-                send("Sending command...")
+                send(ResourceMessage(R.string.sending_command))
                 channel.connect()
-                send("Awaiting response...")
+                send(ResourceMessage(R.string.awaiting_response))
                 Thread.sleep(1000)
                 channel.disconnect()
                 session.disconnect()
                 output.toString().let {
                     if (it.isBlank())
-                        send("Reboot successful")
+                        send(ResourceMessage(R.string.reboot_success))
                     else
-                        send(it)
+                        send(RawMessage(it))
                 }
 
             } catch (e: Exception) {
                 Log.d("SSH", e.toString())
-                send("Connection failed")
+                send(ResourceMessage(R.string.connection_failed))
             }
         }
     }

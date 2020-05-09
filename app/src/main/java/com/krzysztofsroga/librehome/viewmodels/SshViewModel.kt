@@ -22,13 +22,13 @@ class SshViewModel(application: Application) : AndroidViewModel(application) {
 
     fun checkConnection() {
         viewModelScope.launch {
-            SshConnection(prefs).checkConnection().collect { _out.value = it }
+            SshConnection(prefs).checkConnection().collect { _out.value = it.render(getApplication()) }
         }
     }
 
     fun restartRaspberry() {
         viewModelScope.launch {
-            SshConnection(prefs).restartRpi().collect { _out.value = it }
+            SshConnection(prefs).restartRpi().collect { _out.value = it.render(getApplication()) }
         }
     }
 }
