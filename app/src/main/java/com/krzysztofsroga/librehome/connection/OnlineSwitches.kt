@@ -1,5 +1,6 @@
 package com.krzysztofsroga.librehome.connection
 
+import com.google.gson.annotations.SerializedName
 import com.krzysztofsroga.librehome.models.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -29,6 +30,6 @@ class OnlineSwitches(hostname: String) {
 
     data class DomoticzResponse(val status: String, val title: String)
 
-    data class DomoticzResponseComponents(val result: List<DomoticzComponent>)
+    data class DomoticzResponseComponents(@SerializedName("result") val result: List<DomoticzComponent>)
 }
 
