@@ -64,7 +64,9 @@ sealed class LhDevice(id: Int, name: String) : LhComponent(id, name) {
 
         override val icon: Int = R.drawable.icons8_jalousie
 
-        override suspend fun sendState(service: DomoticzService) {}
+        override suspend fun sendState(service: DomoticzService) {
+            service.sendDeviceState(id, "Set%20Level", dim)
+        }
     }
 
 
