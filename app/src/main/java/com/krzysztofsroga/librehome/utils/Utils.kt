@@ -1,6 +1,7 @@
 package com.krzysztofsroga.librehome.utils
 
 import android.app.Activity
+import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.graphics.Bitmap
@@ -70,4 +71,20 @@ fun Activity.showToast(value: String) {
 
 fun Fragment.showToast(value: String) {
     requireActivity().showToast(value)
+}
+
+sealed class EventMessage {
+    class RawMessage(private val message: String) : EventMessage() {
+        override fun render(context: Context): String {
+            return message
+        }
+    }
+
+    class ResourceMessage(private val resourceId: Int) : EventMessage() {
+        override fun render(context: Context): String {
+            return context.resources.getString(resourceId)
+        }
+    }
+
+    abstract fun render(context: Context): String
 }

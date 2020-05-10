@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sorting_switches">Sortowanie przełączników</string>
+    <string name="experimental">Funkcje eksperymentalne</string>
+    <string name="enable_experimental">Aktywuj fukncje eksperymentalne</string>
+    <string name="domoticz_password">Hasło domoticza</string>
+    <string name="ssh_password">Hasło SSH</string>
+    <string name="restart_confirmation">Czy na pewno chcesz uruchomić ponownie Raspberry PI?</string>
+    <string name="restart">Uruchom ponownie</string>
+    <string name="cancel">Anuluj</string>
+    <string name="action_settings">Ustawienia</string>
+    <string name="action_about">O aplikacji</string>
+    <string name="language">Język</string>
+    <string name="connecting">Łączenie…</string>
+    <string name="connected">Połączono!</string>
+    <string name="connection_failed">Błąd połączenia</string>
+    <string name="reboot_success">Uruchomiono ponownie</string>
+    <string name="sending_command">Wysyłanie komendy…</string>
+    <string name="awaiting_response">Oczekiwanie na odpowiedź…</string>
+</resources>
