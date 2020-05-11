@@ -16,6 +16,8 @@ abstract class LhComponent(val id: Int, val name: String) {
 
     interface HasButton
 
+    interface SimpleName
+
     interface Unsupported {
         val typeName: String?
     }

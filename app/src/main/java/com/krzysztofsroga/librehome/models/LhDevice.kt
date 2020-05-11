@@ -60,7 +60,7 @@ sealed class LhDevice(id: Int, name: String) : LhComponent(id, name) {
         }
     }
 
-    class LhBlindsPercentage(id: Int, name: String, override var dim: Int) : LhDevice(id, name), Dimmable {
+    class LhBlindsPercentage(id: Int, name: String, override var dim: Int) : LhDevice(id, name), Dimmable, SimpleName {
 
         override val icon: Int = R.drawable.icons8_jalousie
 

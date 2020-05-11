@@ -39,6 +39,7 @@ class ComponentListAdapter(private var componentList: List<LhComponent>, private
         private val seekBar: SeekBar = view.switchSeekBar
         private val spinner: Spinner = view.switchSpinner
         private val icon: ImageView = view.lightIcon
+        private val simpleName: TextView = view.simple_name
         private val unsupportedLayout = view.unsupported_layout
         private val unsupportedName = view.unsupported_name
         private val button = view.push_button
@@ -92,6 +93,11 @@ class ComponentListAdapter(private var componentList: List<LhComponent>, private
             if (component is LhComponent.Unsupported) {
                 unsupportedLayout.visibility = View.VISIBLE
                 unsupportedName.text = component.typeName ?: "null"
+            }
+
+            if (component is LhComponent.SimpleName) { // TODO generate SimpleName automatically?
+                simpleName.visibility = View.VISIBLE
+                simpleName.text = component.name
             }
 
             if (component is LhComponent.Switchable) {
