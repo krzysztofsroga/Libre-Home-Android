@@ -43,6 +43,7 @@ class ComponentListAdapter(private var componentList: List<LhComponent>, private
         private val unsupportedLayout = view.unsupported_layout
         private val unsupportedName = view.unsupported_name
         private val button = view.push_button
+        private val stateText = view.state_text
 
         fun loadSwitch(component: LhComponent, callback: (LhComponent) -> Unit, longCallback: (LhComponent) -> Unit) {
             icon.setImageResource(component.icon)
@@ -114,11 +115,19 @@ class ComponentListAdapter(private var componentList: List<LhComponent>, private
                 }
             }
 
-            if (component is LhComponent.SimpleSensor) {
+            if (component is LhComponent.SimpleBooleanSensor) {
                 switch.visibility = View.VISIBLE
                 switch.text = component.name
                 switch.isChecked = component.enabled
                 switch.isClickable = false
+            }
+
+            if (component is LhComponent.SimpleTextSensor) {
+                simpleName.visibility = View.VISIBLE
+                simpleName.text = component.name
+                stateText.visibility = View.VISIBLE
+                stateText.text = component.state
+
             }
 
             if (component is LhComponent.HasButton) {

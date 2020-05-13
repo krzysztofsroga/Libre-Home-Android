@@ -14,8 +14,12 @@ abstract class LhComponent(val id: Int, val name: String) {
         var dim: Int
     }
 
-    interface SimpleSensor {
+    interface SimpleBooleanSensor {
         var enabled: Boolean
+    }
+
+    interface SimpleTextSensor {
+        var state: String
     }
 
     interface HasButton

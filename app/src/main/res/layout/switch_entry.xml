@@ -72,6 +72,17 @@
                     tools:text="Some options"
                     tools:visibility="visible" />
 
+            <TextView
+                    android:id="@+id/state_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:textColor="@color/black"
+                    android:visibility="gone"
+                    android:textAlignment="textEnd"
+                    tools:text="Sensor state as text"
+                    tools:visibility="visible" />
+
             <LinearLayout
                     android:id="@+id/unsupported_layout"
                     android:layout_width="match_parent"

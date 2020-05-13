@@ -18,6 +18,8 @@ sealed class LhDevice(id: Int, name: String) : LhComponent(id, name) {
                     "Blinds Percentage" -> LhBlindsPercentage(idx, Name, Level)
                     "Motion Sensor" -> LhSimpleSensor(idx, Name, Status != "Off")
                     "Door Lock Inverted", "Door Lock" -> LhDoorLock(idx, Name, Status != "Off")
+                    "Smoke Detector" -> LhSmokeDetector(idx, Name, Status != "Off")
+                    "Media Player" -> LhMediaPlayer(idx, Name, Status)
                     else -> LhUnsupported(idx, Name, SwitchType)
                 }
             }
@@ -71,18 +73,28 @@ sealed class LhDevice(id: Int, name: String) : LhComponent(id, name) {
         }
     }
 
-    class LhSimpleSensor(id: Int, name: String, override var enabled: Boolean) : LhDevice(id, name), SimpleSensor {
+    class LhSimpleSensor(id: Int, name: String, override var enabled: Boolean) : LhDevice(id, name), SimpleBooleanSensor {
         override val icon: Int = R.drawable.ic_directions_run_black_24dp
 
         override suspend fun sendState(service: DomoticzService) {}
-
     }
 
-    class LhDoorLock(id: Int, name: String, override var enabled: Boolean) : LhDevice(id, name), SimpleSensor {
+    class LhDoorLock(id: Int, name: String, override var enabled: Boolean) : LhDevice(id, name), SimpleBooleanSensor {
         override val icon: Int = R.drawable.ic_lock_black_24dp
 
-        override suspend fun sendState(service: DomoticzService) {}
+        override suspend fun sendState(service: DomoticzService) {} //TODO We do not need method with sensors?
+    }
 
+    class LhSmokeDetector(id: Int, name: String, override var enabled: Boolean) : LhDevice(id, name), SimpleBooleanSensor {
+        override val icon: Int = R.drawable.ic_whatshot_black_24dp
+
+        override suspend fun sendState(service: DomoticzService) {} //TODO We do not need method with sensors?
+    }
+
+    class LhMediaPlayer(id: Int, name: String, override var state: String) : LhDevice(id, name), SimpleTextSensor {
+        override val icon: Int = R.drawable.ic_movie_black_24dp
+
+        override suspend fun sendState(service: DomoticzService) {} //TODO We do not need method with sensors?
     }
 
     class LhUnsupported(id: Int, name: String?, override val typeName: String?) : LhDevice(id, name ?: "Unnamed"), Unsupported {
