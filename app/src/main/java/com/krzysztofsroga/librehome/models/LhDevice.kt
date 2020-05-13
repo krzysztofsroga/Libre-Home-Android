@@ -16,6 +16,8 @@ sealed class LhDevice(id: Int, name: String) : LhComponent(id, name) {
                     "Dimmer" -> LhDimmableSwitch(idx, Name, Status != "Off", Level)
                     "Selector" -> LhSelectorSwitch(idx, Name, Status != "Off", Level, Base64.decode(LevelNames, Base64.DEFAULT).toString(Charset.forName("UTF-8")).split("|"))
                     "Blinds Percentage" -> LhBlindsPercentage(idx, Name, Level)
+                    "Motion Sensor" -> LhSimpleSensor(idx, Name, Status != "Off")
+                    "Door Lock Inverted", "Door Lock" -> LhDoorLock(idx, Name, Status != "Off")
                     else -> LhUnsupported(idx, Name, SwitchType)
                 }
             }
@@ -69,6 +71,19 @@ sealed class LhDevice(id: Int, name: String) : LhComponent(id, name) {
         }
     }
 
+    class LhSimpleSensor(id: Int, name: String, override var enabled: Boolean) : LhDevice(id, name), SimpleSensor {
+        override val icon: Int = R.drawable.ic_directions_run_black_24dp
+
+        override suspend fun sendState(service: DomoticzService) {}
+
+    }
+
+    class LhDoorLock(id: Int, name: String, override var enabled: Boolean) : LhDevice(id, name), SimpleSensor {
+        override val icon: Int = R.drawable.ic_lock_black_24dp
+
+        override suspend fun sendState(service: DomoticzService) {}
+
+    }
 
     class LhUnsupported(id: Int, name: String?, override val typeName: String?) : LhDevice(id, name ?: "Unnamed"), Unsupported {
         override val icon: Int = R.drawable.ic_report_problem_black_24dp

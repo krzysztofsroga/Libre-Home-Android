@@ -114,6 +114,13 @@ class ComponentListAdapter(private var componentList: List<LhComponent>, private
                 }
             }
 
+            if (component is LhComponent.SimpleSensor) {
+                switch.visibility = View.VISIBLE
+                switch.text = component.name
+                switch.isChecked = component.enabled
+                switch.isClickable = false
+            }
+
             if (component is LhComponent.HasButton) {
                 button.visibility = View.VISIBLE
                 button.text = component.name
