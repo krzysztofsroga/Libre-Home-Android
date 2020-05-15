@@ -76,11 +76,11 @@
                     android:id="@+id/state_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textAlignment="textEnd"
                     android:padding="8dp"
                     android:textColor="@color/black"
                     android:visibility="gone"
-                    android:textAlignment="textEnd"
-                    tools:text="Sensor state as text"
+                    tools:text="Sensor data"
                     tools:visibility="visible" />
 
             <LinearLayout

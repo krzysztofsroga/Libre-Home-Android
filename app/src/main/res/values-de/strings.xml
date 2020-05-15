@@ -45,6 +45,6 @@
     <string name="send_log">Senden</string>
     <string name="hello_blank_fragment">Hello leeres Fragment</string>
     <string name="action_logs">Logs</string>
-    <string name="sort_enabled">Zuerst aktivieren</string>
+    <string name="sort_enabled">Zuerst aktivierte Geräte</string>
     <string name="ssh_username">SSH Benutzername</string>
 </resources>

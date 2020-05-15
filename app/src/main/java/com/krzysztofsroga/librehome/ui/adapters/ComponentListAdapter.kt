@@ -92,6 +92,8 @@ class ComponentListAdapter(private var componentList: List<LhComponent>, private
             }
 
             if (component is LhComponent.Unsupported) {
+                simpleName.visibility = View.VISIBLE
+                simpleName.text = component.name //TODO To be able to figure out which device is not supported.
                 unsupportedLayout.visibility = View.VISIBLE
                 unsupportedName.text = component.typeName ?: "null"
             }
@@ -115,18 +117,15 @@ class ComponentListAdapter(private var componentList: List<LhComponent>, private
                 }
             }
 
-            if (component is LhComponent.SimpleBooleanSensor) {
-                switch.visibility = View.VISIBLE
-                switch.text = component.name
-                switch.isChecked = component.enabled
-                switch.isClickable = false
-            }
-
-            if (component is LhComponent.SimpleTextSensor) {
+            if (component is LhComponent.SimpleSensor) {
                 simpleName.visibility = View.VISIBLE
                 simpleName.text = component.name
                 stateText.visibility = View.VISIBLE
                 stateText.text = component.state
+                stateText.setOnLongClickListener {
+                    longCallback(component)
+                    true
+                }
 
             }
 
