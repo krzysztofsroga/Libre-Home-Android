@@ -9,5 +9,6 @@ class DomoticzComponent(
     val Status: String,
     val Level: Int,
     val LevelNames: String,
+    val Data: String,
     val Favorite: Int
 )

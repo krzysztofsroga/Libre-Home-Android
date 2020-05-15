@@ -43,6 +43,7 @@ class ComponentListAdapter(private var componentList: List<LhComponent>, private
         private val unsupportedLayout = view.unsupported_layout
         private val unsupportedName = view.unsupported_name
         private val button = view.push_button
+        private val stateText = view.state_text
 
         fun loadSwitch(component: LhComponent, callback: (LhComponent) -> Unit, longCallback: (LhComponent) -> Unit) {
             icon.setImageResource(component.icon)
@@ -91,6 +92,8 @@ class ComponentListAdapter(private var componentList: List<LhComponent>, private
             }
 
             if (component is LhComponent.Unsupported) {
+                simpleName.visibility = View.VISIBLE
+                simpleName.text = component.name //TODO To be able to figure out which device is not supported.
                 unsupportedLayout.visibility = View.VISIBLE
                 unsupportedName.text = component.typeName ?: "null"
             }
@@ -112,6 +115,18 @@ class ComponentListAdapter(private var componentList: List<LhComponent>, private
                     longCallback(component)
                     true
                 }
+            }
+
+            if (component is LhComponent.SimpleSensor) {
+                simpleName.visibility = View.VISIBLE
+                simpleName.text = component.name
+                stateText.visibility = View.VISIBLE
+                stateText.text = component.state
+                stateText.setOnLongClickListener {
+                    longCallback(component)
+                    true
+                }
+
             }
 
             if (component is LhComponent.HasButton) {
