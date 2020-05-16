@@ -39,9 +39,12 @@ class ComponentListAdapter(private var componentList: List<LhComponent>, private
         private val seekBar: SeekBar = view.switchSeekBar
         private val spinner: Spinner = view.switchSpinner
         private val icon: ImageView = view.lightIcon
+        private val simpleName: TextView = view.simple_name
         private val unsupportedLayout = view.unsupported_layout
         private val unsupportedName = view.unsupported_name
         private val button = view.push_button
+        private val stateText = view.state_text
+        private val switchLayout = view.switch_layout
 
         fun loadSwitch(component: LhComponent, callback: (LhComponent) -> Unit, longCallback: (LhComponent) -> Unit) {
             icon.setImageResource(component.icon)
@@ -90,8 +93,15 @@ class ComponentListAdapter(private var componentList: List<LhComponent>, private
             }
 
             if (component is LhComponent.Unsupported) {
+                simpleName.visibility = View.VISIBLE
+                simpleName.text = component.name //TODO To be able to figure out which device is not supported.
                 unsupportedLayout.visibility = View.VISIBLE
                 unsupportedName.text = component.typeName ?: "null"
+            }
+
+            if (component is LhComponent.SimpleName) { // TODO generate SimpleName automatically?
+                simpleName.visibility = View.VISIBLE
+                simpleName.text = component.name
             }
 
             if (component is LhComponent.Switchable) {
@@ -102,10 +112,11 @@ class ComponentListAdapter(private var componentList: List<LhComponent>, private
                     component.enabled = switch.isChecked //TODO maybe move this logic to callback?
                     callback(component)
                 }
-                switch.setOnLongClickListener {
-                    longCallback(component)
-                    true
-                }
+            }
+
+            if (component is LhComponent.SimpleSensorData) {
+                stateText.visibility = View.VISIBLE
+                stateText.text = component.state
             }
 
             if (component is LhComponent.HasButton) {
@@ -114,10 +125,11 @@ class ComponentListAdapter(private var componentList: List<LhComponent>, private
                 button.setOnClickListener {
                     callback(component)
                 }
-                button.setOnLongClickListener {
-                    longCallback(component)
-                    true
-                }
+            }
+
+            switchLayout.setOnLongClickListener {
+                longCallback(component)
+                true
             }
         }
     }

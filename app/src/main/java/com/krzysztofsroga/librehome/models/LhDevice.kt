@@ -1,26 +1,9 @@
 package com.krzysztofsroga.librehome.models
 
-import android.util.Base64
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.connection.DomoticzService
-import java.nio.charset.Charset
 
-sealed class LhDevice(id: Int, name: String) : LhComponent(id, name) {
-
-    companion object {
-        fun fromDomoticzComponent(dComp: DomoticzComponent): LhDevice {
-            return dComp.run {
-                when (SwitchType) {
-                    "On/Off" -> LhSimpleSwitch(idx, Name, Status != "Off")
-                    "Push Off Button", "Push On Button" -> LhPushButton(idx, Name)
-                    "Dimmer" -> LhDimmableSwitch(idx, Name, Status != "Off", Level)
-                    "Selector" -> LhSelectorSwitch(idx, Name, Status != "Off", Level, Base64.decode(LevelNames, Base64.DEFAULT).toString(Charset.forName("UTF-8")).split("|"))
-                    "Blinds Percentage" -> LhBlindsPercentage(idx, Name, Level)
-                    else -> LhUnsupported(idx, Name, SwitchType)
-                }
-            }
-        }
-    }
+sealed class LhDevice(id: Int, name: String) : LhAbstractDevice(id, name) {
 
     class LhSimpleSwitch(id: Int, name: String, override var enabled: Boolean) : LhDevice(id, name), Switchable {
         override val icon: Int = R.drawable.light
@@ -60,7 +43,7 @@ sealed class LhDevice(id: Int, name: String) : LhComponent(id, name) {
         }
     }
 
-    class LhBlindsPercentage(id: Int, name: String, override var dim: Int) : LhDevice(id, name), Dimmable {
+    class LhBlindsPercentage(id: Int, name: String, override var dim: Int) : LhDevice(id, name), Dimmable, SimpleName {
 
         override val icon: Int = R.drawable.icons8_jalousie
 
@@ -68,7 +51,6 @@ sealed class LhDevice(id: Int, name: String) : LhComponent(id, name) {
             service.sendDeviceState(id, "Set%20Level", dim)
         }
     }
-
 
     class LhUnsupported(id: Int, name: String?, override val typeName: String?) : LhDevice(id, name ?: "Unnamed"), Unsupported {
         override val icon: Int = R.drawable.ic_report_problem_black_24dp

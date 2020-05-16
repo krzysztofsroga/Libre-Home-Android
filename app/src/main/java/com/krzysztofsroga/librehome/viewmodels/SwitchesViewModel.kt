@@ -30,9 +30,9 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
 
     val error: LiveData<Event<Exception>> = _error
 
-    private val _switches = MutableLiveData<List<LhDevice>>()
+    private val _switches = MutableLiveData<List<LhAbstractDevice>>()
 
-    val switches: LiveData<List<LhDevice>> = _switches
+    val switches: LiveData<List<LhAbstractDevice>> = _switches
 
     private val _groupScenes = MutableLiveData<List<LhGroupScene>>()
 
@@ -105,7 +105,7 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun addFavorite(switch: LhComponent) {
-        if (switch is LhDevice) { //TODO create fav list for LhGroupScene
+        if (switch is LhDevice) { //TODO create fav list for LhGroupScene and for LhSensor
             viewModelScope.launch {
                 favoriteDao.insert(FavoriteSwitch(switch.id))
             }
@@ -113,7 +113,7 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun removeFavorite(switch: LhComponent) {
-        if (switch is LhDevice) { //TODO create fav list for LhGroupScene
+        if (switch is LhDevice) { //TODO create fav list for LhGroupScene and for LhSensor
             viewModelScope.launch {
                 favoriteDao.delete(FavoriteSwitch(switch.id))
             }

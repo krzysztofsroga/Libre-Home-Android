@@ -14,7 +14,13 @@ abstract class LhComponent(val id: Int, val name: String) {
         var dim: Int
     }
 
+    interface SimpleSensorData {
+        var state: String
+    }
+
     interface HasButton
+
+    interface SimpleName
 
     interface Unsupported {
         val typeName: String?

@@ -22,8 +22,8 @@ android {
         applicationId "com.krzysztofsroga.librehome"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 1008
-        versionName "0.4.1-beta"
+        versionCode 1009
+        versionName "0.5.0-beta"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -35,11 +35,15 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
-            shrinkResources false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
+            minifyEnabled true
+            shrinkResources true
+            useProguard false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     buildToolsVersion = '29.0.2'
