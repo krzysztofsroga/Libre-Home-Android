@@ -44,6 +44,7 @@ class ComponentListAdapter(private var componentList: List<LhComponent>, private
         private val unsupportedName = view.unsupported_name
         private val button = view.push_button
         private val stateText = view.state_text
+        private val switchLayout = view.switch_layout
 
         fun loadSwitch(component: LhComponent, callback: (LhComponent) -> Unit, longCallback: (LhComponent) -> Unit) {
             icon.setImageResource(component.icon)
@@ -111,22 +112,11 @@ class ComponentListAdapter(private var componentList: List<LhComponent>, private
                     component.enabled = switch.isChecked //TODO maybe move this logic to callback?
                     callback(component)
                 }
-                switch.setOnLongClickListener {
-                    longCallback(component)
-                    true
-                }
             }
 
-            if (component is LhComponent.SimpleSensor) {
-                simpleName.visibility = View.VISIBLE
-                simpleName.text = component.name
+            if (component is LhComponent.SimpleSensorData) {
                 stateText.visibility = View.VISIBLE
                 stateText.text = component.state
-                stateText.setOnLongClickListener {
-                    longCallback(component)
-                    true
-                }
-
             }
 
             if (component is LhComponent.HasButton) {
@@ -135,10 +125,11 @@ class ComponentListAdapter(private var componentList: List<LhComponent>, private
                 button.setOnClickListener {
                     callback(component)
                 }
-                button.setOnLongClickListener {
-                    longCallback(component)
-                    true
-                }
+            }
+
+            switchLayout.setOnLongClickListener {
+                longCallback(component)
+                true
             }
         }
     }

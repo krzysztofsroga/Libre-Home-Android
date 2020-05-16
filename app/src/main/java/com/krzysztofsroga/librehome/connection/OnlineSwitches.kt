@@ -16,8 +16,8 @@ class OnlineSwitches(hostname: String) {
         .build()
         .create(DomoticzService::class.java)
 
-    suspend fun getAllDevices(): List<LhDevice> {
-        return service.getDevices().result.map { LhDevice.fromDomoticzComponent(it) }
+    suspend fun getAllDevices(): List<LhAbstractDevice> {
+        return service.getDevices().result.map { LhAbstractDevice.fromDomoticzComponent(it) }
     }
 
     suspend fun getAllGroupScenes(): List<LhGroupScene> {
