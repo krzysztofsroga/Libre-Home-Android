@@ -18,6 +18,12 @@
             tools:layout="@layout/switches_fragment" />
 
     <fragment
+            android:id="@+id/navigation_sensors"
+            android:name="com.krzysztofsroga.librehome.ui.fragments.SensorsFragment"
+            android:label="@string/title_sensors"
+            tools:layout="@layout/sensors_fragment" />
+
+    <fragment
             android:id="@+id/navigation_groups"
             android:name="com.krzysztofsroga.librehome.ui.fragments.SwitchGroupFragment"
             android:label="@string/title_groups"

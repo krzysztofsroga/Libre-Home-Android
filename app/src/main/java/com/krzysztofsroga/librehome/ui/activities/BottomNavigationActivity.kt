@@ -33,6 +33,7 @@ class BottomNavigationActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration( // TODO just read bottom_nav_menu.xml?
             setOf(
                 R.id.navigation_home,
+                R.id.navigation_sensors,
                 R.id.navigation_groups,
                 R.id.navigation_switches
             )
