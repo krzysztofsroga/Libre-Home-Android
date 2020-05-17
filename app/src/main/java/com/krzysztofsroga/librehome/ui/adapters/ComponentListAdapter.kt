@@ -78,7 +78,7 @@ class ComponentListAdapter(private var componentList: List<LhComponent>, private
                     if (isChecked && component.selectedId == 0) switch.isChecked = false
                 }
                 spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                    var c = 1
+                    var c = 1 //TODO 0 works for me, 1 works on other devices(c can be deleted as well)...
                     override fun onNothingSelected(parent: AdapterView<*>?) {}
 
                     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
