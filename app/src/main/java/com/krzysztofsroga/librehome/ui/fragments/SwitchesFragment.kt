@@ -31,7 +31,7 @@ class SwitchesFragment : Fragment() {
             adapter = ComponentListAdapter(listOf(), {
                 switchesViewModel.sendComponentState(it)
             }, {
-                Toast.makeText(context, it.name + context.getString(R.string.add_fav), Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, context.getString(R.string.add_fav, it.name), Toast.LENGTH_SHORT).show()
                 switchesViewModel.addFavorite(it)
             }).apply { setHasStableIds(true) }
         }

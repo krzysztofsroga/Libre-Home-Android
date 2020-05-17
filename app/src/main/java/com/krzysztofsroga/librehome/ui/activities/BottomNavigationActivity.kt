@@ -30,7 +30,7 @@ class BottomNavigationActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment)
 
-        val appBarConfiguration = AppBarConfiguration(
+        val appBarConfiguration = AppBarConfiguration( // TODO just read bottom_nav_menu.xml?
             setOf(
                 R.id.navigation_home,
                 R.id.navigation_groups,
