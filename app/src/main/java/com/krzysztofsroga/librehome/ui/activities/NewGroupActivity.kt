@@ -112,7 +112,7 @@ class NewGroupActivity : AppCompatActivity() {
         }
         if (newGroupViewModel.tmpImagePath.value == null) {
             success = false
-            Toast.makeText(this, "You have to select an image!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.img_err), Toast.LENGTH_SHORT).show()
         }
         return success
     }

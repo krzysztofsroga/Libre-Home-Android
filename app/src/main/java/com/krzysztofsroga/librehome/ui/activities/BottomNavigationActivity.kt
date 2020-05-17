@@ -53,7 +53,7 @@ class BottomNavigationActivity : AppCompatActivity() {
             swipe_refresh.isRefreshing = false
             Logger.e("Domoticz Connection", error.toString() + error.stackTraceString)
             error.printStackTrace()
-            Toast.makeText(this, "Connection error: ${error.message}", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.conn_err) + error.toString(), Toast.LENGTH_LONG).show()
         })
     }
 
