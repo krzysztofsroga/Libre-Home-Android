@@ -55,4 +55,9 @@
     <string name="reboot_success">Reboot successful</string>
     <string name="sending_command">Sending command…</string>
     <string name="awaiting_response">Awaiting response…</string>
+    <string name="add_fav">" is added to favorites!"</string>
+    <string name="conn_err">"Connection error: "</string>
+    <string name="log_copy">Copied log to clipboard!</string>
+    <string name="img_err">You have to select an image!</string>
+    <string name="send_email">Send this email to me.</string>
 </resources>

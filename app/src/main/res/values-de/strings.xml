@@ -47,4 +47,9 @@
     <string name="action_logs">Logs</string>
     <string name="sort_enabled">Zuerst aktivierte Geräte</string>
     <string name="ssh_username">SSH Benutzername</string>
+    <string name="add_fav">" zu Favoriten hinzugefügt!"</string>
+    <string name="conn_err">"Verbindungsfehler: "</string>
+    <string name="log_copy">Log kopiert in die Zwischenablage!</string>
+    <string name="img_err">Sie müssen ein Bild auswählen!</string>
+    <string name="send_email">Senden Sie mir dieses E-Mail.</string>
 </resources>

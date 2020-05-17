@@ -43,7 +43,7 @@ class LogsActvity : AppCompatActivity() {
             val subject = "LibreHome Log: ${log_title.text}"
             val body = log_content.text.toString()
             val email = "support@sroga.dev"
-            val chooserTitle = "Just send this email to me."
+            val chooserTitle = getString(R.string.send_email)
 
             ShareCompat.IntentBuilder.from(this)
                 .setType("message/rfc822")
@@ -58,7 +58,7 @@ class LogsActvity : AppCompatActivity() {
             val clipboard: ClipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("LibreHome Log", log_content.text.toString())
             clipboard.setPrimaryClip(clip)
-            showToast("Copied log to clipboard!")
+            showToast(getString(R.string.log_copy))
         }
     }
 }
