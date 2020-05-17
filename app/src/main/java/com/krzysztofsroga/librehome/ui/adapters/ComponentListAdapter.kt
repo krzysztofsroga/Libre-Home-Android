@@ -112,6 +112,10 @@ class ComponentListAdapter(private var componentList: List<LhComponent>, private
                     component.enabled = switch.isChecked //TODO maybe move this logic to callback?
                     callback(component)
                 }
+                switch.setOnLongClickListener {
+                    longCallback(component)
+                    true
+                }
             }
 
             if (component is LhComponent.SimpleSensorData) {
@@ -124,6 +128,10 @@ class ComponentListAdapter(private var componentList: List<LhComponent>, private
                 button.text = component.name
                 button.setOnClickListener {
                     callback(component)
+                }
+                switch.setOnLongClickListener {
+                    longCallback(component)
+                    true
                 }
             }
 
