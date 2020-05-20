@@ -15,4 +15,8 @@ object AppConfig {
         const val SORTING = "sorting"
         const val SHOW_UNSUPPORTED = "show_unsupported"
     }
+
+    object RequestCodes {
+        const val settings = 100
+    }
 }
