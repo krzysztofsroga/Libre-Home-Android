@@ -113,7 +113,7 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun removeFavorite(switch: LhComponent) {
-        if (switch is LhDevice) { //TODO create fav list for LhGroupScene and for LhSensor
+        if (switch is LhAbstractDevice) { //TODO create fav list for LhGroupScene and for LhSensor
             viewModelScope.launch {
                 favoriteDao.delete(FavoriteSwitch(switch.id))
             }
