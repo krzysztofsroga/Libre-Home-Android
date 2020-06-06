@@ -13,6 +13,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.krzysztofsroga.librehome.AppConfig
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.utils.Logger
 import com.krzysztofsroga.librehome.utils.stackTraceString
@@ -30,9 +31,10 @@ class BottomNavigationActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment)
 
-        val appBarConfiguration = AppBarConfiguration(
+        val appBarConfiguration = AppBarConfiguration( // TODO just read bottom_nav_menu.xml?
             setOf(
                 R.id.navigation_home,
+                R.id.navigation_sensors,
                 R.id.navigation_groups,
                 R.id.navigation_switches
             )
@@ -53,8 +55,22 @@ class BottomNavigationActivity : AppCompatActivity() {
             swipe_refresh.isRefreshing = false
             Logger.e("Domoticz Connection", error.toString() + error.stackTraceString)
             error.printStackTrace()
-            Toast.makeText(this, "Connection error: ${error.message}", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.conn_err) + error.toString(), Toast.LENGTH_LONG).show()
         })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == AppConfig.RequestCodes.settings) {
+            reload()
+        }
+    }
+
+    private fun reload() {
+        finish()
+        overridePendingTransition(0, 0)
+        startActivity(intent)
+        overridePendingTransition(0, 0)
     }
 
     private fun refreshSwitches() {
@@ -76,7 +92,7 @@ class BottomNavigationActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_settings -> {
-                startActivity(Intent(this, SettingsActivity::class.java))
+                startActivityForResult(Intent(this, SettingsActivity::class.java), AppConfig.RequestCodes.settings)
                 true
             }
             R.id.action_about -> {

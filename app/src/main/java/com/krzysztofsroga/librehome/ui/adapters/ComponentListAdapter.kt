@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.switch_entry.view.*
 import kotlin.math.min
 
 //TODO pass livedata?
-class ComponentListAdapter(private var componentList: List<LhComponent>, private val callback: (LhComponent) -> Unit, private val longCallback: (LhComponent) -> Unit) :
+class ComponentListAdapter(private var componentList: List<LhComponent>, private val callback: (LhComponent) -> Unit, private val longCallback: (LhComponent) -> Unit, private val showAddInfo: Boolean = false) :
     RecyclerView.Adapter<ComponentListAdapter.ComponentViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ComponentViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.switch_entry, parent, false)
@@ -20,7 +20,7 @@ class ComponentListAdapter(private var componentList: List<LhComponent>, private
     }
 
     override fun onBindViewHolder(holder: ComponentViewHolder, position: Int) {
-        holder.loadSwitch(componentList[position], callback, longCallback)
+        holder.loadSwitch(componentList[position], callback, longCallback, showAddInfo)
     }
 
     override fun getItemCount(): Int = componentList.size
@@ -45,8 +45,11 @@ class ComponentListAdapter(private var componentList: List<LhComponent>, private
         private val button = view.push_button
         private val stateText = view.state_text
         private val switchLayout = view.switch_layout
+        private val additionalData = view.additional_data
+        private val additionalInfo = view.additional_info
 
-        fun loadSwitch(component: LhComponent, callback: (LhComponent) -> Unit, longCallback: (LhComponent) -> Unit) {
+
+        fun loadSwitch(component: LhComponent, callback: (LhComponent) -> Unit, longCallback: (LhComponent) -> Unit, showAddInfo: Boolean) {
             icon.setImageResource(component.icon)
 
             if (component is LhComponent.Dimmable) {
@@ -78,7 +81,7 @@ class ComponentListAdapter(private var componentList: List<LhComponent>, private
                     if (isChecked && component.selectedId == 0) switch.isChecked = false
                 }
                 spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                    var c = 1
+                    var c = 1 //TODO 0 works for me, 1 works on other devices(c can be deleted as well)...
                     override fun onNothingSelected(parent: AdapterView<*>?) {}
 
                     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -112,9 +115,25 @@ class ComponentListAdapter(private var componentList: List<LhComponent>, private
                     component.enabled = switch.isChecked //TODO maybe move this logic to callback?
                     callback(component)
                 }
+                switch.setOnLongClickListener {
+                    longCallback(component)
+                    true
+                }
             }
 
-            if (component is LhComponent.SimpleSensorData) {
+
+            if (component is LhComponent.SensorDataUpdate) {
+                stateText.visibility = View.VISIBLE
+                stateText.text = component.state
+                if (showAddInfo) {
+                        additionalInfo.visibility = View.VISIBLE
+                        additionalInfo.text = switch.context.getString(R.string.last_update_time)
+                        additionalData.visibility = View.VISIBLE
+                        additionalData.text = component.update
+                    }
+            }
+
+            if (component is LhComponent.SensorData) {
                 stateText.visibility = View.VISIBLE
                 stateText.text = component.state
             }
@@ -124,6 +143,10 @@ class ComponentListAdapter(private var componentList: List<LhComponent>, private
                 button.text = component.name
                 button.setOnClickListener {
                     callback(component)
+                }
+                switch.setOnLongClickListener {
+                    longCallback(component)
+                    true
                 }
             }
 

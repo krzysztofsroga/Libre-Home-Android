@@ -21,6 +21,8 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
 
     private val recentDao = switchesDb.recentDao
 
+    val showAdditionalInfo = prefs.getBoolean(AppConfig.PrefKeys.SHOW_ADDINFO, false)
+
     private val onlineSwitches: OnlineSwitches by lazy {
         val hostname = prefs.getString(AppConfig.PrefKeys.HOST, InternetConfiguration.defaultDomoticzHostname)!!
         OnlineSwitches(hostname)
@@ -105,7 +107,7 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun addFavorite(switch: LhComponent) {
-        if (switch is LhDevice) { //TODO create fav list for LhGroupScene and for LhSensor
+        if (switch is LhAbstractDevice) { //TODO create fav list for LhGroupScene and for LhSensor
             viewModelScope.launch {
                 favoriteDao.insert(FavoriteSwitch(switch.id))
             }
@@ -113,7 +115,7 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun removeFavorite(switch: LhComponent) {
-        if (switch is LhDevice) { //TODO create fav list for LhGroupScene and for LhSensor
+        if (switch is LhAbstractDevice) { //TODO create fav list for LhGroupScene and for LhSensor
             viewModelScope.launch {
                 favoriteDao.delete(FavoriteSwitch(switch.id))
             }

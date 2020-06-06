@@ -57,7 +57,7 @@ class SelectedGroupFragment : Fragment() {
             adapter = ComponentListAdapter(listOf(), {
                 switchesViewModel.sendComponentState(it)
             }, {
-                Toast.makeText(context, "Switch '${it.name}' is added to favorites!", Toast.LENGTH_SHORT).show() //TODO string template
+                Toast.makeText(context, context.getString(R.string.add_fav, it.name), Toast.LENGTH_SHORT).show() //TODO string template
                 switchesViewModel.addFavorite(it)
             }).apply { setHasStableIds(true) }
         }
