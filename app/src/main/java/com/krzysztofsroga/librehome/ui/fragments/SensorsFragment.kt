@@ -34,7 +34,7 @@ class SensorsFragment : Fragment() {
             }, {
                 Toast.makeText(context, context.getString(R.string.add_fav, it.name), Toast.LENGTH_SHORT).show()
                 switchesViewModel.addFavorite(it)
-            }).apply { setHasStableIds(true) }
+            }, switchesViewModel.showAdditionalInfo).apply { setHasStableIds(true) }
         }
 
         switchesViewModel.switches.observe(viewLifecycleOwner, Observer { switches ->

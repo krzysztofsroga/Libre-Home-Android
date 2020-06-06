@@ -16,13 +16,13 @@ abstract class LhAbstractDevice(id: Int, name: String) : LhComponent(id, name){
                     "Dimmer" -> LhDimmableSwitch(idx, Name, Status != "Off", Level)
                     "Selector" -> LhSelectorSwitch(idx, Name, Status != "Off", Level, Base64.decode(LevelNames, Base64.DEFAULT).toString(Charset.forName("UTF-8")).split("|"))
                     "Blinds Percentage" -> LhBlindsPercentage(idx, Name, Level)
-                    "Motion Sensor" -> LhMotionSensor(idx, Name, Data)
+                    "Motion Sensor" -> LhMotionSensor(idx, Name, Data, LastUpdate)
                     "Door Lock Inverted", "Door Lock" -> LhDoorLockSensor(idx, Name, Data)
                     "Smoke Detector" -> LhSmokeDetector(idx, Name, Data)
                     "Media Player" -> LhMediaPlayerSensor(idx, Name, Status)
                     null -> when (Type) {
-                        "Lux" -> LhLuxSensor(idx, Name, Data)
-                        "Temp + Humidity", "Temp" -> LhTempSensor(idx, Name, Data)
+                        "Lux" -> LhLuxSensor(idx, Name, Data, LastUpdate)
+                        "Temp + Humidity + Baro", "Temp + Humidity", "Temp" -> LhTempSensor(idx, Name, Data, LastUpdate)
                         "General" -> LhGeneralSensor(idx, Name, Data)
                         else -> LhUnsupported(idx, Name, Type)
                     }

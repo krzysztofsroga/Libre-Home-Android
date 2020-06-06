@@ -43,6 +43,11 @@
                 app:key="show_unsupported"
                 app:title="@string/show_unsupported" />
 
+        <CheckBoxPreference
+                app:defaultValue="true"
+                app:key="show_addinfo"
+                app:title="@string/show_addinfo" />
+
         <ListPreference
                 app:defaultValue="en"
                 app:entries="@array/language_entries"
