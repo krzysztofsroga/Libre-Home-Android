@@ -14,6 +14,7 @@ object AppConfig {
         const val MUSIC_UPDATE = "music_update"
         const val SORTING = "sorting"
         const val SHOW_UNSUPPORTED = "show_unsupported"
+        const val SHOW_ADDINFO = "show_addinfo"
     }
 
     object RequestCodes {

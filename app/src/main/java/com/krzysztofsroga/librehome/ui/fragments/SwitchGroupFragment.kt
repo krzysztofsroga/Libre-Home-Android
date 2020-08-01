@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.krzysztofsroga.librehome.R
 import com.krzysztofsroga.librehome.models.SwitchGroup
 import com.krzysztofsroga.librehome.ui.activities.NewGroupActivity
+import com.krzysztofsroga.librehome.ui.adapters.ComponentListAdapter
 import com.krzysztofsroga.librehome.ui.adapters.SwitchGroupAdapter
 import com.krzysztofsroga.librehome.utils.getCurrentOrientationLayoutManager
 import com.krzysztofsroga.librehome.viewmodels.SwitchGroupViewModel
@@ -29,6 +30,18 @@ class SwitchGroupFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        //ToDo add scenes and groups to favs.
+        scene_list.apply {
+            layoutManager = getCurrentOrientationLayoutManager()
+            adapter = ComponentListAdapter(listOf(), {
+                switchesViewModel.sendComponentState(it)
+            }, {}).apply { setHasStableIds(true) }
+        }
+
+        switchesViewModel.groupScenes.observe(viewLifecycleOwner, Observer { groupScenes ->
+            (scene_list.adapter as ComponentListAdapter).updateData(groupScenes)
+        })
 
         switch_group_list.apply {
             layoutManager = getCurrentOrientationLayoutManager()

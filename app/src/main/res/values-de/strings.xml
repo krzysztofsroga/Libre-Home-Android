@@ -52,4 +52,8 @@
     <string name="log_copy">Log kopiert in die Zwischenablage!</string>
     <string name="img_err">Sie müssen ein Bild auswählen!</string>
     <string name="send_email">Senden Sie mir dieses E-Mail.</string>
+    <string name="last_update_time">Zuletzt gesehen am</string>
+    <string name="show_addinfo">Zeige zusätzliche Informationen an</string>
+    <string name="groups">Lokale Gruppen:</string>
+    <string name="title_sensors">Sensoren</string>
 </resources>

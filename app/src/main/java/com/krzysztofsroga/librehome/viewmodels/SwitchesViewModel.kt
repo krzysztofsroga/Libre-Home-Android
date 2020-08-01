@@ -21,6 +21,8 @@ class SwitchesViewModel(application: Application) : AndroidViewModel(application
 
     private val recentDao = switchesDb.recentDao
 
+    val showAdditionalInfo = prefs.getBoolean(AppConfig.PrefKeys.SHOW_ADDINFO, false)
+
     private val onlineSwitches: OnlineSwitches by lazy {
         val hostname = prefs.getString(AppConfig.PrefKeys.HOST, InternetConfiguration.defaultDomoticzHostname)!!
         OnlineSwitches(hostname)
